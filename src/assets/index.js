@@ -1,4 +1,4 @@
-import logo from "./logo.svg";
+import logo from "./logo.png";
 import backend from "./backend.png";
 import creator from "./creator.png";
 import mobile from "./mobile.png";
@@ -24,6 +24,8 @@ import nextjs from "./tech/nextjs.svg";
 import firebase from "./tech/firebase.svg";
 import java from "./tech/java.svg";
 import postman from "./tech/postman.svg";
+import googlecloud from "./tech/googlecloud.svg";
+
 
 
 import meta from "./company/meta.png";
@@ -68,4 +70,5 @@ export {
   firebase,
   java,
   postman,
+  googlecloud,
 };
