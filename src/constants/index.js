@@ -4,7 +4,7 @@ import {
     creator,
     web,
     javascript,
-    typescript,
+ 
     html,
     css,
     reactjs,
@@ -22,7 +22,7 @@ import {
     carrent,
     jobit,
     tripguide,
-    threejs,
+   
     nextjs,
     postman,
     googlecloud,

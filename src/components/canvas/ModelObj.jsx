@@ -1,4 +1,4 @@
-import React, {useEffect ,useState, Suspense} from 'react';
+import React, {Suspense} from 'react';
 import { Canvas } from "@react-three/fiber";
 
 import { OrbitControls, Preload, useGLTF } from "@react-three/drei";
@@ -35,7 +35,7 @@ const dmodelme = useGLTF("./SelfModel/rjmodel.gltf")
 
 const  ModelObjCanvas = () => {
 
-const[isMobile, setIsMobile] = useState(false)
+
 
 
 
