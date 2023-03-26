@@ -288,7 +288,7 @@ import {
     {
       name: "Lightroom House",
       description:
-        "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
+        "Web application that enable to download Lightroom presets for free",
       tags: [
         {
           name: "nextjs",
