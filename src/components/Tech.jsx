@@ -1,26 +1,38 @@
-import React from 'react'
+import React from "react";
+import { motion } from "framer-motion";
 
-//import { BallCanvas } from "./canvas";
+import { styles } from "../styles";
+import { textVariant } from "../utils/motion";
 import { SectionWrapper } from "../hoc";
-//import { technologies } from "../constants";
+import { technologies } from "../constants";
 
 const Tech = () => {
   return (
-    <div >
-      <p className="bg-gradient-to-r from-slate-900 via-violet-600 to-slate-700 bg-clip-text text-transparent sm:text-[18px] text-[14px] font-semibold uppercase tracking-wider">PROFESSIONALISM</p>
-      
-      <h2 className="bg-gradient-to-r from-blue-600 to-violet-600 bg-clip-text text-transparent font-poppins font-semibold md:text-[60px] sm:text-[50px] xs:text-[40px] text-[30px] py-5">My Skills</h2>
-    <div className='flex flex-row flex-wrap justify-center gap-10'>
+    <div>
+      <motion.div variants={textVariant()}>
+        <p className="bg-gradient-to-r from-slate-900 via-violet-600 to-slate-700 bg-clip-text text-transparent sm:text-[18px] text-[14px] font-semibold uppercase tracking-wider">
+          PROFESSIONALISM
+        </p>
 
-    {/* {technologies.map((technology) => (
-      <div className='w-28 h-28' key={technology.name}>
-        <BallCanvas icon={technology.icon} className="shadow-md" />
-        
+        <h2 className={styles.sectionHeadText}>My Skills.</h2>
+      </motion.div>
+      <div className="flex flex-row flex-wrap justify-center py-4 gap-3">
+        {technologies.map((technology) => (
+          <div className="w-25 h-25 p-6" key={technology.name}>
+            <div className="rounded-3xl bg-white shadow-md w-20 h-20 justify-center items-center hover:shadow-lg ">
+              {/* <span class="animate-ping absolute inline-flex w-4 h-4 rounded-full bg-secondary opacity-75"></span>
+        <span class="absolute inline-flex w-4 h-4 rounded-full bg-secondary opacity-100"></span> */}
+              <img
+                src={technology.icon}
+                className="w-20 h-20 object-cover p-3"
+                alt="techlogo"
+              />
+            </div>
+          </div>
+        ))}
       </div>
-    ))} */}
-  </div>
-  </div>
-  )
-}
+    </div>
+  );
+};
 
 export default SectionWrapper(Tech, "");

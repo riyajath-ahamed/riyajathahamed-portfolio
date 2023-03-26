@@ -19,15 +19,17 @@ import {
     starbucks,
     tesla,
     shopify,
-    carrent,
-    jobit,
-    tripguide,
+    musync,
+    myweather,
+    lightroomhouse,
+    studentass,
    
     nextjs,
     postman,
     googlecloud,
     java,
     firebase,
+
   } from "../assets";
   
   export const navLinks = [
@@ -49,22 +51,22 @@ import {
     {
       title: "Web Developer",
       icon: web,
+      description: "Build extremely responsive web apps with the latest and cutting edge technologies.",
     },
     {
-      title: "React Developer",
+      title: "App Developer",
       icon: mobile,
-    },
-    {
-      title: "Backend Developer",
-      icon: backend,
+      description: "Develops well designed, user-friendly and interactive mobile apps for Android.",
     },
     {
       title: "Graphic Designer",
       icon: creator,
+      description: "Understanding user empathy and creates designs that gives meaningful experiences.",
     },
     {
       title: "UI/UX Designer",
       icon: backend,
+      description: "Understanding user empathy and creates designs that gives meaningful experiences.",
     },
   ];
   
@@ -221,9 +223,9 @@ import {
   
   const projects = [
     {
-      name: "Car Rent",
+      name: "MuSync",
       description:
-        "Web-based platform that allows users to search, book, and manage car rentals from various providers, providing a convenient and efficient solution for transportation needs.",
+        "Web-based music streaming service that captures the emotion and generate playlist.",
       tags: [
         {
           name: "react",
@@ -238,32 +240,53 @@ import {
           color: "pink-text-gradient",
         },
       ],
-      image: carrent,
-      source_code_link: "https://github.com/",
+      image: musync,
+      source_code_link: "https://github.com/riyajath-ahamed/musync",
     },
     {
-      name: "Job IT",
+      name: "My Weather",
       description:
-        "Web application that enables users to search for job openings, view estimated salary ranges for positions, and locate available jobs based on their current location.",
+        "Web application that enable to find the current weather report of the location",
       tags: [
         {
-          name: "react",
+          name: "React",
           color: "blue-text-gradient",
         },
         {
-          name: "restapi",
+          name: "Rapid API",
           color: "green-text-gradient",
         },
         {
-          name: "scss",
+          name: "tailwind",
           color: "pink-text-gradient",
         },
       ],
-      image: jobit,
-      source_code_link: "https://github.com/",
+      image: myweather,
+      source_code_link: "https://github.com/riyajath-ahamed/myweather",
     },
     {
-      name: "Trip Guide",
+      name: "Student Assist",
+      description:
+        "A mobile application that enable to assist the students in a university act as social media platform for students.",
+      tags: [
+        {
+          name: "React Native",
+          color: "blue-text-gradient",
+        },
+        {
+          name: "Node Js",
+          color: "green-text-gradient",
+        },
+        {
+          name: "Firebase",
+          color: "pink-text-gradient",
+        },
+      ],
+      image: studentass,
+      source_code_link: "https://github.com/riyajath-ahamed/student-assist",
+    },
+    {
+      name: "Lightroom House",
       description:
         "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and offers curated recommendations for popular destinations.",
       tags: [
@@ -272,16 +295,16 @@ import {
           color: "blue-text-gradient",
         },
         {
-          name: "supabase",
+          name: "Sanity",
           color: "green-text-gradient",
         },
         {
-          name: "css",
+          name: "Vercel",
           color: "pink-text-gradient",
         },
       ],
-      image: tripguide,
-      source_code_link: "https://github.com/",
+      image: lightroomhouse,
+      source_code_link: "https://github.com/riyajath-ahamed/lightroomhouse",
     },
   ];
   

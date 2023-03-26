@@ -23,4 +23,4 @@ const intern ="<Internship/>";
   )
 }
 
-export default SectionWrapper (Experience, "work");
+export default SectionWrapper (Experience, "");
