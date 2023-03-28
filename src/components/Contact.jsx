@@ -1,10 +1,10 @@
-import React, { useRef, useState } from "react";
+import React  from "react";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
+
 import { textVariant } from "../utils/motion";
 
 import { styles } from "../styles";
-import { EarthCanvas } from "./canvas";
+
 import { SectionWrapper } from "../hoc";
 import { slideIn } from "../utils/motion";
 import { facebook, githubs, instagram, linkedin, twitter } from "../assets";
@@ -28,9 +28,9 @@ const Contact = () => {
 
         <motion.div variants={slideIn()} className="flex xl:flex-row p-9 justify-center gap-10 flex-col">
         <div>
-          <img src="https://avatars.githubusercontent.com/u/64283797?v=4" className="py-3 rounded-full"/>
+          <img src="https://avatars.githubusercontent.com/u/64283797?v=4" className="py-3 rounded-full" alt="myprofile"/>
         </div>
-        <div className={`xl:mt-12 flex flex-row xl:flex-col p-1 xl:p-4 xl:gap-10 gap-1 overflow-hidden rounded-lg justify-items-center bg-slate-200 text-secondary `}>
+        <div className={` flex flex-row justify-between flex-wrap xl:flex-col p-1 xl:p-4 xl:gap-10 gap-1 overflow-hidden rounded-lg justify-items-center bg-slate-200 text-secondary `}>
           <div>
             <a href="https://www.facebook.com/riyajathahamed12">
               <img src={facebook} alt="facebook"  className="w-12 h-12 hover:cursor-pointer hover:shadow-lg bg-white rounded-lg p-1"/>
@@ -38,7 +38,7 @@ const Contact = () => {
          
           </div>
           <div>
-            <a href="">
+            <a href="https://www.instagram.com/riyajath.ahamed/">
               <img src={instagram} alt="facebook"   className="w-12 h-12 hover:cursor-pointer hover:shadow-lg bg-white rounded-lg p-1"/>
             </a>
           </div>
@@ -71,11 +71,15 @@ const Contact = () => {
         </p>
 
       </div>
-      <p className="text-secondary">
-        ""
+      <p className="text-secondary px-5">
+      © 2023. All rights reserved -<span className='block sm:inline-block'> Made with<span className='inline-block h-4'>{heart}</span> by<a href='https://github.com/riyajath-ahamed'> Riyajath Ahamed</a></span>
         </p>
     </div>
   )
 }
 
 export default SectionWrapper(Contact, "contact");
+
+export const heart = <svg xmlns="http://www.w3.org/2000/svg" fill="red" viewBox="0 0 24 24" stroke-width="0" stroke="currentColor" class="w-5 h-5">
+<path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+</svg>
