@@ -15,10 +15,10 @@ const Tech = () => {
         </p>
 
         <h2 className={styles.sectionHeadText}>My Skills.</h2>
-      </motion.div>
-      <div className="flex flex-row flex-wrap justify-center py-4 gap-3">
+      
+      <div className="flex flex-row flex-wrap justify-center py-4 gap-2">
         {technologies.map((technology) => (
-          <div className="w-25 h-25 p-6" key={technology.name}>
+          <div className="w-25 h-25 p-3" key={technology.name}>
             <div className="rounded-3xl bg-white shadow-md w-20 h-20 justify-center items-center hover:shadow-lg ">
               {/* <span class="animate-ping absolute inline-flex w-4 h-4 rounded-full bg-secondary opacity-75"></span>
         <span class="absolute inline-flex w-4 h-4 rounded-full bg-secondary opacity-100"></span> */}
@@ -31,6 +31,7 @@ const Tech = () => {
           </div>
         ))}
       </div>
+      </motion.div>
     </div>
   );
 };

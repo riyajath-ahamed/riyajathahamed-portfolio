@@ -28,18 +28,23 @@ import googlecloud from "./tech/googlecloud.svg";
 
 
 
-import meta from "./company/meta.png";
-import shopify from "./company/shopify.png";
-import starbucks from "./company/starbucks.png";
-import tesla from "./company/tesla.png";
-
-
 import musync from "./musync.PNG"
 import myweather from "./myweather.PNG"
 import lightroomhouse from "./lightroomhouse.PNG"
 import studentass from "./studentass.png"
 
+import facebook from "./contact/facebook.png";
+import githubs from "./contact/github.png";
+import instagram from "./contact/instagram.png";
+import twitter from "./contact/twitter.png";
+import linkedin from "./contact/linkedin.png";
+
 export {
+  linkedin,
+  facebook,
+  githubs,
+  instagram,
+  twitter,
   logo,
   backend,
   creator,
@@ -61,10 +66,6 @@ export {
   tailwind,
   typescript,
   threejs,
-  meta,
-  shopify,
-  starbucks,
-  tesla,
   musync,
   nextjs,
   firebase,
