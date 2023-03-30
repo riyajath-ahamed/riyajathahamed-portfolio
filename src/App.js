@@ -7,6 +7,7 @@ const App =  () =>  {
     <BrowserRouter>
     <div className=" relative z-10 bg-primary">
       <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
+        <h1 className="hidden">Hi there! I'm Riyajath Ahamed</h1>
         <Navbar />
         <Hero />
 
