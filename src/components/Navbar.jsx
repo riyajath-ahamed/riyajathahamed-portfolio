@@ -13,17 +13,17 @@ const Navbar = () => {
 
 
   return (
-    <nav className={`${styles.paddingX} w-full flex items-center py-5 fixed top-0 z-20 bg-white`}>
+    <nav className={`${styles.paddingX} w-4/5 mt-5 flex flex-col items-center py-5 fixed top-0 z-20 bg-whiteCardOverlay backdrop-blur-lg rounded-full`}>
       <div className='w-full flex justify-between items-center max-w-7xl'>
         <Link 
         to='/' 
-        className='flex items-center gap-2' 
+        className='flex items-center gap-2 ' 
         onClick={() => {
           setActive("");
           window.scrollTo(0, 0);
         }}
         > 
-        <img src={logo} alt="logo" className='w-9 h-9 object-contain '/>
+        <img src={logo} alt="logo" className='w-10 h-10 object-contain hover:resize-x-10 hover:resize-y-10 hover:scale-150 transition-all duration-300 ease-in-out '/>
         <p className='text-black text-[18px] font-bold cursor-pointer'>Riyajath Ahamed</p>
 
         </Link>
@@ -54,7 +54,7 @@ const Navbar = () => {
           className='w-[28px] h-[28px] object-contain cursor-pointer invert'
           onClick={() => setToggle(!toggle)}
           />
-          <div className={`${!toggle ? 'hidden' : 'flex'} p-6 bg-cardOverlay absolute top-14 right-0 mx-4 my-2 min-w-[104px] z-10 rounded-xl`}>
+          <div className={`${!toggle ? 'hidden' : 'flex'} p-6 bg-whiteCardOverlay backdrop-blur-xl w-full h-44 absolute top-14 right-0 mx-4 my-2 min-w-[104px] z-10 rounded-xl  `}>
 
           <ul className='list-none flex justify-end items-start flex-col gap-4'>
           {
@@ -62,7 +62,7 @@ const Navbar = () => {
 
               <li
               key={Link.id}
-              className ={`${active === Link.title ? "text-yellow-500 " : "text-white"} font-poppins font-medium cursor-pointer text-[16px]`}
+              className ={`${active === Link.title ? "text-yellow-500 " : "text-tertiary"} font-poppins font-semibold cursor-pointer text-[16px]`}
               onClick={() => {
                 setToggle(!toggle);
                 setActive(Link.title);

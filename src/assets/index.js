@@ -6,6 +6,7 @@ import web from "./web.png";
 import github from "./github.png";
 import menu from "./menu.svg";
 import close from "./close.svg";
+import name from "./name.png";
 
 import css from "./tech/css.png";
 import docker from "./tech/docker.png";
@@ -40,6 +41,7 @@ import twitter from "./contact/twitter.png";
 import linkedin from "./contact/linkedin.png";
 
 export {
+  name,
   linkedin,
   facebook,
   githubs,

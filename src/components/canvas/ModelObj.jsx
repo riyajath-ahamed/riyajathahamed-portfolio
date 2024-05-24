@@ -8,8 +8,6 @@ import CanvasLoader from "../Loader"
 const ModelObj = () => {
 
 const dmodelme = useGLTF("./SelfModel/rjmodel.gltf")
-
-
   return (
     <mesh>
       <hemisphereLight intensity={0.15} groundColor ="yellow"/>
@@ -26,7 +24,7 @@ const dmodelme = useGLTF("./SelfModel/rjmodel.gltf")
       <primitive 
       object={dmodelme.scene} 
       scale={1.8}
-      position= {[-0.1,-1.4, -1.5]}
+      position= {[2,-1.4, -1.5]}
       rotation= {[0, 0.5 ,0]}
       />
     </mesh>
@@ -34,11 +32,6 @@ const dmodelme = useGLTF("./SelfModel/rjmodel.gltf")
 }
 
 const  ModelObjCanvas = () => {
-
-
-
-
-
   return(
     <Canvas
     frameloop='demand'
