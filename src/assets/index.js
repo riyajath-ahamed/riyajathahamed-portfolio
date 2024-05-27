@@ -26,6 +26,14 @@ import firebase from "./tech/firebase.svg";
 import java from "./tech/java.svg";
 import postman from "./tech/postman.svg";
 import googlecloud from "./tech/googlecloud.svg";
+import aws from "./tech/aws.png";
+import flutter from "./tech/flutter.png";
+import cypress from "./tech/cypress.png";
+import go from "./tech/go.png";
+import heroku from "./tech/heroku.png";
+import npm from "./tech/npm.png";
+import postgress from "./tech/postgress.png";
+
 
 
 
@@ -77,4 +85,11 @@ export {
   java,
   postman,
   googlecloud,
+  aws,
+  flutter,
+  cypress,
+  go,
+  heroku,
+  npm,
+  postgress
 };

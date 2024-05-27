@@ -25,6 +25,13 @@ import {
     googlecloud,
     java,
     firebase,
+    go,
+    aws,
+    cypress,
+    flutter,
+    heroku,
+    npm,
+    postgress,
 
   } from "../assets";
   
@@ -103,6 +110,41 @@ import {
     {
       name: "Postman",
       icon: postman,
+    },
+    {
+      name: "Go",
+      icon: go,
+
+    },
+    {
+      name: "AWS",
+      icon: aws,
+
+    },
+    {
+      name: "Cypress",
+      icon: cypress,
+
+    },
+    {
+      name: "Flutter",
+      icon: flutter,
+
+    },
+    {
+      name: "Heroku",
+      icon: heroku,
+
+    },
+    {
+      name: "NPM",
+      icon: npm,
+
+    },
+    {
+      name: "Postgress",
+      icon: postgress,
+
     },
     {
       name: "Google Cloud",
