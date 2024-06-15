@@ -47,8 +47,10 @@ import githubs from "./contact/github.png";
 import instagram from "./contact/instagram.png";
 import twitter from "./contact/twitter.png";
 import linkedin from "./contact/linkedin.png";
+import scroll from "./scroll.png";
 
 export {
+  scroll,
   name,
   linkedin,
   facebook,

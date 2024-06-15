@@ -13,7 +13,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className={`${styles.paddingX} w-4/5 mt-5 flex flex-col items-center py-5 fixed top-0 z-20 bg-whiteCardOverlay backdrop-blur-lg rounded-full`}>
+    <nav className={`${styles.paddingX} w-4/5 mt-5 flex flex-col items-center py-2 fixed top-0 z-20 bg-whiteCardOverlay backdrop-blur-lg rounded-full`}>
       <div className='w-full flex justify-between items-center max-w-7xl'>
         <Link 
         to='/' 
@@ -23,8 +23,8 @@ const Navbar = () => {
           window.scrollTo(0, 0);
         }}
         > 
+        <p className='text-[#FFC90F] text-[18px] font-bold font-curve text-3xl cursor-pointer'>ME</p>
         <img src={logo} alt="logo" className='w-10 h-10 object-contain hover:resize-x-10 hover:resize-y-10 hover:scale-150 transition-all duration-300 ease-in-out '/>
-        <p className='text-black text-[18px] font-bold cursor-pointer'>Riyajath Ahamed</p>
 
         </Link>
         <ul className='list-none hidden sm:flex flex-row gap-10'>
