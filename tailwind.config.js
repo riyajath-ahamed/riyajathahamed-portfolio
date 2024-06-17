@@ -29,11 +29,11 @@ module.exports = {
         'custom-hover-border': '1px 1px 0 #151030, -0.04em -0.04em #ffc700, -0.08em -0.08em #ffc700, -0.12em -0.12em #ffc700, -0.16em -0.16em #ffc700, -0.2em -0.2em #ffc700',
       },
       fontFamily:{
-        curve : ["Sedgwick Ave Display", "cursive"]
+        curve : ["paaniPuri", "cursive"]
       },
       animation: {
         wiggle: 'wiggle 1s ease-in-out infinite',
-        'spin-slow': 'spin 4s linear infinite',
+        'spin-slow': 'spin 4s ease-in-out infinite',
       }
     },
   },
