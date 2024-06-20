@@ -23,7 +23,7 @@ const Navbar = () => {
           window.scrollTo(0, 0);
         }}
         > 
-        <p className='text-[#FFC90F] text-[18px] font-bold font-curve text-3xl cursor-pointer'>ME</p>
+        <p className='text-black text-[18px] font-bold font-curve text-3xl cursor-pointer'>Me</p>
         <img src={logo} alt="logo" className='w-10 h-10 object-contain hover:resize-x-10 hover:resize-y-10 hover:scale-150 transition-all duration-300 ease-in-out '/>
 
         </Link>

@@ -1,9 +1,6 @@
 "use client";
 
-import { name } from "../../assets";
 import { cn } from "../../lib/utils";
-import { styles } from "../../styles";
-import { ModelObjCanvas } from "../canvas";
 import GridPattern from "../magicui/grid-pattern";
 
 const GridPatternDashed = () => {
@@ -11,9 +8,7 @@ const GridPatternDashed = () => {
     <div className="flex items-center justify-center overflow-hidden rounded-lg p-20 ">
       <div>
 
-
       </div>
-
       <GridPattern
         width={30}
         height={30}

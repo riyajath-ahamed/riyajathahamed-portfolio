@@ -17,32 +17,20 @@ const Hero = () => {
         <div className='flex flex-col justify-center items-center mt-5'>
         </div>
         <div>
-          <h1 className={`${styles.heroHeadText}text-black`}>Hi, I'm</h1>
+          <h1 className={`${styles.heroHeadText}text-black font-curve font-extrabold`}>Hi, I'm</h1>
         </div>
       </div>
-
       {/* config with the loader  */}
       <GridPatternDashed />
-
-      {/* <div className='absolute xs:bottom-10 bottom-32 w-full flex justify-center items-center'>
-        <a href='#about'>
-          <div className='w-[35]'>
-
-          </div>
-
-        </a>
-
-      </div> */}
 
       <div className='absolute xs:bottom-5 bottom-20 w-full flex justify-center items-center'>
         <a href='#about'>
           <div className='w-[70px] h-[70px] '>
-            <img src={scroll} className='hover:animate-spin-slow' />
+            <img src={scroll} className='hover:animate-spin-slow duration-700 ' />
             
           </div>
         </a>
       </div>
-
     </section>
   )
 }

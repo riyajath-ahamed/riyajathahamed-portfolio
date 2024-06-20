@@ -49,6 +49,10 @@ import twitter from "./contact/twitter.png";
 import linkedin from "./contact/linkedin.png";
 import scroll from "./scroll.png";
 
+import storyTi from "./ui/storyTi.png";
+import contactHead from "./ui/contactHead.png";
+
+
 export {
   scroll,
   name,
@@ -93,5 +97,8 @@ export {
   go,
   heroku,
   npm,
-  postgress
+  postgress,
+
+  storyTi,
+  contactHead,
 };
