@@ -1,11 +1,16 @@
+import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 
-import { About, Contact,  Hero, Navbar, Tech, Works, StarsCanvas } from "./components";
+import { About, Contact,  Hero, Navbar, Tech, Works, StarsCanvas, Underdev } from "./components";
 
 const App =  () =>  {
+  const [showDevelopment, setShowDevelopment] = useState(true);
   return (
     <BrowserRouter>
     <div className=" relative z-10 bg-primary">
+      {
+        showDevelopment && <Underdev setShowDevelopment={setShowDevelopment}/>
+      }
       <div className="bg-hero-pattern bg-cover bg-no-repeat bg-center">
         <h1 className="hidden">Hi there! I'm Riyajath Ahamed</h1>
         <Navbar />

@@ -7,6 +7,7 @@ import Experience from './Experience';
 import Works from './Works';
 import Feedbacks from './Feedback';
 import Contact from './Contact';
+import Underdev from './underdev';
 
 export {
   Hero,
@@ -18,5 +19,6 @@ export {
   Feedbacks,
   Contact,
   ModelObjCanvas, 
-  StarsCanvas
+  StarsCanvas,
+  Underdev
 }

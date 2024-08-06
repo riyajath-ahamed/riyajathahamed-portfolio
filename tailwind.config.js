@@ -13,6 +13,7 @@ module.exports = {
         "black-200": "#090325",
         "white-100": "#f3f3f3",
         cardOverlay: "rgba(0,0,0,0.5)",
+        whiteCardOverlay: "rgba(255,255,255,0.5)",
       },
       boxShadow: {
         card: "0px 35px 120px -15px #211e35",

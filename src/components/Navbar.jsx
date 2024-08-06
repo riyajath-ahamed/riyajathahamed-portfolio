@@ -13,7 +13,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className={`${styles.paddingX} w-full flex items-center py-5 fixed top-0 z-20 bg-white`}>
+    <nav className={`${styles.paddingX} w-full flex flex-col items-center py-5 fixed top-0 z-20 bg-white`}>
       <div className='w-full flex justify-between items-center max-w-7xl'>
         <Link 
         to='/' 
