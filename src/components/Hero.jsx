@@ -12,12 +12,12 @@ import { GridPatternDashed } from './element';
 const Hero = () => {
   return (
     <section className='relative w-full h-screen mx-auto'>
-      <Spline scene="https://prod.spline.design/X0KqFDZLFVxFphgK/scene.splinecode" />
+      {/* <Spline scene="https://prod.spline.design/X0KqFDZLFVxFphgK/scene.splinecode" /> */}
       <div className={`${styles.paddingX} absolute inset-0 top-[120px] max-w-7xl mx-auto flex flex-row items-start gap-5`}>
         <div className='flex flex-col justify-center items-center mt-5'>
         </div>
         <div>
-          <h1 className={`${styles.heroHeadText}text-black font-curve font-extrabold`}>Hi, I'm</h1>
+          <h1 className={`${styles.heroHeadText}text-black font-curve font-extrabold drop-shadow-lg`}>Hi, I'm</h1>
         </div>
       </div>
       {/* config with the loader  */}

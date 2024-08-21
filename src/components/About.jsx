@@ -8,32 +8,16 @@ import { fadeIn, textVariant } from "../utils/motion";
 
 import { SectionWrapper } from "../hoc";
 import { storyTi } from '../assets';
+import { AboutCard } from './magicui/cardAbout';
 
 const ServiceCard = ({index, title, icon, description}) => {
   return(
-    <Tilt className="xs:w-[250px] w-full">
-      <motion.div 
-        variants={fadeIn("right", "spring", 0.5 * index, 0.5)}
-        className="w-full  rounded-3xl"
-      >
-        <div
-        option={{
-          max:10,
-          scale:0.1,
-          speed:250,
+      <AboutCard className=" rounded-3xl py-3 px-8 min-h-[280px] flex flex-col justify-evenly items-center ">
         
-        }}
-        className="bg-slate-200 rounded-3xl py-3 px-8 min-h-[280px] flex flex-col justify-evenly items-center hover:border-2 hover:border-secondary hover:shadow-xl"
-        >
-          <img src={icon} alt={title} className="w-16 h-16 object-contain" />
           <h3 className='bg-gradient-to-r from-blue-800 to-indigo-900 bg-clip-text text-transparent text-[20px] font-semibold text-center font-poppins '>{title}</h3>
-          <h4 className='font-semibold font-poppins text-sm text-secondary'>{description}</h4>
-          
-        </div>
 
-      </motion.div>
+        </AboutCard>
 
-    </Tilt>
   )
 }
 
@@ -48,7 +32,8 @@ const About = () => {
       </div>
     </motion.div>
 
-    <motion.div variants={fadeIn("" , "" , 0.1, 1)} className= "mt-4 w- bg-white pt-20 px-8 pb-8 rounded-3xl text-[17px]  leading-[30px]">
+    <AboutCard>
+    <div  className= "mt-4 pt-20 px-8 pb-8 rounded-3xl text-[17px]  leading-[30px]">
     <p className='text-xl font-medium text-black'>
     <span class="block">
     A dedicated software engineering student on a quest for excellence 
@@ -70,14 +55,15 @@ const About = () => {
     </span>
     
     </p>
-    </motion.div>
+    </div>
+    </AboutCard>
     <div className='mt-20 flex flex-wrap gap-10 text-black-100'>
       {
         services.map((service,index) =>(
           <ServiceCard key={service.title} index={index} {...service}/>
         ))
       }
-
+    
     </div>
 
     </>
