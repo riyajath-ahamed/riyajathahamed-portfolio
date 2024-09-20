@@ -10,6 +10,7 @@ import {
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import SpotifyPlayingNow from "./statusBar";
 
 export default function Navbar() {
   return (
@@ -59,6 +60,8 @@ export default function Navbar() {
               </Tooltip>
             </DockIcon>
           ))}
+          <Separator orientation="vertical" className="h-full py-2" />
+          
         <Separator orientation="vertical" className="h-full py-2" />
         <DockIcon>
           <Tooltip>
