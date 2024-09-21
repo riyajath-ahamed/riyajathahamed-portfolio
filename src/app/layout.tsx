@@ -7,6 +7,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 import ThreeScene from "@/components/ThreeScene";
+import Particles from "@/components/magicui/particles";
 import SpotifyPlayingNow from "@/components/statusBar";
 
 const fontSans = FontSans({
@@ -63,8 +64,15 @@ export default function RootLayout({
           fontSans.variable
         )}
       >
-        <ThreeScene />
         <ThemeProvider attribute="class" defaultTheme="light">
+        {/* <ThreeScene /> */}
+          <SpotifyPlayingNow/>
+          <Particles 
+          className="fixed inset-0"
+          quantity={500}
+          ease={80}
+          refresh
+          /> 
           <TooltipProvider delayDuration={0}>
             {children}
             
