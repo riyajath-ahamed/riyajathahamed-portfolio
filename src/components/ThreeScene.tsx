@@ -36,7 +36,7 @@ const ModelObj = () => {
 
 const ThreeScene: React.FC = () => {
     return(
-        <div className='fixed h-screen w-screen -z-50 blur-sm'>
+        <div className='fixed h-screen w-screen -z-50 blur-xl'>
         <Canvas
         frameloop='demand'
         shadows

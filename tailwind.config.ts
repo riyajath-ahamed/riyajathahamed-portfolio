@@ -20,7 +20,8 @@ const config = {
     },
     extend: {
       fontFamily: {
-        sans: ["var(--font-sans)", ...fontFamily.sans],
+        sans: ['var(--font-poppins)', 'sans-serif'],
+        serif: ['var(--font-acorn)', 'serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -56,7 +57,7 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        "transparent-primary": "hsla(var(--primary), 0.5)",
+        "white-blur": "rgba(255,255,255,0.1)",
       },
       borderRadius: {
         lg: "var(--radius)",

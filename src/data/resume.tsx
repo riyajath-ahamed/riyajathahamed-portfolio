@@ -4,13 +4,13 @@ import { HomeIcon, NotebookIcon } from "lucide-react";
 export const DATA = {
   name: "Riyajath Ahamed",
   initials: "RJ",
-  url: "https://dillion.io",
+  url: "https://riyajathahamed.lk",
   location: "Colombo, SL",
-  locationLink: "https://www.google.com/maps/place/sanfrancisco",
+  locationLink: "https://www.google.com/maps/place/Colombo,+Sri+Lanka",
   description:
-    "Software Engineer turned Entrepreneur. I love building things and helping people.",
+    "Welcome to my corner of the internet! Young Passionate Software Engineer turned Entrepreneur. I love building things and helping people.",
   summary:
-    "At the end of 2022, I quit my job as a software engineer to go fulltime into building and scaling my own SaaS businesses. In the past, [I pursued a double degree in computer science and business](/#education), [interned at big tech companies in Silicon Valley](https://www.youtube.com/watch?v=d-LJ2e5qKdE), and [competed in over 21 hackathons for fun](/#hackathons). I also had the pleasure of being a part of the first ever in-person cohort of buildspace called [buildspace sf1](https://buildspace.so/sf1).",
+    "I'm an experienced front-end developer with a passion for design and a knack for tinkering. Web development is my playground,where I push boundaries and chase new horizons.",
   avatarUrl: "https://avatars.githubusercontent.com/u/64283797?v=4",
   skills: [
     "React",
@@ -18,10 +18,16 @@ export const DATA = {
     "Typescript",
     "Node.js",
     "Go",
+    "GraphQL",
+    "React Native",
+    "Docker",
+    "Redux",
     "Postgres",
     "Docker",
     "Kubernetes",
-    "Java",
+    "AWS",
+    "Google Cloud",
+    "Firebase",
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
@@ -53,24 +59,24 @@ export const DATA = {
       },
       email: {
         name: "Send Email",
-        url: "#",
+        url: "mailto:riyajatha@gmail.com",
         icon: Icons.email,
 
-        navbar: false,
+        navbar: true,
       },
     },
   },
 
   work: [
     {
-      company: "A",
-      href: "https://a",
+      company: "Octobus BI",
+      href: "https://octobusbi.com",
       badges: [],
-      location: "Remote",
-      title: "Bitcoin Protocol Engineer",
-      logoUrl: "/atomic.png",
-      start: "May 2021",
-      end: "Oct 2022",
+      location: "Colombo, SL",
+      title: "Associate Software Engineer",
+      logoUrl: "/octopusbilogo.jpg",
+      start: "May 2023",
+      end: "Present",
       description:
         " ",
     },
@@ -78,37 +84,38 @@ export const DATA = {
   ],
   education: [
     {
-      school: "Buildspace",
-      href: "https://buildspace.so",
-      degree: "s3, s4, sf1, s5",
-      logoUrl: "/buildspace.jpg",
-      start: "2023",
-      end: "2024",
+      school: "KDU",
+      href: "https://kdu.ac.lk",
+      degree: "Bsc (Hons)",
+      logoUrl: "/kdu.png",
+      start: "2020",
+      end: "2023",
     },
     
   ],
   projects: [
     {
-      title: "Chat Collect",
-      href: "https://chatcollect.com",
-      dates: "Jan 2024 - Feb 2024",
+      title: "MuSync",
+      href: "https://musyncs.vercel.app/login",
+      dates: "Jan 2023 - Nov 2023",
       active: true,
       description:
-        "With the release of the [OpenAI GPT Store](https://openai.com/blog/introducing-the-gpt-store), I decided to build a SaaS which allows users to collect email addresses from their GPT users. This is a great way to build an audience and monetize your GPT API usage.",
+        "Music Streaming Application with Emotion recognition and Playlist generation using Image Processing. designed to enhance the user's listening experience by analyzing their emotions through facial expressions and creating a customized playlist to match their mood. The system utilizes a camera to capture the user's facial expressions and an Image Processing algorithm to analyze those expressions to determine the user's current emotional state.",
       technologies: [
-        "Next.js",
-        "Typescript",
-        "PostgreSQL",
-        "Prisma",
+        "React",
+        "Javascript",
+        "MongoDB",
+        "FireBase",
         "TailwindCSS",
-        "Stripe",
-        "Shadcn UI",
-        "Magic UI",
+        "TensorFlow",
+        "Docker",
+        "Heroku",
+        "NodeJs"
       ],
       links: [
         {
           type: "Website",
-          href: "https://chatcollect.com",
+          href: "https://musyncs.vercel.app/login",
           icon: <Icons.globe className="size-3" />,
         },
       ],
