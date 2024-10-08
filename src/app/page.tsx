@@ -23,10 +23,11 @@ export default function Page() {
             <div className="flex-col flex flex-1 space-y-1.5">
               <BlurFadeText
                 delay={BLUR_FADE_DELAY}
-                className="text-6xl font-bold font-serif tracking-tighter sm:text-6xl xl:text-7xl/none "
+                className="text-6xl font-bold font-serif tracking-tighter sm:text-6xl xl:text-7xl/none pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10"
                 yOffset={8}
-                text={`Hi, I'm 👋`}
+                text={`Hi, I'm`}
               />
+              <BlurFade delay={BLUR_FADE_DELAY}>
               <Image
                 src="/hero.png"
                 alt="Descriptive text for screen readers"
@@ -36,8 +37,9 @@ export default function Page() {
                 placeholder="blur"
                 blurDataURL="data:image/png"
               />
+              </BlurFade>
               <BlurFadeText
-                className="max-w-[600px] font-serif  p-2 md:text-xl lg:text-2xl xl:text-3xl"
+                className="max-w-[600px] font-serif pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-8xl font-normal leading-none text-transparent dark:from-white dark:to-slate-900/10  p-2 md:text-xl lg:text-2xl xl:text-3xl"
                 delay={BLUR_FADE_DELAY}
                 text={DATA.description}
               />
@@ -112,7 +114,7 @@ export default function Page() {
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
             <h2 className="text-xl font-serif font-bold">Skills</h2>
           </BlurFade>
-          <div className="flex flex-wrap gap-1">
+          <div className="flex flex-wrap gap-1 ">
             {DATA.skills.map((skill, id) => (
               <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
                 <Badge key={skill}>{skill}</Badge>
@@ -129,7 +131,7 @@ export default function Page() {
                 <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
                   My Projects
                 </div>
-                <h2 className="text-3xl font-serif font-bold tracking-tighter sm:text-5xl">
+                <h2 className="text-3xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
                   Check out my latest work
                 </h2>
                 <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
@@ -169,7 +171,7 @@ export default function Page() {
               <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
                 Contact
               </div>
-              <h2 className="text-3xl font-serif font-bold tracking-tighter sm:text-5xl">
+              <h2 className="text-3xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
                 Get in Touch
               </h2>
               <BlurFade delay={BLUR_FADE_DELAY}>
