@@ -5,6 +5,8 @@ import { SpotifyIcon } from "./icons/icon";
 async function getSpotifyPlayingNow() {
   let response = await getNowPlaying();
 
+  console.log("Spotify response", response);
+
   let song = null;
   let isPlaying = false;
   let title = null;
@@ -16,6 +18,8 @@ async function getSpotifyPlayingNow() {
   if (response.status === 204 || response.status > 400) {
     response = await getRecentTrack();
     const jsonResponse = await response.json();
+
+    console.log("Recent track", jsonResponse);
 
     if (jsonResponse && jsonResponse.items && jsonResponse.items.length > 0) {
       song = jsonResponse.items[0].track;
@@ -51,6 +55,13 @@ async function getSpotifyPlayingNow() {
     songUrl = song.item.external_urls.spotify || "#";
   }
 
+  console.log("Spotify song", isPlaying,
+    title,
+    artist,
+    album,
+    albumImageUrl,
+    songUrl);
+
   return {
     isPlaying,
     title,
@@ -64,6 +75,8 @@ async function getSpotifyPlayingNow() {
 export default async function SpotifyPlayingNow(): Promise<JSX.Element> {
   //   const { data, error } = useSWR("/api/spotify-playing-now", fetcher);
   const data = await getSpotifyPlayingNow();
+
+  console.log(data);
 
   return (
     <div className="mb-8 ">

@@ -10,6 +10,7 @@ import "./globals.css";
 import ThreeScene from "@/components/ThreeScene";
 import Particles from "@/components/magicui/particles";
 import SpotifyPlayingNow from "@/components/statusBar";
+import Scene from "@/components/brokenScene";
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -95,6 +96,7 @@ export default function RootLayout({
             ease={80}
             refresh
           />
+          
           <TooltipProvider delayDuration={0}>
             {children}
 
