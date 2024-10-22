@@ -21,7 +21,6 @@ export default function Model() {
         anchorY: "middle" as const
     }
 
-    console.log(nodes , viewport)
     return (
         <group scale={viewport.width}>
             {nodes.Scene.children.map((mesh, i) => {

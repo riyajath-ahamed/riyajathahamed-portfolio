@@ -1,10 +1,13 @@
+"use client";
+
 import * as React from "react"
 import { cva, type VariantProps } from "class-variance-authority"
+import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 
 import { cn } from "@/lib/utils"
 
 const badgeVariants = cva(
-  "inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
+  "inline-flex items-center rounded-md border px-4 py-1 text-xl font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
   {
     variants: {
       variant: {
@@ -25,11 +28,42 @@ const badgeVariants = cva(
 
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof badgeVariants> {}
+    VariantProps<typeof badgeVariants> {
+  gradientSize?: number;
+  gradientColor?: string;
+  gradientOpacity?: number;
+}
 
-function Badge({ className, variant, ...props }: BadgeProps) {
+function Badge({ className, variant, gradientSize = 200,
+  gradientColor = "#262626",
+  gradientOpacity = 0.8, ...props }: BadgeProps) {
+
+  const mouseX = useMotionValue(-gradientSize);
+  const mouseY = useMotionValue(-gradientSize);
+ 
+  const handleMouseMove = React.useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      const { left, top } = e.currentTarget.getBoundingClientRect();
+      mouseX.set(e.clientX - left);
+      mouseY.set(e.clientY - top);
+    },
+    [mouseX, mouseY],
+    
+  );
+
+  const handleMouseLeave = React.useCallback(() => {
+    mouseX.set(-gradientSize);
+    mouseY.set(-gradientSize);
+  }, [mouseX, mouseY, gradientSize]);
+ 
+  React.useEffect(() => {
+    mouseX.set(-gradientSize);
+    mouseY.set(-gradientSize);
+  }, [mouseX, mouseY, gradientSize]);
+
   return (
-    <div className={cn(badgeVariants({ variant }), className)} {...props} />
+    <div onMouseMove={handleMouseMove}
+    onMouseLeave={handleMouseLeave} className={cn(badgeVariants({ variant }), className)} {...props} />
   )
 }
 
