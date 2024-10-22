@@ -8,6 +8,7 @@ import { ResumeCard } from "@/components/resume-card";
 import ThreeScene from "@/components/ThreeScene";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
 import TextRevealByWord from "@/components/ui/text-reveal";
 import { DATA } from "@/data/resume";
 import Image from "next/image";
@@ -53,6 +54,8 @@ export default function Page() {
         </div>
         
       </section>
+      {/* TODO : Remove this seperator */}
+      <Separator  />
       <section id="about">
         {/* <BlurFade delay={BLUR_FADE_DELAY * 3}>
           <h2 className=" text-5xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
@@ -68,7 +71,7 @@ export default function Page() {
           text={DATA.summary} />
         </BlurFade>
       </section>
-      <section id="work">
+      {/* <section id="work">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
             <h2 className="text-xl font-serif font-bold">Work Experience</h2>
@@ -115,11 +118,13 @@ export default function Page() {
             </BlurFade>
           ))}
         </div>
-      </section>
+      </section> */}
       <section id="skills">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
-            <h2 className="text-xl font-serif font-bold">Skills</h2>
+          <h2 className="text-5xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
+                  Skills
+                </h2>
           </BlurFade>
           <div className="flex flex-wrap gap-1 ">
             {DATA.skills.map((skill, id) => (
