@@ -17,6 +17,7 @@
     "@react-three/drei": "^9.112.0",
     "@react-three/fiber": "^8.17.7",
     "@splinetool/react-spline": "^4.0.0",
+    "@splinetool/viewer": "^1.9.32",
     "@types/mdx": "^2.0.13",
     "@types/three": "^0.168.0",
     "class-variance-authority": "^0.7.0",

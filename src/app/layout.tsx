@@ -7,10 +7,10 @@ import type { Metadata } from "next";
 import { Poppins as FontSans } from "next/font/google";
 import localFont from 'next/font/local'
 import "./globals.css";
-import ThreeScene from "@/components/ThreeScene";
 import Particles from "@/components/magicui/particles";
 import SpotifyPlayingNow from "@/components/statusBar";
 import Scene from "@/components/brokenScene";
+import Spline from "@splinetool/react-spline";
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -78,6 +78,7 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
+        
           <div
             style={{
               background:
@@ -99,10 +100,13 @@ export default function RootLayout({
           
           <TooltipProvider delayDuration={0}>
             {children}
-
+ 
             <Navbar />
           </TooltipProvider>
         </ThemeProvider>
+        <Spline className="fixed w-full h-full inset-x-0 top-[60vh] -z-10"
+          scene="https://prod.spline.design/IKyLNSd3P6WxwJpg/scene.splinecode" 
+        />
       </body>
     </html>
   );

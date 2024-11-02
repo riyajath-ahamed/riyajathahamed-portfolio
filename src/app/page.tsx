@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import TextRevealByWord from "@/components/ui/text-reveal";
 import { DATA } from "@/data/resume";
+import Spline from "@splinetool/react-spline";
 import Image from "next/image";
 import Link from "next/link";
 import Markdown from "react-markdown";
@@ -20,7 +21,7 @@ const BLUR_FADE_DELAY = 0.04;
 export default function Page() {
   return (
     <main className="flex flex-col min-h-screen space-y-10 max-w-2xl mx-auto py-12 sm:py-24 px-6 bg-transparent">
-      <section id="hero" className="h-screen"> 
+      <section id="hero" className=""> 
         <div className="mx-auto w-full max-w-2xl space-y-8">
           <div className="gap-2 flex justify-between">
             <div className="flex-col flex flex-1 space-y-1.5">
@@ -55,7 +56,6 @@ export default function Page() {
         
       </section>
       {/* TODO : Remove this seperator */}
-      <Separator  />
       <section id="about">
         {/* <BlurFade delay={BLUR_FADE_DELAY * 3}>
           <h2 className=" text-5xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
@@ -204,6 +204,10 @@ export default function Page() {
                 soliciting.
               </p>
             </div>
+            
+            <h2 className="text-6xl pt-4 font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
+            だってばよ
+            </h2>
             <FooterPattern />
           </BlurFade>
         </div>
