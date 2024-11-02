@@ -104,7 +104,8 @@ export default function RootLayout({
             <Navbar />
           </TooltipProvider>
         </ThemeProvider>
-        <Spline className="fixed w-full h-full inset-x-0 top-[60vh] -z-10"
+        {/*  xl:inset-y-0 xl:-right-[70vh] xl:inset-x-auto  */}
+        <Spline className="fixed w-full h-full inset-x-0 top-[60vh]  -z-10"
           scene="https://prod.spline.design/IKyLNSd3P6WxwJpg/scene.splinecode" 
         />
       </body>
