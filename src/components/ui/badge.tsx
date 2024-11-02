@@ -5,6 +5,7 @@ import { cva, type VariantProps } from "class-variance-authority"
 import { motion, useMotionTemplate, useMotionValue } from "framer-motion";
 
 import { cn } from "@/lib/utils"
+import { BorderBeam } from "./border-beam";
 
 const badgeVariants = cva(
   "inline-flex items-center rounded-md border px-4 py-1 text-xl font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
@@ -62,8 +63,11 @@ function Badge({ className, variant, gradientSize = 200,
   }, [mouseX, mouseY, gradientSize]);
 
   return (
+    <>
     <div onMouseMove={handleMouseMove}
     onMouseLeave={handleMouseLeave} className={cn(badgeVariants({ variant }), className)} {...props} />
+    <BorderBeam className="rounded-md" size={250} duration={12} delay={9} />
+    </>
   )
 }
 

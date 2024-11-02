@@ -9,7 +9,6 @@ import localFont from 'next/font/local'
 import "./globals.css";
 import Particles from "@/components/magicui/particles";
 import SpotifyPlayingNow from "@/components/statusBar";
-import Scene from "@/components/brokenScene";
 import Spline from "@splinetool/react-spline";
 
 const fontSans = FontSans({
@@ -89,7 +88,6 @@ export default function RootLayout({
             }}
             className="w-screen md:w-[840px] h-[632px] overflow-hidden blur-3xl pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 -z-10 "
           ></div>
-          {/* <ThreeScene /> */}
           <SpotifyPlayingNow />
           <Particles
             className="fixed inset-0"
@@ -97,7 +95,6 @@ export default function RootLayout({
             ease={80}
             refresh
           />
-          
           <TooltipProvider delayDuration={0}>
             {children}
  
