@@ -118,10 +118,44 @@ export const DATA = {
           href: "https://musyncs.vercel.app/login",
           icon: <Icons.globe className="size-3" />,
         },
+        {
+          type: "GitHub",
+          href: "https://github.com/riyajath-ahamed/musync",
+          icon: <Icons.github className="size-3" />,
+        }
       ],
       image: "",
       video:
-        "https://pub-83c5db439b40468498f97946200806f7.r2.dev/chat-collect.mp4",
+        "https://pub-7744c747312a4db3afe9366c16797634.r2.dev/IMG_0419.MP4 ",
+    },
+    {
+      title: "MuSync",
+      href: "https://musyncs.vercel.app/login",
+      dates: "Jan 2023 - Nov 2023",
+      active: true,
+      description:
+        "Music Streaming Application with Emotion recognition and Playlist generation using Image Processing. designed to enhance the user's listening experience by analyzing their emotions through facial expressions and creating a customized playlist to match their mood. The system utilizes a camera to capture the user's facial expressions and an Image Processing algorithm to analyze those expressions to determine the user's current emotional state.",
+      technologies: [
+        "React",
+        "Javascript",
+        "MongoDB",
+        "FireBase",
+        "TailwindCSS",
+        "TensorFlow",
+        "Docker",
+        "Heroku",
+        "NodeJs"
+      ],
+      links: [
+        {
+          type: "Website",
+          href: "https://musyncs.vercel.app/login",
+          icon: <Icons.globe className="size-3" />,
+        },
+      ],
+      image: "",
+      video:
+        "https://pub-7744c747312a4db3afe9366c16797634.r2.dev/IMG_0419.MP4 ",
     },
   ]
 } as const;
