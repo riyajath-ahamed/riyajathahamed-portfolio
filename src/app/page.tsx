@@ -170,7 +170,7 @@ export default function Page() {
               </h2>
               <div className="flex flex-row items-center justify-center space-x-4">
               <BlurFade delay={BLUR_FADE_DELAY}>
-              <Image src="/tagCard.png" alt="Descriptive text for screen readers" width={300} height={50} className="responsive" placeholder="blur" blurDataURL="data:image/png" />
+              <Image src="/tagCard.png" alt="Descriptive text for screen readers" width={250} height={50} className="responsive" placeholder="blur" blurDataURL="data:image/png" />
             </BlurFade>
 
               </div>
