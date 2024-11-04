@@ -9,7 +9,6 @@ import localFont from 'next/font/local'
 import "./globals.css";
 import Particles from "@/components/magicui/particles";
 import SpotifyPlayingNow from "@/components/statusBar";
-import Scene from "@/components/brokenScene";
 import Spline from "@splinetool/react-spline";
 
 const fontSans = FontSans({
@@ -73,7 +72,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          " bg-background font-sans antialiased",
+          " bg-background font-sans antialiased overflow-x-hidden",
           fontSans.variable, acorn.variable
         )}
       >
@@ -89,7 +88,6 @@ export default function RootLayout({
             }}
             className="w-screen md:w-[840px] h-[632px] overflow-hidden blur-3xl pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 -z-10 "
           ></div>
-          {/* <ThreeScene /> */}
           <SpotifyPlayingNow />
           <Particles
             className="fixed inset-0"
@@ -97,15 +95,15 @@ export default function RootLayout({
             ease={80}
             refresh
           />
-          
           <TooltipProvider delayDuration={0}>
+          <Navbar />
             {children}
  
-            <Navbar />
+            
           </TooltipProvider>
         </ThemeProvider>
         {/*  xl:inset-y-0 xl:-right-[70vh] xl:inset-x-auto  */}
-        <Spline className="fixed w-full h-full inset-x-0 top-[60vh]  -z-10"
+        <Spline className="fixed w-full h-full inset-x-0 top-[60vh]  -z-10 overflow-x-hidden"
           scene="https://prod.spline.design/IKyLNSd3P6WxwJpg/scene.splinecode" 
         />
       </body>

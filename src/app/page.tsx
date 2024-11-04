@@ -1,20 +1,11 @@
-import Scene from "@/components/brokenScene";
 import FooterPattern from "@/components/FooterPattern";
-import { HackathonCard } from "@/components/hackathon-card";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { ProjectCard } from "@/components/project-card";
-import { ResumeCard } from "@/components/resume-card";
-import ThreeScene from "@/components/ThreeScene";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import TextRevealByWord from "@/components/ui/text-reveal";
 import { DATA } from "@/data/resume";
-import Spline from "@splinetool/react-spline";
 import Image from "next/image";
-import Link from "next/link";
-import Markdown from "react-markdown";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -55,17 +46,8 @@ export default function Page() {
         </div>
         
       </section>
-      {/* TODO : Remove this seperator */}
       <section id="about">
-        {/* <BlurFade delay={BLUR_FADE_DELAY * 3}>
-          <h2 className=" text-5xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
-            About
-          </h2>
-        </BlurFade> */}
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          {/* <Markdown className="prose max-w-full text-pretty font-sans text-sm backdrop-blur-3xl text-muted-foreground dark:prose-invert">
-            {DATA.summary}
-          </Markdown> */}
           <TextRevealByWord 
           className=" font-serif pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-2xl font-normal leading-none text-transparent dark:from-white dark:to-slate-900/10  md:text-xl lg:text-2xl xl:text-3xl"
           text={DATA.summary} />
@@ -186,14 +168,14 @@ export default function Page() {
               <h2 className="text-5xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
                 Get in Touch
               </h2>
+              <div className="flex flex-row items-center justify-center space-x-4">
               <BlurFade delay={BLUR_FADE_DELAY}>
-              <Avatar className="size-28 border">
-                <AvatarImage alt={DATA.name} src={DATA.avatarUrl} />
-                <AvatarFallback>{DATA.initials}</AvatarFallback>
-              </Avatar>
+              <Image src="/tagCard.png" alt="Descriptive text for screen readers" width={250} height={50} className="responsive" placeholder="blur" blurDataURL="data:image/png" />
             </BlurFade>
+
+              </div>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                Want to chat? Just shoot me a dm{" "}
+                {/* Want to chat? Just shoot me a dm{" "}
                 <Link
                   href={DATA.contact.social.X.url}
                   className="text-blue-500 hover:underline"
@@ -201,7 +183,7 @@ export default function Page() {
                   with a direct question on twitter
                 </Link>{" "}
                 and I&apos;ll respond whenever I can. I will ignore all
-                soliciting.
+                soliciting. */}
               </p>
             </div>
             
