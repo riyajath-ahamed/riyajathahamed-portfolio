@@ -1,0 +1,5 @@
+export function LinkIcon(props: React.SVGProps<SVGSVGElement>): JSX.Element {
+    return (
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none"><path d="M14.99 17.5h1.51c3.02 0 5.5-2.47 5.5-5.5 0-3.02-2.47-5.5-5.5-5.5h-1.51M9 6.5H7.5A5.51 5.51 0 0 0 2 12c0 3.02 2.47 5.5 5.5 5.5H9M8 12h8" stroke="#ffc700" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+    );
+  }

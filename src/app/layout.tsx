@@ -108,7 +108,7 @@ export default function RootLayout({
           scene="https://prod.spline.design/IKyLNSd3P6WxwJpg/scene.splinecode" 
         />
           <div className="fixed left-96 inset-y-0  h-full inset-x-0 top-[65vh]  -z-10 overflow-x-hidden  ">
-            <p>Hellow S</p>
+            {/* TODO : add alert whil hovering the asset */}
           </div>
         </div>
         
