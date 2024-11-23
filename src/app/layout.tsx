@@ -103,9 +103,15 @@ export default function RootLayout({
           </TooltipProvider>
         </ThemeProvider>
         {/*  xl:inset-y-0 xl:-right-[70vh] xl:inset-x-auto  */}
+        <div>
         <Spline className="fixed w-full h-full inset-x-0 top-[60vh]  -z-10 overflow-x-hidden"
           scene="https://prod.spline.design/IKyLNSd3P6WxwJpg/scene.splinecode" 
         />
+          <div className="fixed left-96 inset-y-0  h-full inset-x-0 top-[65vh]  -z-10 overflow-x-hidden  ">
+            <p>Hellow S</p>
+          </div>
+        </div>
+        
       </body>
     </html>
   );

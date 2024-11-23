@@ -12,8 +12,21 @@ const BLUR_FADE_DELAY = 0.04;
 export default function Page() {
   return (
     <main className="flex flex-col min-h-screen space-y-10 max-w-2xl mx-auto py-12 sm:py-24 px-6 bg-transparent">
-      <section id="hero" className=""> 
+      <section id="hero" className="">
         <div className="mx-auto w-full max-w-2xl space-y-8">
+             {/* TODO : onHover Show the email pop over */}
+            <BlurFade className="flex justify-end gap-1 " delay={BLUR_FADE_DELAY}>
+                <span className="relative flex h-3 w-3 bottom-1">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                </span>
+              <BlurFadeText
+                delay={BLUR_FADE_DELAY}
+                className=" font-bold tracking-tighter  whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-transparent dark:from-white dark:to-slate-900/10"
+                yOffset={8}
+                text={`Available`}
+              />
+            </BlurFade>
           <div className="gap-2 flex justify-between">
             <div className="flex-col flex flex-1 space-y-1.5">
               <BlurFadeText
@@ -23,34 +36,32 @@ export default function Page() {
                 text={`Hi, I'm`}
               />
               <BlurFade delay={BLUR_FADE_DELAY}>
-              <Image
-                src="/hero.png"
-                alt="Descriptive text for screen readers"
-                width={500}
-                height={300}
-                className="responsive"
-                placeholder="blur"
-                blurDataURL="data:image/png"
-              />
+                <Image
+                  src="/hero.png"
+                  alt="Descriptive text for screen readers"
+                  width={500}
+                  height={300}
+                  className="responsive"
+                  placeholder="blur"
+                  blurDataURL="data:image/png"
+                />
               </BlurFade>
               <BlurFadeText
                 className="max-w-[600px] font-serif pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-2xl font-normal leading-none text-transparent dark:from-white dark:to-slate-900/10  p-2 md:text-xl lg:text-2xl xl:text-3xl"
                 delay={BLUR_FADE_DELAY}
                 text={DATA.description}
               />
-            </div>    
+            </div>
           </div>
         </div>
-        <div>
-        
-        </div>
-        
+        <div></div>
       </section>
       <section id="about">
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
-          <TextRevealByWord 
-          className=" font-serif pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-2xl font-normal leading-none text-transparent dark:from-white dark:to-slate-900/10  md:text-xl lg:text-2xl xl:text-3xl"
-          text={DATA.summary} />
+          <TextRevealByWord
+            className=" font-serif pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-2xl font-normal leading-none text-transparent dark:from-white dark:to-slate-900/10  md:text-xl lg:text-2xl xl:text-3xl"
+            text={DATA.summary}
+          />
         </BlurFade>
       </section>
       {/* <section id="work">
@@ -104,9 +115,9 @@ export default function Page() {
       <section id="skills">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
-          <h2 className="text-5xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
-                  Skills
-                </h2>
+            <h2 className="text-5xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
+              Skills
+            </h2>
           </BlurFade>
           <div className="flex flex-wrap gap-1 ">
             {DATA.skills.map((skill, id) => (
@@ -169,10 +180,17 @@ export default function Page() {
                 Get in Touch
               </h2>
               <div className="flex flex-row items-center justify-center space-x-4">
-              <BlurFade delay={BLUR_FADE_DELAY}>
-              <Image src="/tagCard.png" alt="Descriptive text for screen readers" width={250} height={50} className="responsive" placeholder="blur" blurDataURL="data:image/png" />
-            </BlurFade>
-
+                <BlurFade delay={BLUR_FADE_DELAY}>
+                  <Image
+                    src="/tagCard.png"
+                    alt="Descriptive text for screen readers"
+                    width={250}
+                    height={50}
+                    className="responsive"
+                    placeholder="blur"
+                    blurDataURL="data:image/png"
+                  />
+                </BlurFade>
               </div>
               <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                 {/* Want to chat? Just shoot me a dm{" "}
@@ -186,9 +204,9 @@ export default function Page() {
                 soliciting. */}
               </p>
             </div>
-            
+
             <h2 className="text-6xl pt-4 font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
-            だってばよ
+              だってばよ
             </h2>
             <FooterPattern />
           </BlurFade>
