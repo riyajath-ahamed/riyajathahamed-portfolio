@@ -5,6 +5,7 @@ import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { ProjectCard } from "@/components/project-card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
+import GridPattern from "@/components/ui/grid-pattern";
 import TextRevealByWord from "@/components/ui/text-reveal";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
@@ -40,6 +41,16 @@ export default function Page() {
                 className="text-6xl font-bold font-serif tracking-tighter sm:text-6xl xl:text-7xl/none pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10"
                 yOffset={8}
                 text={`Hi, I'm`}
+              />
+              <GridPattern
+                width={30}
+                height={30}
+                x={-1}
+                y={-1}
+                strokeDasharray={"4 2"}
+                className={cn(
+                  "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]"
+                )}
               />
               <BlurFade delay={BLUR_FADE_DELAY}>
                 <Image
@@ -255,7 +266,8 @@ export default function Page() {
             <div className="mx-auto max-w-6xl px-4 sm:px-6">
               <div className="space-y-2 sm:col-span-12 lg:col-span-4">
                 <div className="text-sm text-gray-600">
-                &copy; {new Date().getFullYear()} {DATA.name} - All rights reserved.
+                  &copy; {new Date().getFullYear()} {DATA.name} - All rights
+                  reserved.
                 </div>
               </div>
             </div>
