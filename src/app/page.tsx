@@ -1,32 +1,38 @@
 import FooterPattern from "@/components/FooterPattern";
+import { Icons } from "@/components/icons";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import { ProjectCard } from "@/components/project-card";
 import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
 import TextRevealByWord from "@/components/ui/text-reveal";
 import { DATA } from "@/data/resume";
+import { cn } from "@/lib/utils";
+import { Link2 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
+
   return (
     <main className="flex flex-col min-h-screen space-y-10 max-w-2xl mx-auto py-12 sm:py-24 px-6 bg-transparent">
       <section id="hero" className="">
         <div className="mx-auto w-full max-w-2xl space-y-8">
-             {/* TODO : onHover Show the email pop over */}
-            <BlurFade className="flex justify-end gap-1 " delay={BLUR_FADE_DELAY}>
-                <span className="relative flex h-3 w-3 bottom-1">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400"></span>
-                  <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
-                </span>
-              <BlurFadeText
-                delay={BLUR_FADE_DELAY}
-                className=" font-bold tracking-tighter  whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-transparent dark:from-white dark:to-slate-900/10"
-                yOffset={8}
-                text={`Available`}
-              />
-            </BlurFade>
+          {/* TODO : onHover Show the email pop over */}
+          <BlurFade className="flex justify-end gap-1 " delay={BLUR_FADE_DELAY}>
+            <span className="relative flex h-3 w-3 bottom-1">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+            </span>
+            <BlurFadeText
+              delay={BLUR_FADE_DELAY}
+              className=" font-bold tracking-tighter  whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-transparent dark:from-white dark:to-slate-900/10"
+              yOffset={8}
+              text={`Available`}
+            />
+          </BlurFade>
           <div className="gap-2 flex justify-between">
             <div className="flex-col flex flex-1 space-y-1.5">
               <BlurFadeText
@@ -63,6 +69,7 @@ export default function Page() {
             text={DATA.summary}
           />
         </BlurFade>
+        {/* TODO : Cu=urrent and previes roles */}
       </section>
       {/* <section id="work">
         <div className="flex min-h-0 flex-col gap-y-3">
@@ -191,27 +198,71 @@ export default function Page() {
                     blurDataURL="data:image/png"
                   />
                 </BlurFade>
-              </div>
-              <p className="mx-auto max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                {/* Want to chat? Just shoot me a dm{" "}
-                <Link
-                  href={DATA.contact.social.X.url}
-                  className="text-blue-500 hover:underline"
-                >
-                  with a direct question on twitter
-                </Link>{" "}
-                and I&apos;ll respond whenever I can. I will ignore all
-                soliciting. */}
-              </p>
-            </div>
+                <div>
+                  <p className="mx-auto max-w-[300px] text-left text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                    If you&apos;d like to get in touch, feel free to send me an
+                    email at{" "}
+                    <a
+                      href={`mailto:${DATA.contact.email}`}
+                      className="text-blue-500 underline"
+                    >
+                      {DATA.contact.email}
+                    </a>
+                    . I&apos;ll get back to you as soon as I can. <br />
+                    <span className="cursor-pointer ">
+                      <span className="inline-block ">
+                        <Link2 className="inline-block" />{" "}
+                        <span className="inline-block "> My socials</span>
+                      </span>
 
+                      <span className="flex gap-3">
+                        <Link
+                          href={DATA.contact.social.GitHub.url}
+                          className={cn(
+                            buttonVariants({ variant: "ghost", size: "icon" }),
+                            "size-10"
+                          )}
+                        >
+                          <Icons.github className="inline-block w-5 h-5" />
+                        </Link>
+                        <Link
+                          href={DATA.contact.social.LinkedIn.url}
+                          className={cn(
+                            buttonVariants({ variant: "ghost", size: "icon" }),
+                            "size-10"
+                          )}
+                        >
+                          <Icons.linkedin className="inline-block w-5 h-5" />
+                        </Link>
+                        <Link
+                          href={DATA.contact.social.X.url}
+                          className={cn(
+                            buttonVariants({ variant: "ghost", size: "icon" }),
+                            "size-10"
+                          )}
+                        >
+                          <Icons.x className="inline-block w-5 h-5" />
+                        </Link>
+                      </span>
+                    </span>
+                  </p>
+                </div>
+              </div>
+            </div>
             <h2 className="text-6xl pt-4 font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
               だってばよ
             </h2>
-            <FooterPattern />
+            <div className="mx-auto max-w-6xl px-4 sm:px-6">
+              <div className="space-y-2 sm:col-span-12 lg:col-span-4">
+                <div className="text-sm text-gray-600">
+                &copy; {new Date().getFullYear()} {DATA.name} - All rights reserved.
+                </div>
+              </div>
+            </div>
           </BlurFade>
         </div>
       </section>
+      <FooterPattern />
     </main>
   );
 }

@@ -10,7 +10,7 @@ export const DATA = {
   description:
     "Welcome to my corner of the internet! Young Passionate Software Engineer turned Entrepreneur. I love building things and helping people.",
   summary:
-    "I'm an experienced front-end developer with a passion for design and a knack for tinkering. Web development is my playground,where I push boundaries and chase new horizons.",
+    "I'm an experienced FRONT_END developer with a passion for design and a knack for tinkering. Web development is my playground,where I push boundaries and chase new horizons.",
   avatarUrl: "https://avatars.githubusercontent.com/u/64283797?v=4",
   skills: [
     "React",
