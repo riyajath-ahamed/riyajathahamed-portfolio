@@ -73,6 +73,7 @@ export default function Page() {
         </div>
         <div></div>
       </section>
+      
       <section id="about">
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
           <TextRevealByWord
@@ -81,7 +82,7 @@ export default function Page() {
           />
         </BlurFade>
         {/* TODO : Cu=urrent and previes roles */}
-      </section>
+      </section> 
       {/* <section id="work">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
@@ -274,7 +275,7 @@ export default function Page() {
           </BlurFade>
         </div>
       </section>
-      <FooterPattern />
+      <FooterPattern name={'RJ'} />
     </main>
   );
 }
