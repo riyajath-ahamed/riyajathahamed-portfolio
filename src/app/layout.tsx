@@ -97,9 +97,7 @@ export default function RootLayout({
           />
           <TooltipProvider delayDuration={0}>
           <Navbar />
-            {children}
- 
-            
+            {children}            
           </TooltipProvider>
         </ThemeProvider>
         {/*  xl:inset-y-0 xl:-right-[70vh] xl:inset-x-auto  */}
