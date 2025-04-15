@@ -275,7 +275,7 @@ export default function Page() {
           </BlurFade>
         </div>
       </section>
-      <FooterPattern name={'RJ'} />
+      {/* <FooterPattern name={'RJ'} /> */}
     </main>
   );
 }
