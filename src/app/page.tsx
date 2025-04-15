@@ -2,6 +2,7 @@ import FooterPattern from "@/components/FooterPattern";
 import { Icons } from "@/components/icons";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
+import Lanyard from "@/components/magicui/Lanyard/Lanyard";
 import { ProjectCard } from "@/components/project-card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -199,6 +200,7 @@ export default function Page() {
                 Get in Touch
               </h2>
               <div className="flex flex-row items-center justify-center space-x-4">
+              {/* <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} /> */}
                 <BlurFade delay={BLUR_FADE_DELAY}>
                   <Image
                     src="/tagCard.png"
