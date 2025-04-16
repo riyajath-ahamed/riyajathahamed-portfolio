@@ -11,6 +11,7 @@ import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import SpotifyPlayingNow from "./statusBar";
+import { Icons } from "./icons";
 
 export default function Navbar() {
   return (
@@ -37,7 +38,26 @@ export default function Navbar() {
             </Tooltip>
           </DockIcon>
         ))}
-        <Separator orientation="vertical" className="h-full" />
+        <Separator orientation="vertical" className="h-full " />
+        <DockIcon key={"spotify"}>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Link
+                  href={"/spotify"}
+                  className={cn(
+                    buttonVariants({ variant: "ghost", size: "icon" }),
+                    "size-12"
+                  )}
+                >
+                  <Icons.spotify className="size-6" />
+                </Link>
+              </TooltipTrigger>
+              <TooltipContent className="bg-transparent w-max-content">
+                <SpotifyPlayingNow />
+              </TooltipContent>
+            </Tooltip>
+          </DockIcon>
+          <Separator orientation="vertical" className="h-full" />
         {/* {Object.entries(DATA.contact.social)
           .filter(([_, social]) => social.navbar)
           .map(([name, social]) => (

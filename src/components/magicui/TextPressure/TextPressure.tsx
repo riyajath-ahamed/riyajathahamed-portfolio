@@ -1,3 +1,4 @@
+"use client"
 import { useEffect, useRef, useState } from "react";
 
 interface TextPressureProps {
@@ -207,7 +208,9 @@ const TextPressure: React.FC<TextPressureProps> = ({
         {chars.map((char, i) => (
           <span
             key={i}
-            ref={(el) => (spansRef.current[i] = el)}
+            ref={(el) => {
+              spansRef.current[i] = el;
+            }}
             data-char={char}
             className="inline-block"
           >

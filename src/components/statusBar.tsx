@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getNowPlaying, getRecentTrack } from "@/lib/spotift";
 import { SpotifyIcon } from "./icons/icon";
+import TiltedCard from "./magicui/TiltedCard/TiltedCard";
 
 async function getSpotifyPlayingNow() {
   let response = await getNowPlaying();
@@ -16,6 +17,7 @@ async function getSpotifyPlayingNow() {
   if (response.status === 204 || response.status > 400) {
     response = await getRecentTrack();
     const jsonResponse = await response.json();
+
 
 
     if (jsonResponse && jsonResponse.items && jsonResponse.items.length > 0) {
@@ -66,52 +68,38 @@ async function getSpotifyPlayingNow() {
 export default async function SpotifyPlayingNow(): Promise<JSX.Element> {
   const data = await getSpotifyPlayingNow();
 
-
   return (
     <div className="mb-4">
-      <div className="max-w-3xl inline-flex">
-        <div>
-          <SpotifyIcon className="h-4 w-4 mt-1 mr-2" />
-        </div>
-        <div>
-          {!data && <div>Loading...</div>}
-          {data && data.isPlaying && (
-            <p className="text-sm text-zinc-800 dark:text-zinc-100">
-              {data.songUrl ? (
-                <Link
-                  href={data.songUrl}
-                  className="text-zinc-800 dark:text-zinc-100 hover:text-teal-500 dark:hover:text-teal-500 font-semibold"
-                >
-                  {data.title}
-                </Link>
-              ) : (
-                <span className="font-semibold">{data.title}</span>
-              )}{" "}
-              <span className="text-zinc-600 dark:text-zinc-400">by</span>{" "}
-              <span className="font-semibold">{data?.artist ?? "Spotify"}</span>{" "}
-              ▶️
-            </p>
-          )}
-          {data && !data.isPlaying && (
-            <p className="text-sm text-zinc-800 dark:text-zinc-100">
-              {data.songUrl ? (
-                <Link
-                  href={data.songUrl}
-                  target="_blank"
-                  className="text-zinc-800 dark:text-zinc-100 hover:text-teal-500 dark:hover:text-teal-500 font-semibold"
-                >
-                  {data.title}
-                </Link>
-              ) : (
-                <span className="font-semibold">{data.title}</span>
-              )}{" "}
-              <span className="text-zinc-600 dark:text-zinc-400">by</span>{" "}
-              <span className="font-semibold">{data?.artist ?? "Spotify"}</span>{" "}
-              ⏸️
-            </p>
-          )}
-        </div>
-      </div>
+      <TiltedCard
+        imageSrc={
+          data.albumImageUrl ??
+          "https://i.pinimg.com/736x/aa/54/fb/aa54fb5e3d619aa08531df25e7e8668e.jpg"
+        }
+        altText={data.album ?? "Unknown album"}
+        captionText={data.title ?? "Might be Sleeping"}
+        containerHeight="200px"
+        containerWidth="200px"
+        imageHeight="150px"
+        imageWidth="150px"
+        rotateAmplitude={30}
+        scaleOnHover={1.2}
+        showMobileWarning={false}
+        showTooltip={true}
+        displayOverlayContent={true}
+        overlayContent={
+          <>
+            {!data.albumImageUrl ? (
+              <p className="text-sm content-center text-zinc-800 bg-black-blur rounded-md p-2">
+                Paused ⏸️
+              </p>
+            ) : (
+              <p className="text-sm content-center text-zinc-800 dark:text-zinc-100 bg-white-blur rounded-md p-2">
+                {data.isPlaying ? "Playing ▶️" : "Paused ⏸️"}
+              </p>
+            )}
+          </>
+        }
+      />
     </div>
   );
 }

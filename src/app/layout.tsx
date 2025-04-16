@@ -10,6 +10,7 @@ import "./globals.css";
 import Particles from "@/components/magicui/particles";
 import SpotifyPlayingNow from "@/components/statusBar";
 import Spline from "@splinetool/react-spline";
+import Aurora from "@/components/icons/Aurora/Aurora";
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -72,10 +73,16 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
-          " bg-background font-sans antialiased overflow-x-hidden",
+          " bg-background font-sans overflow-x-hidden",
           fontSans.variable, acorn.variable
         )}
       >
+        <Aurora
+          colorStops={["#2E1A47", "#A45DBD", "#EAB8E4"]}
+          blend={1}
+          amplitude={0.1}
+          speed={0.5}
+        />
         <ThemeProvider attribute="class" defaultTheme="light">
         
           <div
@@ -88,7 +95,6 @@ export default function RootLayout({
             }}
             className="w-screen md:w-[840px] h-[632px] overflow-hidden blur-3xl pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 -z-10 "
           ></div>
-          <SpotifyPlayingNow />
           <Particles
             className="fixed inset-0"
             quantity={500}
@@ -101,8 +107,8 @@ export default function RootLayout({
           </TooltipProvider>
         </ThemeProvider>
         {/*  xl:inset-y-0 xl:-right-[70vh] xl:inset-x-auto  */}
-        <div>
-        <Spline className="fixed w-full h-full inset-x-0 top-[60vh]  -z-10 overflow-x-hidden"
+        <div className=" hidden sm:block absolute inset-x-0 top-[60vh] -z-10 overflow-x-hidden ">
+        <Spline className="fixed w-full h-full inset-x-0 top-[60vh] -z-10 overflow-x-hidden"
           scene="https://prod.spline.design/IKyLNSd3P6WxwJpg/scene.splinecode" 
         />
         </div>

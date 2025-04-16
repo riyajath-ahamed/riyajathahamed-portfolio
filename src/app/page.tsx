@@ -19,7 +19,7 @@ const BLUR_FADE_DELAY = 0.04;
 export default function Page() {
 
   return (
-    <main className="flex flex-col min-h-screen space-y-10 max-w-2xl mx-auto py-12 sm:py-24 px-6 bg-transparent">
+    <main className="flex flex-col min-h-screen space-y-10 max-w-2xl mx-auto py-12 sm:py-24 px-6 bg-transparent overflow-x-hidden">
       <section id="hero" className="">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           {/* TODO : onHover Show the email pop over */}
