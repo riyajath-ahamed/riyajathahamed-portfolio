@@ -42,15 +42,9 @@ export default function Navbar() {
         <DockIcon key={"spotify"}>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
-                  href={"/spotify"}
-                  className={cn(
-                    buttonVariants({ variant: "ghost", size: "icon" }),
-                    "size-12"
-                  )}
-                >
+                
                   <Icons.spotify className="size-6" />
-                </Link>
+                
               </TooltipTrigger>
               <TooltipContent className="bg-transparent w-max-content">
                 <SpotifyPlayingNow />

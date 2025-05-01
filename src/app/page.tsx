@@ -74,16 +74,14 @@ export default function Page() {
         </div>
         <div></div>
       </section>
-      
-      <section id="about" className="mt-12">
-      <div className="flex min-h-0 flex-col gap-y-3">
+      <section id="about">
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
           <TextRevealByWord
             className=" font-serif pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-2xl font-normal leading-none text-transparent dark:from-white dark:to-slate-900/10  md:text-xl lg:text-2xl xl:text-3xl"
             text={DATA.summary}
           />
         </BlurFade>
-        </div>
+
         {/* TODO : Cu=urrent and previes roles */}
       </section> 
       {/* <section id="work">
