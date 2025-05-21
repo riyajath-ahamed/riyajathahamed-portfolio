@@ -2,6 +2,7 @@ import FooterPattern from "@/components/FooterPattern";
 import { Icons } from "@/components/icons";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
+import { LampContainer } from "@/components/magicui/Lamp/lamp";
 // import Lanyard from "@/components/magicui/Lanyard/Lanyard";
 import { ProjectCard } from "@/components/project-card";
 import { Badge } from "@/components/ui/badge";
@@ -74,6 +75,7 @@ export default function Page() {
         </div>
         <div></div>
       </section>
+
       <section id="about">
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
           <TextRevealByWord
@@ -84,6 +86,7 @@ export default function Page() {
 
         {/* TODO : Cu=urrent and previes roles */}
       </section> 
+
       {/* <section id="work">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>

@@ -38,20 +38,20 @@ export default function Navbar() {
             </Tooltip>
           </DockIcon>
         ))}
-        <Separator orientation="vertical" className="h-full " />
-        <DockIcon key={"spotify"}>
+        <Separator orientation="vertical" className="h-full  mr-1" />
+        <DockIcon  key={"spotify"}>
+          <div className="w-28 flex flex-row bg-black/10 dark:bg-white/10 rounded-full backdrop-blur-sm ">
             <Tooltip>
               <TooltipTrigger asChild>
-                
-                  <Icons.spotify className="size-6" />
-                
+                <Icons.spotify className="size-6" />
               </TooltipTrigger>
               <TooltipContent className="bg-transparent w-max-content">
                 <SpotifyPlayingNow />
               </TooltipContent>
             </Tooltip>
+            </div>
           </DockIcon>
-          <Separator orientation="vertical" className="h-full" />
+          <Separator orientation="vertical" className="h-full ml-1" />
         {/* {Object.entries(DATA.contact.social)
           .filter(([_, social]) => social.navbar)
           .map(([name, social]) => (
