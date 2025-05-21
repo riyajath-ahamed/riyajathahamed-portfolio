@@ -213,18 +213,7 @@ export default function Page() {
                 Get in Touch
               </h2>
               <div className="flex flex-row items-center justify-center space-x-4">
-              <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
-                <BlurFade delay={BLUR_FADE_DELAY}>
-                  <Image
-                    src="/tagCard.png"
-                    alt="Descriptive text for screen readers"
-                    width={250}
-                    height={50}
-                    className="responsive"
-                    placeholder="blur"
-                    blurDataURL="data:image/png"
-                  />
-                </BlurFade>
+              <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} />
                 <div>
                   <p className="mx-auto max-w-[300px] text-left text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                     If you&apos;d like to get in touch, feel free to send me an
