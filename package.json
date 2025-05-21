@@ -16,7 +16,7 @@
     "@radix-ui/react-slot": "^1.0.2",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@react-three/drei": "^9.122.0",
-    "@react-three/fiber": "^9.0.0-alpha.8",
+    "@react-three/fiber": "^8.18.0",
     "@react-three/rapier": "^1.5.0",
     "@splinetool/react-spline": "^4.0.0",
     "@splinetool/viewer": "^1.9.32",
