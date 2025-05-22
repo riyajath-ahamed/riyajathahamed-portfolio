@@ -2,7 +2,9 @@ import FooterPattern from "@/components/FooterPattern";
 import { Icons } from "@/components/icons";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
+import FlowingMenu from "@/components/magicui/FlowingMenu/FlowingMenu";
 import { LampContainer } from "@/components/magicui/Lamp/lamp";
+import Lanyard from "@/components/magicui/Lanyard/Lanyard";
 // import Lanyard from "@/components/magicui/Lanyard/Lanyard";
 import { ProjectCard } from "@/components/project-card";
 import { Badge } from "@/components/ui/badge";
@@ -18,6 +20,13 @@ import Link from "next/link";
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
+
+  const demoItems = [
+  { link: '#', text: 'Mojave', image: 'https://picsum.photos/600/400?random=1' },
+  { link: '#', text: 'Sonoma', image: 'https://picsum.photos/600/400?random=2' },
+  { link: '#', text: 'Monterey', image: 'https://picsum.photos/600/400?random=3' },
+  { link: '#', text: 'Sequoia', image: 'https://picsum.photos/600/400?random=4' }
+];
 
   return (
     <main className="flex flex-col min-h-screen space-y-10 max-w-2xl mx-auto py-12 sm:py-24 px-6 bg-transparent overflow-x-hidden">
@@ -170,8 +179,8 @@ export default function Page() {
               </div>
             </div>
           </BlurFade>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
-            {DATA.projects.map((project, id) => (
+          {/* <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
+           {DATA.projects.map((project, id) => (
               <BlurFade
                 key={project.title}
                 delay={BLUR_FADE_DELAY * 12 + id * 0.05}
@@ -189,7 +198,8 @@ export default function Page() {
                 />
               </BlurFade>
             ))}
-          </div>
+          </div> */}
+          <FlowingMenu items={demoItems} />
         </div>
       </section>
       <section id="contact">
@@ -203,18 +213,7 @@ export default function Page() {
                 Get in Touch
               </h2>
               <div className="flex flex-row items-center justify-center space-x-4">
-              {/* <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} /> */}
-                <BlurFade delay={BLUR_FADE_DELAY}>
-                  <Image
-                    src="/tagCard.png"
-                    alt="Descriptive text for screen readers"
-                    width={250}
-                    height={50}
-                    className="responsive"
-                    placeholder="blur"
-                    blurDataURL="data:image/png"
-                  />
-                </BlurFade>
+              {/* <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} /> */}
                 <div>
                   <p className="mx-auto max-w-[300px] text-left text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                     If you&apos;d like to get in touch, feel free to send me an

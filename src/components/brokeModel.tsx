@@ -1,7 +1,6 @@
 import { useGLTF, Text, Float, MeshTransmissionMaterial } from '@react-three/drei'
 import React from 'react'
 import { useThree } from '@react-three/fiber'
-import { GroupProps } from '@react-three/fiber'
 import { GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
 import * as THREE from 'three'
 
@@ -33,10 +32,9 @@ export default function Model() {
     )
 }
 
-interface MeshProps extends GroupProps {
+interface MeshProps {
     data: THREE.Object3D
 }
-
 function Mesh({ data }: MeshProps) {
 
     return (
