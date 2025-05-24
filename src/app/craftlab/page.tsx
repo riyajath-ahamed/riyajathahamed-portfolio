@@ -24,6 +24,9 @@ export default function CraftLabShowcasePage() {
                 patternRefreshInterval={2}
                 patternAlpha={15}
             />
+            <div>
+                <h1 className="text-3xl"> Work on Progress</h1>
+            </div>
             
         </main>
     );
