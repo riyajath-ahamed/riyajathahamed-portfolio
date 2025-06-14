@@ -1,4 +1,4 @@
-import { SVGProps } from "react";
+
 
 export function SpotifyIcon(props: React.SVGProps<SVGSVGElement>): JSX.Element {
     return (

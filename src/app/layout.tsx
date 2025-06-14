@@ -8,7 +8,6 @@ import { Poppins as FontSans } from "next/font/google";
 import localFont from 'next/font/local'
 import "./globals.css";
 import Particles from "@/components/magicui/particles";
-import SpotifyPlayingNow from "@/components/statusBar";
 import Spline from "@splinetool/react-spline";
 import Aurora from "@/components/icons/Aurora/Aurora";
 

@@ -1,14 +1,8 @@
-"use client"
-import FooterPattern from "@/components/FooterPattern";
-import { useState } from "react";
 import { Icons } from "@/components/icons";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import FlowingMenu from "@/components/magicui/FlowingMenu/FlowingMenu";
-import { LampContainer } from "@/components/magicui/Lamp/lamp";
-import Lanyard from "@/components/magicui/Lanyard/Lanyard";
 // import Lanyard from "@/components/magicui/Lanyard/Lanyard";
-import { ProjectCard } from "@/components/project-card";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import GridPattern from "@/components/ui/grid-pattern";
@@ -18,15 +12,12 @@ import { cn } from "@/lib/utils";
 import { Link2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
 
 type Project = (typeof DATA.projects)[number];
-const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <main className="flex flex-col min-h-screen space-y-10 max-w-2xl mx-auto py-12 sm:py-24 px-6 bg-transparent overflow-x-hidden">
@@ -179,41 +170,16 @@ const [isModalOpen, setIsModalOpen] = useState(false);
               </div>
             </div>
           </BlurFade>
-          {/* <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
-           {DATA.projects.map((project, id) => (
-              <BlurFade
-                key={project.title}
-                delay={BLUR_FADE_DELAY * 12 + id * 0.05}
-              >
-                <ProjectCard
-                  href={project.href}
-                  key={project.title}
-                  title={project.title}
-                  description={project.description}
-                  dates={project.dates}
-                  tags={project.technologies}
-                  image={project.image}
-                  video={project.video}
-                  links={project.links}
-                />
-              </BlurFade>
-            ))}
-          </div>  */}
-          {/* <FlowingMenu items={demoItems} /> */}
+          <BlurFade delay={BLUR_FADE_DELAY * 12}>
           <FlowingMenu
             items={DATA.projects.map((project) => ({
               text: project.title,
               link: project.href,
               image: project.image,
               project: project,
-              onClick: () => {
-                setSelectedProject(project);
-                setIsModalOpen(true);
-                console.log("Project clicked:", project.title); 
-                console.log("Project details", isModalOpen)
-              },
             }))}
           />
+          </BlurFade>
           
         </div>
       </section>
@@ -284,6 +250,15 @@ const [isModalOpen, setIsModalOpen] = useState(false);
                           )}
                         >
                           <Icons.x className="inline-block w-5 h-5" />
+                        </Link>
+                        <Link
+                          href={DATA.contact.social.Medium.url}
+                          className={cn(
+                            buttonVariants({ variant: "ghost", size: "icon" }),
+                            "size-10"
+                          )}
+                        >
+                          <Icons.medium className="inline-block w-5 h-5" />
                         </Link>
                       </span>
                     </span>

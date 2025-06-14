@@ -1,8 +1,13 @@
-"use client"
+"use client";
 import React from "react";
 import { gsap } from "gsap";
 import { ProjectCard } from "@/components/project-card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 interface MenuItemProps {
   link: string;
@@ -17,60 +22,41 @@ interface FlowingMenuProps {
 }
 
 const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = [] }) => {
-
   const [dialogOpen, setDialogOpen] = React.useState(false);
-  const [activeItem, setActiveItem] = React.useState<MenuItemProps | null>(null);
+  const [activeItem, setActiveItem] = React.useState<any | null>(null);
   return (
     <div className="w-full h-full overflow-hidden">
-      <p className="text-3xl z-10 ">{"{("}</p>
       <nav className="flex flex-col h-full m-0 p-0">
         {items.map((item, idx) => (
-          <MenuItem key={idx} {...item}
+          <MenuItem
+            key={idx}
+            {...item}
             onClick={() => {
-    setActiveItem(item.project);
-    setDialogOpen(true);
-  }}
+              setActiveItem(item.project);
+              setDialogOpen(true);
+            }}
           />
         ))}
       </nav>
-      <Dialog open={dialogOpen} onOpenChange={setDialogOpen} >
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="max-w-sm bg-white/80 p-6 rounded-lg shadow-lg dark:bg-gray-800/80">
           <DialogHeader>
             <DialogTitle>{activeItem?.title}</DialogTitle>
           </DialogHeader>
-          <ProjectCard
-                      href={activeItem.link}
-                      title={activeItem.title}
-                      description={activeItem.description}
-                      dates={activeItem.dates}
-                      tags={activeItem.technologies}
-                      image={activeItem.image}
-                      video={activeItem.video}
-                      links={activeItem.links}
-                    />
+          {activeItem && (
+            <ProjectCard
+              href={activeItem.link}
+              title={activeItem.title}
+              description={activeItem.description}
+              dates={activeItem.dates}
+              tags={activeItem.technologies}
+              image={activeItem.image}
+              video={activeItem.video}
+              links={activeItem.links}
+            />
+          )}
         </DialogContent>
       </Dialog>
-      {/* {dialogOpen && activeItem && (
-  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-    <ProjectCard
-                      href={activeItem.link}
-                      title={activeItem.title}
-                      description={activeItem.description}
-                      dates={activeItem.dates}
-                      tags={activeItem.technologies}
-                      image={activeItem.image}
-                      video={activeItem.video}
-                      links={activeItem.links}
-                    />
-                     <button
-        onClick={() => setDialogOpen(false)}
-        className="bg-black text-white py-1 px-3 rounded hover:bg-gray-800"
-      >
-        Close
-      </button>
-  </div> */}
-    
-     <p className="text-3xl z-10">{")}"}</p>
     </div>
   );
 };
@@ -86,7 +72,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image, onClick }) => {
     mouseX: number,
     mouseY: number,
     width: number,
-    height: number,
+    height: number
   ): "top" | "bottom" => {
     const topEdgeDist = Math.pow(mouseX - width / 2, 2) + Math.pow(mouseY, 2);
     const bottomEdgeDist =
@@ -102,7 +88,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image, onClick }) => {
       ev.clientX - rect.left,
       ev.clientY - rect.top,
       rect.width,
-      rect.height,
+      rect.height
     );
 
     const tl = gsap.timeline({ defaults: animationDefaults });
@@ -119,20 +105,20 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image, onClick }) => {
       ev.clientX - rect.left,
       ev.clientY - rect.top,
       rect.width,
-      rect.height,
+      rect.height
     );
 
     const tl = gsap.timeline({ defaults: animationDefaults }) as TimelineMax;
     tl.to(marqueeRef.current, { y: edge === "top" ? "-101%" : "101%" }).to(
       marqueeInnerRef.current,
-      { y: edge === "top" ? "101%" : "-101%" },
+      { y: edge === "top" ? "101%" : "-101%" }
     );
   };
 
   const repeatedMarqueeContent = React.useMemo(() => {
     return Array.from({ length: 4 }).map((_, idx) => (
       <React.Fragment key={idx}>
-        <span className="text-[#060606] uppercase font-normal text-[4vh] leading-[1.2] p-[1vh_1vw_0]">
+        <span className="text-muted-foreground uppercase text-nowrap font-normal text-[4vh] leading-[1.2] p-[1vh_1vw_0]">
           {text}
         </span>
         <div
@@ -147,16 +133,13 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image, onClick }) => {
     <div
       className="flex-1 relative overflow-hidden text-center shadow-[0_-1px_0_0_#fff]"
       ref={itemRef}
-      
     >
       <a
-
-       onClick={(e) => {
-        e.preventDefault(); // prevent navigation
-        onClick?.();
-      }}
-      
-        className="flex items-center justify-center h-full relative cursor-pointer uppercase no-underline font-semibold text-white text-[4vh] hover:text-[#060606] focus:text-white focus-visible:text-[#060606]"
+        onClick={(e) => {
+          e.preventDefault(); // prevent navigation
+          onClick?.();
+        }}
+        className="flex items-center justify-center font-serif h-full relative cursor-pointer uppercase no-underline text-muted-foreground font-semibold  text-[4vh] hover:text-[#636363] focus:text-white focus-visible:text-[#060606]"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
         target="_blank"
@@ -165,7 +148,7 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image, onClick }) => {
         {text}
       </a>
       <div
-        className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none bg-white translate-y-[101%]"
+        className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none bg-white dark:bg-gray-800  translate-y-[101%]"
         ref={marqueeRef}
       >
         <div className="h-full w-[200%] flex" ref={marqueeInnerRef}>
@@ -174,7 +157,6 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image, onClick }) => {
           </div>
         </div>
       </div>
-      
     </div>
   );
 };

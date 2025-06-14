@@ -1,7 +1,7 @@
 'use client';
 import { Canvas } from '@react-three/fiber'
 import Model from './brokeModel';
-import { Environment, CameraControls } from '@react-three/drei'
+import { Environment } from '@react-three/drei'
 import React from 'react'
 
 

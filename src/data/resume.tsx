@@ -32,6 +32,7 @@ export const DATA = {
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/craftlab", icon: WandSparklesIcon, label: "Craft Lab" },
+
   ],
   contact: {
     email: "riyajatha@gmail.com",
@@ -55,6 +56,13 @@ export const DATA = {
         name: "X",
         url: "https://x.com/ARiyajath",
         icon: Icons.x,
+
+        navbar: true,
+      },
+      Medium: {
+        name: "Medium",
+        url: "https://medium.com/@riyajathahamed",
+        icon: Icons.medium,
 
         navbar: true,
       },
