@@ -1,4 +1,4 @@
-import type { Config } from "tailwindcss";
+
 import { fontFamily } from "tailwindcss/defaultTheme";
 
 const config = {
@@ -87,16 +87,24 @@ const config = {
   				'100%': {
   					'offset-distance': '100%'
   				}
-  			}
+  			},
+			marquee: {
+          'from': { transform: 'translateX(0%)' },
+          'to': { transform: 'translateX(-50%)' }
+        }
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
   			'accordion-up': 'accordion-up 0.2s ease-out',
-  			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear'
-  		}
+  			'border-beam': 'border-beam calc(var(--duration)*1s) infinite linear',
+			marquee: 'marquee 15s linear infinite'
+  		},
+		 translate: {
+        	'101': '101%',
+      	}
   	}
   },
   plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
-} satisfies Config;
+};
 
 export default config;

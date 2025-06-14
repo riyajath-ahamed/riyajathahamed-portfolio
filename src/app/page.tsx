@@ -1,8 +1,8 @@
-import FooterPattern from "@/components/FooterPattern";
 import { Icons } from "@/components/icons";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
-import { ProjectCard } from "@/components/project-card";
+import FlowingMenu from "@/components/magicui/FlowingMenu/FlowingMenu";
+// import Lanyard from "@/components/magicui/Lanyard/Lanyard";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import GridPattern from "@/components/ui/grid-pattern";
@@ -17,8 +17,10 @@ const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
 
+type Project = (typeof DATA.projects)[number];
+
   return (
-    <main className="flex flex-col min-h-screen space-y-10 max-w-2xl mx-auto py-12 sm:py-24 px-6 bg-transparent">
+    <main className="flex flex-col min-h-screen space-y-10 max-w-2xl mx-auto py-12 sm:py-24 px-6 bg-transparent overflow-x-hidden">
       <section id="hero" className="">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           {/* TODO : onHover Show the email pop over */}
@@ -73,7 +75,7 @@ export default function Page() {
         </div>
         <div></div>
       </section>
-      
+
       <section id="about">
         <BlurFade delay={BLUR_FADE_DELAY * 4}>
           <TextRevealByWord
@@ -81,8 +83,10 @@ export default function Page() {
             text={DATA.summary}
           />
         </BlurFade>
+
         {/* TODO : Cu=urrent and previes roles */}
-      </section> 
+      </section>
+
       {/* <section id="work">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 5}>
@@ -166,26 +170,17 @@ export default function Page() {
               </div>
             </div>
           </BlurFade>
-          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 max-w-[800px] mx-auto">
-            {DATA.projects.map((project, id) => (
-              <BlurFade
-                key={project.title}
-                delay={BLUR_FADE_DELAY * 12 + id * 0.05}
-              >
-                <ProjectCard
-                  href={project.href}
-                  key={project.title}
-                  title={project.title}
-                  description={project.description}
-                  dates={project.dates}
-                  tags={project.technologies}
-                  image={project.image}
-                  video={project.video}
-                  links={project.links}
-                />
-              </BlurFade>
-            ))}
-          </div>
+          <BlurFade delay={BLUR_FADE_DELAY * 12}>
+          <FlowingMenu
+            items={DATA.projects.map((project) => ({
+              text: project.title,
+              link: project.href,
+              image: project.image,
+              project: project,
+            }))}
+          />
+          </BlurFade>
+          
         </div>
       </section>
       <section id="contact">
@@ -199,6 +194,7 @@ export default function Page() {
                 Get in Touch
               </h2>
               <div className="flex flex-row items-center justify-center space-x-4">
+                {/* <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} /> */}
                 <BlurFade delay={BLUR_FADE_DELAY}>
                   <Image
                     src="/tagCard.png"
@@ -255,6 +251,15 @@ export default function Page() {
                         >
                           <Icons.x className="inline-block w-5 h-5" />
                         </Link>
+                        <Link
+                          href={DATA.contact.social.Medium.url}
+                          className={cn(
+                            buttonVariants({ variant: "ghost", size: "icon" }),
+                            "size-10"
+                          )}
+                        >
+                          <Icons.medium className="inline-block w-5 h-5" />
+                        </Link>
                       </span>
                     </span>
                   </p>
@@ -275,7 +280,7 @@ export default function Page() {
           </BlurFade>
         </div>
       </section>
-      <FooterPattern name={'RJ'} />
+      {/* <FooterPattern name={'RJ'} /> */}
     </main>
   );
 }

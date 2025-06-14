@@ -22,10 +22,10 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
   const words = text.split(" ");
 
   return (
-    <div ref={targetRef} className={cn("relative z-0 h-[200vh] ", className)}>
+    <div ref={targetRef} className={cn("relative z-0 h-[200vh]  ", className)}>
       <div
         className={
-          "sticky top-0 mx-auto flex h-[50%] max-w-max items-center bg-transparent gap-3 "
+          "sticky top-0 mx-auto flex flex-col h-[50%] max-w-4xl  px-[1rem] pt-[50rem] items-center bg-transparent gap-3 "
         }
       >
         <h2 className=" text-4xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
