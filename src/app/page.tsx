@@ -1,4 +1,6 @@
+"use client"
 import FooterPattern from "@/components/FooterPattern";
+import { useState } from "react";
 import { Icons } from "@/components/icons";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
@@ -16,17 +18,15 @@ import { cn } from "@/lib/utils";
 import { Link2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
 
-  const demoItems = [
-  { link: '#', text: 'Mojave', image: 'https://picsum.photos/600/400?random=1' },
-  { link: '#', text: 'Sonoma', image: 'https://picsum.photos/600/400?random=2' },
-  { link: '#', text: 'Monterey', image: 'https://picsum.photos/600/400?random=3' },
-  { link: '#', text: 'Sequoia', image: 'https://picsum.photos/600/400?random=4' }
-];
+type Project = (typeof DATA.projects)[number];
+const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <main className="flex flex-col min-h-screen space-y-10 max-w-2xl mx-auto py-12 sm:py-24 px-6 bg-transparent overflow-x-hidden">
@@ -94,7 +94,7 @@ export default function Page() {
         </BlurFade>
 
         {/* TODO : Cu=urrent and previes roles */}
-      </section> 
+      </section>
 
       {/* <section id="work">
         <div className="flex min-h-0 flex-col gap-y-3">
@@ -198,8 +198,23 @@ export default function Page() {
                 />
               </BlurFade>
             ))}
-          </div> */}
-          <FlowingMenu items={demoItems} />
+          </div>  */}
+          {/* <FlowingMenu items={demoItems} /> */}
+          <FlowingMenu
+            items={DATA.projects.map((project) => ({
+              text: project.title,
+              link: project.href,
+              image: project.image,
+              project: project,
+              onClick: () => {
+                setSelectedProject(project);
+                setIsModalOpen(true);
+                console.log("Project clicked:", project.title); 
+                console.log("Project details", isModalOpen)
+              },
+            }))}
+          />
+          
         </div>
       </section>
       <section id="contact">
@@ -213,7 +228,7 @@ export default function Page() {
                 Get in Touch
               </h2>
               <div className="flex flex-row items-center justify-center space-x-4">
-              {/* <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} /> */}
+                {/* <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} /> */}
                 <BlurFade delay={BLUR_FADE_DELAY}>
                   <Image
                     src="/tagCard.png"

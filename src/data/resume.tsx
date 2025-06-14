@@ -1,5 +1,6 @@
 import { Icons } from "@/components/icons";
 import { HomeIcon, NotebookIcon, WandSparklesIcon } from "lucide-react";
+import { title } from "process";
 
 export const DATA = {
   name: "Riyajath Ahamed",
@@ -124,9 +125,94 @@ export const DATA = {
           icon: <Icons.github className="size-3" />,
         }
       ],
-      image: "",
+      image: "https://pub-7744c747312a4db3afe9366c16797634.r2.dev/capture3598.PNG",
       video:
         "https://pub-7744c747312a4db3afe9366c16797634.r2.dev/IMG_0419.MP4 ",
     },
-  ]
+    {
+      title: "Beyond Childhood Int",
+      href: "https://craftlab.riyajathahamed.lk",
+      dates: "Jan 2023 - Present",
+      active: true,
+      description:
+        "Beyond Childhood International is a nonpartisan development organisation that works to improve the lives of children and families in Sri Lanka. We are committed to creating a better future for all children, regardless of their background or circumstances.",
+      technologies: [
+        "React",
+        "Typescript",
+        "TailwindCSS",
+        "GpraphQL",
+        "Netlify",
+        "HashNode"
+      ],
+      links: [
+        {
+          type: "Dev - Website",
+          href: "https://dev-beyondchildhoodinternational.netlify.app/",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "GitHub",
+          href: "https://github.com/riyajath-ahamed/cbi-frontend",
+          icon: <Icons.github className="size-3" />,
+        }
+      ],
+      image: "https://pub-7744c747312a4db3afe9366c16797634.r2.dev/Capture.PNG",
+    },
+    {
+      title: "Genso CLI",
+      href: "https://www.npmjs.com/package/genso-boilerplate",
+      dates: "Jan 2023 - Present",
+      active: true,
+      description:
+        "Genso CLI is a React boilerplate designed to simplify development by providing a pre-configured setup",
+      technologies: [
+        "JavaScript",
+        "React",
+        "TailwindCSS",
+        "NPM",
+        "Node.js",
+        "GitHub Actions",
+      ],
+      links: [
+        {
+          type: "NPM",
+          href: "https://www.npmjs.com/package/genso-boilerplate",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "GitHub",
+          href: "https://github.com/riyajath-ahamed/genso-boilerplate",
+          icon: <Icons.github className="size-3" />,
+        }
+      ],
+      image: "https://pub-7744c747312a4db3afe9366c16797634.r2.dev/Capture%20335.PNG",
+    },
+    {
+      title: "FOSS KDU",
+      href: "https://foss-kdu.github.io/fosskdu_web/",
+      dates: "Jan 2023 - Jan 2023",
+      active: true,
+      description:
+        "FOSS KDU is a student-led organization at KDU that promotes Free and Open Source Software (FOSS) among students. The website serves as a platform to share information about the organization, its events, and its projects.",
+      technologies: [
+        "JavaScript",
+        "React",
+        "TailwindCSS",
+      ],
+      links: [
+        {
+          type: "Website",
+          href: "https://foss-kdu.github.io/fosskdu_web/",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "GitHub",
+          href: "https://github.com/Foss-kdu/fosskdu_web",
+          icon: <Icons.github className="size-3" />,
+        }
+      ],
+      image: "https://pub-7744c747312a4db3afe9366c16797634.r2.dev/Foss01.PNG",
+    },
+
+  ],
 } as const;

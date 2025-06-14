@@ -1,11 +1,15 @@
 "use client"
 import React from "react";
 import { gsap } from "gsap";
+import { ProjectCard } from "@/components/project-card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 interface MenuItemProps {
   link: string;
   text: string;
   image: string;
+  project: any;
+  onClick?: () => void;
 }
 
 interface FlowingMenuProps {
@@ -13,18 +17,65 @@ interface FlowingMenuProps {
 }
 
 const FlowingMenu: React.FC<FlowingMenuProps> = ({ items = [] }) => {
+
+  const [dialogOpen, setDialogOpen] = React.useState(false);
+  const [activeItem, setActiveItem] = React.useState<MenuItemProps | null>(null);
   return (
     <div className="w-full h-full overflow-hidden">
+      <p className="text-3xl z-10 ">{"{("}</p>
       <nav className="flex flex-col h-full m-0 p-0">
         {items.map((item, idx) => (
-          <MenuItem key={idx} {...item} />
+          <MenuItem key={idx} {...item}
+            onClick={() => {
+    setActiveItem(item.project);
+    setDialogOpen(true);
+  }}
+          />
         ))}
       </nav>
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen} >
+        <DialogContent className="max-w-sm bg-white/80 p-6 rounded-lg shadow-lg dark:bg-gray-800/80">
+          <DialogHeader>
+            <DialogTitle>{activeItem?.title}</DialogTitle>
+          </DialogHeader>
+          <ProjectCard
+                      href={activeItem.link}
+                      title={activeItem.title}
+                      description={activeItem.description}
+                      dates={activeItem.dates}
+                      tags={activeItem.technologies}
+                      image={activeItem.image}
+                      video={activeItem.video}
+                      links={activeItem.links}
+                    />
+        </DialogContent>
+      </Dialog>
+      {/* {dialogOpen && activeItem && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <ProjectCard
+                      href={activeItem.link}
+                      title={activeItem.title}
+                      description={activeItem.description}
+                      dates={activeItem.dates}
+                      tags={activeItem.technologies}
+                      image={activeItem.image}
+                      video={activeItem.video}
+                      links={activeItem.links}
+                    />
+                     <button
+        onClick={() => setDialogOpen(false)}
+        className="bg-black text-white py-1 px-3 rounded hover:bg-gray-800"
+      >
+        Close
+      </button>
+  </div> */}
+    
+     <p className="text-3xl z-10">{")}"}</p>
     </div>
   );
 };
 
-const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
+const MenuItem: React.FC<MenuItemProps> = ({ link, text, image, onClick }) => {
   const itemRef = React.useRef<HTMLDivElement>(null);
   const marqueeRef = React.useRef<HTMLDivElement>(null);
   const marqueeInnerRef = React.useRef<HTMLDivElement>(null);
@@ -96,16 +147,20 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
     <div
       className="flex-1 relative overflow-hidden text-center shadow-[0_-1px_0_0_#fff]"
       ref={itemRef}
-      onClick={(e: React.MouseEvent<HTMLDivElement>) => {
-        e.preventDefault();
-        console.log("clicked");
-      }}
+      
     >
       <a
+
+       onClick={(e) => {
+        e.preventDefault(); // prevent navigation
+        onClick?.();
+      }}
+      
         className="flex items-center justify-center h-full relative cursor-pointer uppercase no-underline font-semibold text-white text-[4vh] hover:text-[#060606] focus:text-white focus-visible:text-[#060606]"
-        href={link}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
+        target="_blank"
+        rel="noopener noreferrer"
       >
         {text}
       </a>
@@ -119,31 +174,9 @@ const MenuItem: React.FC<MenuItemProps> = ({ link, text, image }) => {
           </div>
         </div>
       </div>
+      
     </div>
   );
 };
 
 export default FlowingMenu;
-
-// Note: this is also needed
-// /** @type {import('tailwindcss').Config} */
-// export default {
-//   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
-//   theme: {
-//     extend: {
-//       translate: {
-//         '101': '101%',
-//       },
-//       keyframes: {
-//         marquee: {
-//           'from': { transform: 'translateX(0%)' },
-//           'to': { transform: 'translateX(-50%)' }
-//         }
-//       },
-//       animation: {
-//         marquee: 'marquee 15s linear infinite'
-//       }
-//     }
-//   },
-//   plugins: [],
-// };
