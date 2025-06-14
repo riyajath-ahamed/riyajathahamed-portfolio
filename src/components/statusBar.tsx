@@ -1,7 +1,7 @@
-import Link from "next/link";
+
 import { getNowPlaying, getRecentTrack } from "@/lib/spotift";
-import { SpotifyIcon } from "./icons/icon";
 import TiltedCard from "./magicui/TiltedCard/TiltedCard";
+import { JSX } from "react";
 
 async function getSpotifyPlayingNow() {
   let response = await getNowPlaying();
