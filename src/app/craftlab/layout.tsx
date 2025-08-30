@@ -1,3 +1,4 @@
+import Beams from "@/components/magicui/Beams/Beams";
 import React, { ReactNode } from "react";
 
 interface CraftLabLayoutProps {
