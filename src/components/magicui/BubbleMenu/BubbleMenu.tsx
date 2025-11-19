@@ -1,6 +1,10 @@
+"use client";
+
 import type { CSSProperties, ReactNode } from "react";
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import { useTheme } from "next-themes";
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 
 type MenuItem = {
   label: string;
@@ -82,12 +86,70 @@ export default function BubbleMenu({
 }: BubbleMenuProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showOverlay, setShowOverlay] = useState(false);
+  const { theme, setTheme } = useTheme();
 
   const overlayRef = useRef<HTMLDivElement>(null);
   const bubblesRef = useRef<HTMLAnchorElement[]>([]);
   const labelRefs = useRef<HTMLSpanElement[]>([]);
+  const themeToggleRef = useRef<HTMLButtonElement>(null);
+  const sunIconRef = useRef<SVGSVGElement>(null);
+  const moonIconRef = useRef<SVGSVGElement>(null);
 
   const menuItems = items?.length ? items : DEFAULT_ITEMS;
+
+  const handleThemeToggle = () => {
+    const sunIcon = sunIconRef.current;
+    const moonIcon = moonIconRef.current;
+    
+    // Animate icon transition
+    if (sunIcon && moonIcon) {
+      if (theme === "dark") {
+        // Switching to light: fade out moon, fade in sun
+        gsap.to(moonIcon, {
+          scale: 0,
+          rotation: -180,
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.in",
+        });
+        gsap.fromTo(
+          sunIcon,
+          { scale: 0, rotation: 180, opacity: 0 },
+          {
+            scale: 1,
+            rotation: 0,
+            opacity: 1,
+            duration: 0.3,
+            ease: "back.out(1.5)",
+            delay: 0.15,
+          }
+        );
+      } else {
+        // Switching to dark: fade out sun, fade in moon
+        gsap.to(sunIcon, {
+          scale: 0,
+          rotation: 180,
+          opacity: 0,
+          duration: 0.3,
+          ease: "power2.in",
+        });
+        gsap.fromTo(
+          moonIcon,
+          { scale: 0, rotation: -180, opacity: 0 },
+          {
+            scale: 1,
+            rotation: 0,
+            opacity: 1,
+            duration: 0.3,
+            ease: "back.out(1.5)",
+            delay: 0.15,
+          }
+        );
+      }
+    }
+    
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   const containerClassName = [
     "bubble-menu",
@@ -113,13 +175,17 @@ export default function BubbleMenu({
     const overlay = overlayRef.current;
     const bubbles = bubblesRef.current.filter(Boolean);
     const labels = labelRefs.current.filter(Boolean);
+    const themeToggle = themeToggleRef.current;
     if (!overlay || !bubbles.length) return;
 
     if (isMenuOpen) {
       gsap.set(overlay, { display: "flex" });
-      gsap.killTweensOf([...bubbles, ...labels]);
+      gsap.killTweensOf([...bubbles, ...labels, themeToggle].filter(Boolean));
       gsap.set(bubbles, { scale: 0, transformOrigin: "50% 50%" });
       gsap.set(labels, { y: 24, autoAlpha: 0 });
+      if (themeToggle) {
+        gsap.set(themeToggle, { scale: 0, transformOrigin: "50% 50%" });
+      }
 
       bubbles.forEach((bubble, i) => {
         const delay = i * staggerDelay + gsap.utils.random(-0.05, 0.05);
@@ -142,8 +208,19 @@ export default function BubbleMenu({
           );
         }
       });
+
+      // Animate theme toggle button
+      if (themeToggle) {
+        const themeDelay = menuItems.length * staggerDelay + gsap.utils.random(-0.05, 0.05);
+        gsap.to(themeToggle, {
+          scale: 1,
+          duration: animationDuration,
+          ease: animationEase,
+          delay: themeDelay,
+        });
+      }
     } else if (showOverlay) {
-      gsap.killTweensOf([...bubbles, ...labels]);
+      gsap.killTweensOf([...bubbles, ...labels, themeToggle].filter(Boolean));
       gsap.to(labels, {
         y: 24,
         autoAlpha: 0,
@@ -154,13 +231,20 @@ export default function BubbleMenu({
         scale: 0,
         duration: 0.2,
         ease: "power3.in",
-        onComplete: () => {
-          gsap.set(overlay, { display: "none" });
-          setShowOverlay(false);
-        },
+      });
+      if (themeToggle) {
+        gsap.to(themeToggle, {
+          scale: 0,
+          duration: 0.2,
+          ease: "power3.in",
+        });
+      }
+      gsap.delayedCall(0.2, () => {
+        gsap.set(overlay, { display: "none" });
+        setShowOverlay(false);
       });
     }
-  }, [isMenuOpen, showOverlay, animationEase, animationDuration, staggerDelay]);
+  }, [isMenuOpen, showOverlay, animationEase, animationDuration, staggerDelay, menuItems.length]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -180,6 +264,22 @@ export default function BubbleMenu({
     return () => window.removeEventListener("resize", handleResize);
   }, [isMenuOpen, menuItems]);
 
+  // Initialize icon states
+  useEffect(() => {
+    const sunIcon = sunIconRef.current;
+    const moonIcon = moonIconRef.current;
+    
+    if (sunIcon && moonIcon) {
+      if (theme === "dark") {
+        gsap.set(sunIcon, { scale: 0, opacity: 0 });
+        gsap.set(moonIcon, { scale: 1, opacity: 1, rotation: 0 });
+      } else {
+        gsap.set(sunIcon, { scale: 1, opacity: 1, rotation: 0 });
+        gsap.set(moonIcon, { scale: 0, opacity: 0 });
+      }
+    }
+  }, [theme]);
+
   return (
     <>
       {/* Workaround for silly Tailwind capabilities */}
@@ -187,6 +287,27 @@ export default function BubbleMenu({
         .bubble-menu .menu-line {
           transition: transform 0.3s ease, opacity 0.3s ease;
           transform-origin: center;
+        }
+        .theme-toggle-bubble svg {
+          transform-origin: center;
+        }
+        @media (min-width: 900px) {
+          .theme-toggle-bubble:hover {
+            transform: scale(1.06);
+            background: var(--hover-bg) !important;
+          }
+          .theme-toggle-bubble:active {
+            transform: scale(.94);
+          }
+        }
+        @media (max-width: 899px) {
+          .theme-toggle-bubble:hover {
+            transform: scale(1.06);
+            background: var(--hover-bg);
+          }
+          .theme-toggle-bubble:active {
+            transform: scale(.94);
+          }
         }
         .bubble-menu-items .pill-list .pill-col:nth-child(4):nth-last-child(2) {
           margin-left: calc(100% / 6);
@@ -265,7 +386,7 @@ export default function BubbleMenu({
             className={[
               "logo-content",
               "inline-flex items-center justify-center",
-              "w-[120px] h-full",
+              "w-[48px] h-full",
             ].join(" ")}
             style={
               {
@@ -279,6 +400,7 @@ export default function BubbleMenu({
                 src={logo}
                 alt="Logo"
                 className="bubble-logo max-h-[60%] max-w-full object-contain block"
+                onClick={() => window.location.href = "/"}
               />
             ) : (
               logo
@@ -338,6 +460,7 @@ export default function BubbleMenu({
             "inset-0",
             "flex items-center justify-center",
             "pointer-events-none",
+            "backdrop-blur-sm",
             "z-[1000]",
           ].join(" ")}
           aria-hidden={!isMenuOpen}
@@ -422,6 +545,75 @@ export default function BubbleMenu({
                 </a>
               </li>
             ))}
+            <li
+              key={"theme-toggle"}
+              role="none"
+              className={[
+                "pill-col",
+                "flex justify-center items-stretch",
+                "[flex:0_0_calc(100%/3)]",
+                "box-border",
+              ].join(" ")}
+            >
+              <button
+                ref={themeToggleRef}
+                type="button"
+                className={[
+                  "bubble theme-toggle-bubble",
+                  "inline-flex items-center justify-center",
+                  "rounded-full",
+                  "bg-white",
+                  "shadow-[0_4px_16px_rgba(0,0,0,0.12)]",
+                  "pointer-events-auto",
+                  "w-12 h-12 md:w-14 md:h-14",
+                  "border-0 cursor-pointer p-0",
+                  "will-change-transform",
+                  "pill-link",
+                  "w-full",
+                  "rounded-[999px]",
+                  "no-underline",
+                  "bg-white",
+                  "text-inherit",
+                  "shadow-[0_4px_14px_rgba(0,0,0,0.10)]",
+                  "flex items-center justify-center",
+                  "relative",
+                  "transition-[background,color] duration-300 ease-in-out",
+                  "box-border",
+                  "whitespace-nowrap overflow-hidden",
+                ].join(" ")}
+                onClick={handleThemeToggle}
+                aria-label="Toggle theme"
+                style={
+                  {
+                    ["--item-rot"]: `${0}deg`,
+                    ["--pill-bg"]: menuBg,
+                    ["--pill-color"]: menuContentColor,
+                    ["--hover-bg"]: "#f3f4f6",
+                    ["--hover-color"]: menuContentColor,
+                    background: "var(--pill-bg)",
+                    color: "var(--pill-color)",
+                    minHeight: "var(--pill-min-h, 160px)",
+                    padding: "clamp(1.5rem, 3vw, 8rem) 0",
+                    fontSize: "clamp(1.5rem, 4vw, 4rem)",
+                    fontWeight: 400,
+                    lineHeight: 0,
+                    willChange: "transform",
+                    height: 10,
+                  } as CSSProperties
+                }
+              >
+                <SunIcon
+                  ref={sunIconRef}
+                  className="h-[1.2rem] w-[1.2rem] dark:hidden"
+                  style={{ color: menuContentColor }}
+                />
+                <MoonIcon
+                  ref={moonIconRef}
+                  className="hidden h-[1.2rem] w-[1.2rem] dark:block"
+                  style={{ color: menuContentColor }}
+                />
+              </button>
+            </li>
           </ul>
         </div>
       )}

@@ -24,7 +24,7 @@ type Project = (typeof DATA.projects)[number];
       <section id="hero" className="">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           {/* TODO : onHover Show the email pop over */}
-          <BlurFade className="flex justify-end gap-1 " delay={BLUR_FADE_DELAY}>
+          <BlurFade className="flex justify-end gap-1 mt-10 md:mt-0" delay={BLUR_FADE_DELAY}>
             <span className="relative flex h-3 w-3 bottom-1">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>

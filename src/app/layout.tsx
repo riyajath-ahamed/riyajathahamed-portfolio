@@ -1,4 +1,4 @@
-import Navbar from "@/components/navbar";
+import ResponsiveNavbar from "@/components/responsive-navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
@@ -9,7 +9,7 @@ import localFont from 'next/font/local'
 import "./globals.css";
 import Particles from "@/components/magicui/particles";
 import Spline from "@splinetool/react-spline";
-import Aurora from "@/components/icons/Aurora/Aurora";
+import AuroraBackground from "@/components/AuroraBackground";
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -76,14 +76,8 @@ export default function RootLayout({
           fontSans.variable, acorn.variable
         )}
       >
-        <Aurora
-          colorStops={["#2E1A47", "#A45DBD", "#EAB8E4"]}
-          blend={1}
-          amplitude={0.1}
-          speed={0.5}
-        />
         <ThemeProvider attribute="class" defaultTheme="light">
-        
+          <AuroraBackground />
           <div
             style={{
               background:
@@ -101,7 +95,7 @@ export default function RootLayout({
             refresh
           />
           <TooltipProvider delayDuration={0}>
-          <Navbar />
+          <ResponsiveNavbar />
             {children}            
           </TooltipProvider>
         </ThemeProvider>
