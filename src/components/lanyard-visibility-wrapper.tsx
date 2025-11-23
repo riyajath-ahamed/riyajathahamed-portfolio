@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
-import Lanyard from "@/components/magicui/Lanyard/Lanyard";
+
 
 export default function LanyardVisibilityWrapper() {
   const [isVisible, setIsVisible] = useState(false);
@@ -75,7 +75,7 @@ export default function LanyardVisibilityWrapper() {
         overflow: 'visible',
       }}
     >
-      <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} />
+      {/* <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} /> */}
     </div>
   );
 }

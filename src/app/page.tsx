@@ -12,7 +12,6 @@ import { cn } from "@/lib/utils";
 import { Link2, PictureInPicture2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import LanyardVisibilityWrapper from "@/components/lanyard-visibility-wrapper";
 import ProfileCard from "@/components/profileCard";
 
 const BLUR_FADE_DELAY = 0.04;
