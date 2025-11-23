@@ -8,7 +8,7 @@ const BlogPage = () => {
   return (
     <main className="relative mx-auto grid max-w-5xl gap-12 px-4 py-16">
       <section className="relative flex flex-col items-center text-center">
-        <div className="relative z-10 flex max-w-3xl flex-col items-center gap-6 text-balance">
+        <div className="relative z-10 flex max-w-3xl flex-col items-center gap-6 mt-10 text-balance">
           <BlurFadeText
             delay={BLUR_FADE_DELAY}
             className="text-6xl font-bold font-serif tracking-tighter sm:text-6xl xl:text-7xl/none pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10"

@@ -2,7 +2,7 @@ import { Icons } from "@/components/icons";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import FlowingMenu from "@/components/magicui/FlowingMenu/FlowingMenu";
-// import Lanyard from "@/components/magicui/Lanyard/Lanyard";
+import SkillRadarChart from "@/components/skillRadarChart";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import GridPattern from "@/components/ui/grid-pattern";
@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { Link2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import LanyardVisibilityWrapper from "@/components/lanyard-visibility-wrapper";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -193,21 +194,19 @@ type Project = (typeof DATA.projects)[number];
               <h2 className="text-5xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
                 Get in Touch
               </h2>
-              <div className="flex flex-row items-center justify-center space-x-4">
-                {/* <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} /> */}
-                <BlurFade delay={BLUR_FADE_DELAY}>
-                  <Image
-                    src="/tagCard.png"
-                    alt="Descriptive text for screen readers"
-                    width={250}
-                    height={50}
-                    className="responsive"
-                    placeholder="blur"
-                    blurDataURL="data:image/png"
-                  />
-                </BlurFade>
-                <div>
-                  <p className="mx-auto max-w-[300px] text-left text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+              <div className="flex flex-col md:flex-row items-center justify-center space-x-4 ">
+                <div id="lanyard-container" className="w-1/2 relative overflow-visible min-h-[400px]">
+                  <LanyardVisibilityWrapper />
+                </div>
+                <div className="w-full md:w-1/2 rounded-2xl border border-black/[0.08] bg-white/70 p-3 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.45)] backdrop-blur-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:bg-white/10">
+                  <SkillRadarChart />
+                </div>
+              </div>
+            </div>
+
+            
+            <div>
+            <p className="mx-auto  text-left text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                     If you&apos;d like to get in touch, feel free to send me an
                     email at{" "}
                     <a
@@ -263,8 +262,6 @@ type Project = (typeof DATA.projects)[number];
                       </span>
                     </span>
                   </p>
-                </div>
-              </div>
             </div>
             <h2 className="text-6xl pt-4 font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
               だってばよ
