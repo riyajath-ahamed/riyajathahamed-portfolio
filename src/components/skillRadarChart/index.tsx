@@ -8,14 +8,13 @@ import {
 import { RadarChart, RadarSeriesOption } from 'echarts/charts';
 import { CanvasRenderer } from 'echarts/renderers';
 
-type Props = {}
 echarts.use([RadarChart, CanvasRenderer]);
 
 type EChartsOption = echarts.ComposeOption<
     RadarSeriesOption
 >;
 
-const SkillRadarChart = (props: Props) => {
+const SkillRadarChart = () => {
   const chartRef = useRef<HTMLDivElement>(null);
 
   const option: EChartsOption = {
