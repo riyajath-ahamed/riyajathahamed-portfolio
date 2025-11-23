@@ -1,5 +1,5 @@
 import { Icons } from "@/components/icons";
-import { HomeIcon, NotebookIcon, WandSparklesIcon } from "lucide-react";
+import { BookIcon, HomeIcon, NotebookIcon, WandSparklesIcon } from "lucide-react";
 import { title } from "process";
 
 export const DATA = {
@@ -32,6 +32,7 @@ export const DATA = {
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },
     { href: "/craftlab", icon: WandSparklesIcon, label: "Craft Lab" },
+    { href: "/blog", icon: BookIcon, label: "Blog" },
 
   ],
   contact: {
@@ -221,6 +222,44 @@ export const DATA = {
       ],
       image: "https://pub-7744c747312a4db3afe9366c16797634.r2.dev/Foss01.PNG",
     },
-
   ],
+  chartData: {
+    radar: {
+      indicator: [
+        { name: 'React / TypeScript', max: 1000 },
+        { name: 'UI/UX Design', max: 1000 },
+        { name: 'Design Systems', max: 1000 },
+        { name: 'Performance Optimi', max: 1000 }, //Performance Optimization
+        { name: 'Problem Solving', max: 1000 },
+        { name: 'Collaboration/Commun', max: 1000 }, // Collaboration / Communication
+        { name: 'API Integration', max: 1000 },
+        { name: 'Data Visualization', max: 1000 }
+      ],
+      axisName: {
+        color: '#737373',
+        fontWeight: 'bold',
+        fontSize: 16,
+        fontFamily: 'monospace',
+        width: 1,
+        overflow: "break",
+      }
+    },
+    series: [
+      {
+        type: 'radar',
+        data: [
+          {
+            value: [900, 850, 950, 800, 750, 850, 900, 700],
+            name: 'Skill Level'
+          }
+        ],
+        itemStyle: {
+          color: '#adff2f'
+        },
+        lineStyle: {
+          color: '#adff2f'
+        }
+      }
+    ]
+  }
 } as const;

@@ -46,7 +46,7 @@ export default function Navbar() {
                 <Icons.spotify className="size-6" />
               </TooltipTrigger>
               <TooltipContent className="bg-transparent w-max-content">
-                <SpotifyPlayingNow />
+                {/* <SpotifyPlayingNow /> */}
               </TooltipContent>
             </Tooltip>
             </div>

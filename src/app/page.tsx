@@ -2,16 +2,17 @@ import { Icons } from "@/components/icons";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
 import FlowingMenu from "@/components/magicui/FlowingMenu/FlowingMenu";
-// import Lanyard from "@/components/magicui/Lanyard/Lanyard";
+import SkillRadarChart from "@/components/skillRadarChart";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import GridPattern from "@/components/ui/grid-pattern";
 import TextRevealByWord from "@/components/ui/text-reveal";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
-import { Link2 } from "lucide-react";
+import { Link2, PictureInPicture2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import ProfileCard from "@/components/profileCard";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -24,7 +25,7 @@ type Project = (typeof DATA.projects)[number];
       <section id="hero" className="">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           {/* TODO : onHover Show the email pop over */}
-          <BlurFade className="flex justify-end gap-1 " delay={BLUR_FADE_DELAY}>
+          <BlurFade className="flex justify-end gap-1 mt-10 md:mt-0" delay={BLUR_FADE_DELAY}>
             <span className="relative flex h-3 w-3 bottom-1">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400"></span>
               <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
@@ -193,9 +194,8 @@ type Project = (typeof DATA.projects)[number];
               <h2 className="text-5xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
                 Get in Touch
               </h2>
-              <div className="flex flex-row items-center justify-center space-x-4">
-                {/* <Lanyard position={[0, 0, 15]} gravity={[0, -40, 0]} /> */}
-                <BlurFade delay={BLUR_FADE_DELAY}>
+              <div className="flex flex-col md:flex-row items-center justify-center space-x-4 ">
+              <BlurFade delay={BLUR_FADE_DELAY}>
                   <Image
                     src="/tagCard.png"
                     alt="Descriptive text for screen readers"
@@ -206,8 +206,19 @@ type Project = (typeof DATA.projects)[number];
                     blurDataURL="data:image/png"
                   />
                 </BlurFade>
-                <div>
-                  <p className="mx-auto max-w-[300px] text-left text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <div className="w-full md:w-1/2 rounded-2xl border border-black/[0.08] bg-white/70 px-3 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.45)] backdrop-blur-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:bg-white/10">
+                  <div className=" fixed mt-2 rounded-full bg-black/10 dark:bg-white/50 p-2 w-fit">
+                      <PictureInPicture2 className="w-6 h-6" />
+                  </div>
+                  
+                  <SkillRadarChart />
+                </div>
+              </div>
+            </div>
+
+            
+            <div>
+            <p className="mx-auto  text-left text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                     If you&apos;d like to get in touch, feel free to send me an
                     email at{" "}
                     <a
@@ -263,8 +274,6 @@ type Project = (typeof DATA.projects)[number];
                       </span>
                     </span>
                   </p>
-                </div>
-              </div>
             </div>
             <h2 className="text-6xl pt-4 font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
               だってばよ
