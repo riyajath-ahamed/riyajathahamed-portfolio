@@ -1,3 +1,4 @@
+import Beams from "@/components/magicui/Beams/Beams";
 import React, { ReactNode } from "react";
 
 interface CraftLabLayoutProps {
@@ -10,6 +11,7 @@ export default function CraftLabLayout({ children }: CraftLabLayoutProps) {
             <main >
                 {children}
             </main>
+            
         </div>
     );
 }

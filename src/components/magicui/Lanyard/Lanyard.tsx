@@ -49,13 +49,14 @@
 //   transparent = true,
 // }: LanyardProps) {
 //   return (
-//     <div className="relative z-0 w-full h-screen flex justify-center items-center transform scale-100 origin-center">
+//     <div className="relative z-0 w-full h-full flex justify-center items-center transform scale-100 origin-center">
 //       <Canvas
 //         camera={{ position, fov }}
 //         gl={{ alpha: transparent }}
 //         onCreated={({ gl }) =>
 //           gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)
 //         }
+//         style={{ width: '100%', height: '100%' }}
 //       >
 //         <ambientLight intensity={Math.PI} />
 //         <Physics gravity={gravity} timeStep={1 / 60}>
