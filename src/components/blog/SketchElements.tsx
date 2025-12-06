@@ -32,8 +32,10 @@ export const SketchArrow = ({
 
 export const SketchUnderline = ({
   color = "currentColor",
+  className = "",
 }: {
   color?: string;
+  className?: string;
 }) => (
   <svg
     className="absolute"
@@ -50,6 +52,7 @@ export const SketchUnderline = ({
       strokeWidth="2"
       strokeLinecap="round"
       fill="none"
+      className={className}
       initial={{ pathLength: 0 }}
       animate={{ pathLength: 1 }}
       transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
