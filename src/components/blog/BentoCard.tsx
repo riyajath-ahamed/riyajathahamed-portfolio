@@ -137,6 +137,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
         {
          post.categories.map((category, catIndex) => (
             <motion.div
+            key={`category-${catIndex}`}
             id={`category-${catIndex}`}
             className="mb-3"
             initial={{ opacity: 0, x: -20 }}
