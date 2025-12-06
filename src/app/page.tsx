@@ -144,7 +144,7 @@ type Project = (typeof DATA.projects)[number];
             </h2>
           </BlurFade>
           <div className="flex flex-wrap gap-1 ">
-          <SkillRadarChart />
+          {/* <SkillRadarChart /> */}
             {DATA.skills.map((skill, id) => (
               <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
                 <Badge key={skill}>{skill}</Badge>
@@ -208,18 +208,7 @@ type Project = (typeof DATA.projects)[number];
                   />
                 </BlurFade>
                 <div className="w-full md:w-1/2  px-3 ">
-                  <div className=" fixed mt-2 rounded-full bg-black/10 dark:bg-white/50 p-2 w-fit top-0 right-0">
-                      <PictureInPicture2 className="w-6 h-6" />
-                  </div>
-                  
-                  
-                </div>
-              </div>
-            </div>
-
-            
-            <div>
-            <p className="mx-auto  text-left text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  <p className="mx-auto  text-left text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                     If you&apos;d like to get in touch, feel free to send me an
                     email at{" "}
                     <a
@@ -275,6 +264,13 @@ type Project = (typeof DATA.projects)[number];
                       </span>
                     </span>
                   </p>
+                  
+                </div>
+              </div>
+            </div>
+
+            
+            <div>
             </div>
             <h2 className="text-6xl pt-4 font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
               だってばよ
