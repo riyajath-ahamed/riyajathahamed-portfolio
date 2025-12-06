@@ -4,18 +4,13 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { MediumPostsType } from "@/app/blog/config";
 import {
-  SketchCircle,
   SketchArrow,
-  SketchStar,
-  SketchSquiggle,
   SketchUnderline,
-  SketchSparkle,
-  SketchHeart,
-  SketchLightning,
-  SketchSpiral,
-  SketchDots,
-  SketchWave,
-  SketchOutUnderline,
+  SketchScribbleOval,
+  PinWheelSVG,
+  CircleQuaterSVG,
+  SquareSmallSVG,
+  QuoteOpenSVG,
 } from "./SketchElements";
 
 type BentoCardProps = {
@@ -41,28 +36,21 @@ export const BentoCard: React.FC<BentoCardProps> = ({
   };
 
   const variantStyles = {
-    dark: "bg-black text-white",
-    light: "bg-white dark:bg-neutral-900 text-black dark:text-white border border-neutral-200 dark:border-neutral-800",
-    accent: "bg-gradient-to-br from-orange-500 to-red-600 text-white",
-    gradient: "bg-gradient-to-br from-blue-600 to-purple-600 text-white",
+    dark: "bg-[#233b24] text-[#ccfd50] border border-neutral-800",
+    light: "bg-[#f0ede5] dark:bg-[#004643] text-[#004643] dark:text-[#f0ede5] border border-neutral-200 dark:border-neutral-800",
+    accent: "bg-gradient-to-br from-[#f9d4e0] to-[#0b5777] text-[#004643]",
+    gradient: "bg-gradient-to-br from-[#b7e5ba] to-[#288760] text-[#004643]",
   };
 
-  const sketchColor = variant === "light" ? "#000000" : "#FFFFFF";
+  const sketchColor = variant === "light" ? "#ccfd50" : "#f0ede5";
 
   const svgElements = [
-    <SketchCircle key="circle" color={sketchColor} />,
-    <SketchArrow key="arrow" color={sketchColor} />,
-    <SketchStar key="star" color={sketchColor} />,
-    <SketchSquiggle key="squiggle" color={sketchColor} />,
-    <SketchSparkle key="sparkle" color={sketchColor} />,
-    <SketchHeart key="heart" color={sketchColor} />,
-    <SketchLightning key="lightning" color={sketchColor} />,
-    <SketchSpiral key="spiral" color={sketchColor} />,
-    <SketchDots key="dots" color={sketchColor} />,
-    <SketchWave key="wave" color={sketchColor} />,
+    <PinWheelSVG key="pinwheel" color={sketchColor} />,
+    <CircleQuaterSVG key="circle-quarter" color={sketchColor} />,
+    <SquareSmallSVG key="square-small" color={sketchColor} />,
+    <QuoteOpenSVG key="quote-open" color={sketchColor} />,
   ];
 
-  // Select sketch element based on index
   const randomSvg = svgElements[index % svgElements.length];
 
   return (
@@ -85,9 +73,9 @@ export const BentoCard: React.FC<BentoCardProps> = ({
 
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full">
-        {/* Title */}
+        {/* Title with scribble oval highlight */}
         <motion.h3
-          className={`font-semibold leading-tight mb-3 relative inline-block ${
+          className={`font-semibold font-serif leading-tight mb-3 ${
             size === "large" || size === "wide"
               ? "text-3xl md:text-4xl"
               : size === "medium"
@@ -98,9 +86,34 @@ export const BentoCard: React.FC<BentoCardProps> = ({
           animate={{ opacity: 1 }}
           transition={{ delay: index * 0.1 + 0.3 }}
         >
-          {post.title}
-          {isHovered && (
-            <SketchUnderline color={sketchColor} />
+          {/* Split title into words and wrap one word with scribble oval */}
+          {(size === "large" || size === "wide" || size === "medium") && isHovered ? (
+            post.title.split(' ').map((word, wordIndex) => {
+              // Pick a word to highlight (use index to make it consistent per card)
+              const words = post.title.split(' ');
+              const targetWordIndex = wordIndex === Math.min(1, words.length - 1)
+              const shouldHighlight = targetWordIndex;
+              
+              return (
+                <span key={wordIndex}>
+                  <span 
+                    className={shouldHighlight ? "relative inline-block px-1" : ""}
+                  >
+                    {word}
+                    {shouldHighlight && <SketchScribbleOval color={sketchColor} />}
+                  </span>
+                  {wordIndex < words.length - 1 && ' '}
+                </span>
+              );
+            })
+          ) : (
+            <span className="relative inline-block">
+              {post.title}
+              {/* Show underline for smaller cards */}
+              {isHovered && size === "small" && (
+                <SketchUnderline color={sketchColor} />
+              )}
+            </span>
           )}
         </motion.h3>
 
