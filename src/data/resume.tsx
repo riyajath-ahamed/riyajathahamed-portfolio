@@ -62,7 +62,7 @@ export const DATA = {
       },
       Medium: {
         name: "Medium",
-        url: "https://medium.com/@riyajathahamed",
+        url: "https://medium.com/@riyajatha",
         icon: Icons.medium,
 
         navbar: true,

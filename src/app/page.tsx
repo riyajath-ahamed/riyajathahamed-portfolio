@@ -144,6 +144,7 @@ type Project = (typeof DATA.projects)[number];
             </h2>
           </BlurFade>
           <div className="flex flex-wrap gap-1 ">
+          <SkillRadarChart />
             {DATA.skills.map((skill, id) => (
               <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
                 <Badge key={skill}>{skill}</Badge>
@@ -206,12 +207,12 @@ type Project = (typeof DATA.projects)[number];
                     blurDataURL="data:image/png"
                   />
                 </BlurFade>
-                <div className="w-full md:w-1/2 rounded-2xl border border-black/[0.08] bg-white/70 px-3 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.45)] backdrop-blur-lg dark:border-white/10 dark:bg-white/5 dark:hover:border-white/30 dark:hover:bg-white/10">
-                  <div className=" fixed mt-2 rounded-full bg-black/10 dark:bg-white/50 p-2 w-fit">
+                <div className="w-full md:w-1/2  px-3 ">
+                  <div className=" fixed mt-2 rounded-full bg-black/10 dark:bg-white/50 p-2 w-fit top-0 right-0">
                       <PictureInPicture2 className="w-6 h-6" />
                   </div>
                   
-                  <SkillRadarChart />
+                  
                 </div>
               </div>
             </div>
