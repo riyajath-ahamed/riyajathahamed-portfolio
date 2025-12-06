@@ -16,23 +16,23 @@ type LayoutPattern = {
 // Define dynamic layout patterns that repeat
 const layoutPatterns: LayoutPattern[][] = [
   // Pattern 1: Hero Focus - Large featured card with supporting cards
-  [
-    { size: "large", variant: "dark" },      // Hero card
-    { size: "medium", variant: "light" },    // Supporting card
-    { size: "medium", variant: "accent" },   // Accent card
-    { size: "small", variant: "light" },     // Small cards
-    { size: "small", variant: "gradient" },
-    { size: "small", variant: "light" },
-  ],
+  // [
+  //   { size: "large", variant: "dark" },      // Hero card
+  //   { size: "medium", variant: "light" },    // Supporting card
+  //   { size: "medium", variant: "accent" },   // Accent card
+  //   { size: "small", variant: "light" },     // Small cards
+  //   { size: "small", variant: "gradient" },
+  //   { size: "small", variant: "light" },
+  // ],
   // Pattern 2: Balanced Grid - Equal emphasis
-  [
-    { size: "medium", variant: "gradient" },
-    { size: "medium", variant: "light" },
-    { size: "medium", variant: "dark" },
-    { size: "medium", variant: "accent" },
-    { size: "small", variant: "light" },
-    { size: "small", variant: "light" },
-  ],
+  // [
+  //   { size: "medium", variant: "gradient" },
+  //   { size: "medium", variant: "light" },
+  //   { size: "medium", variant: "dark" },
+  //   { size: "medium", variant: "accent" },
+  //   { size: "small", variant: "light" },
+  //   { size: "small", variant: "light" },
+  // ],
   // Pattern 3: Wide Banner - Horizontal emphasis
   [
     { size: "wide", variant: "dark" },       // Wide banner

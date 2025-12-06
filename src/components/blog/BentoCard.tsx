@@ -15,6 +15,7 @@ import {
   SketchSpiral,
   SketchDots,
   SketchWave,
+  SketchOutUnderline,
 } from "./SketchElements";
 
 type BentoCardProps = {
@@ -48,7 +49,6 @@ export const BentoCard: React.FC<BentoCardProps> = ({
 
   const sketchColor = variant === "light" ? "#000000" : "#FFFFFF";
 
-  // Array of all available sketch elements
   const svgElements = [
     <SketchCircle key="circle" color={sketchColor} />,
     <SketchArrow key="arrow" color={sketchColor} />,
@@ -85,30 +85,6 @@ export const BentoCard: React.FC<BentoCardProps> = ({
 
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full">
-        {/* Category Badge */}
-        {post.categories && post.categories.length > 0 && (
-          <motion.div
-            className="mb-3"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.1 + 0.2 }}
-          >
-            <span
-              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium ${
-                variant === "light"
-                  ? "bg-black/5 dark:bg-white/10"
-                  : "bg-white/20"
-              }`}
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-current opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-current"></span>
-              </span>
-              {post.categories[0]}
-            </span>
-          </motion.div>
-        )}
-
         {/* Title */}
         <motion.h3
           className={`font-semibold leading-tight mb-3 relative inline-block ${
@@ -123,7 +99,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
           transition={{ delay: index * 0.1 + 0.3 }}
         >
           {post.title}
-          {isHovered && (size === "large" || size === "wide") && (
+          {isHovered && (
             <SketchUnderline color={sketchColor} />
           )}
         </motion.h3>
@@ -142,6 +118,36 @@ export const BentoCard: React.FC<BentoCardProps> = ({
             {post.description?.length > 150 ? "..." : ""}
           </motion.p>
         )}
+
+        {/* Categories */}
+        <div className="flex flex-wrap gap-1">
+        {
+         post.categories.map((category, catIndex) => (
+            <motion.div
+            id={`category-${catIndex}`}
+            className="mb-3"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ delay: index * 0.1 + 0.2 }}
+          >
+            <span
+              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium ${
+                variant === "light"
+                  ? "bg-black/5 dark:bg-white/10"
+                  : "bg-white/20"
+              }`}
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-current opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-current"></span>
+              </span>
+              {category}
+            </span>
+          </motion.div>
+
+         ))   
+        }
+        </div>
 
         {/* Footer */}
         <div className="mt-auto flex items-center justify-between pt-4">
