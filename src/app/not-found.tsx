@@ -1,15 +1,24 @@
 import { SketchUnderline } from "@/components/blog";
+import BlurFadeText from "@/components/magicui/blur-fade-text";
 import Link from "next/link";
 
+const BLUR_FADE_DELAY = 0.2;
 export default function Custom404() {
   
 
   return (
     <div className="relative w-full h-screen bg-white dark:bg-[#00171f] flex items-center justify-center overflow-hidden">
       {/* Background Big 404 */}
-      <div className="absolute inset-0 flex items-center justify-center select-none">
-        <span className="text-[60vw] font-extrabold leading-none font-sans text-red-600 opacity-90 blur-sm -tracking-[0.08em]">404</span>
+      
+      <div className="absolute inset-0 flex items-center justify-center select-none blur-md">
+        <BlurFadeText 
+          delay={BLUR_FADE_DELAY} 
+          text="404" 
+          className="text-[60vw] font-extrabold leading-none font-sans text-red-600 opacity-90 blur-sm -tracking-[0.08em]"
+          
+        />
       </div>
+      
 
       {/* Center Content */}
       <div className="relative z-10 text-center text-white">
