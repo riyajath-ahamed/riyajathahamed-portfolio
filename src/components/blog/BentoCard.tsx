@@ -67,9 +67,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
       onHoverEnd={() => setIsHovered(false)}
     >
       {/* SVG Sketch Elements */}
-      <div className="pointer-events-none">
-        {randomSvg}
-      </div>
+      <div className="pointer-events-none">{randomSvg}</div>
 
       {/* Content */}
       <div className="relative z-10 flex flex-col h-full">
@@ -87,22 +85,28 @@ export const BentoCard: React.FC<BentoCardProps> = ({
           transition={{ delay: index * 0.1 + 0.3 }}
         >
           {/* Split title into words and wrap one word with scribble oval */}
-          {(size === "large" || size === "wide" || size === "medium") && isHovered ? (
-            post.title.split(' ').map((word, wordIndex) => {
+          {(size === "large" || size === "wide" || size === "medium") &&
+          isHovered ? (
+            post.title.split(" ").map((word, wordIndex) => {
               // Pick a word to highlight (use index to make it consistent per card)
-              const words = post.title.split(' ');
-              const targetWordIndex = wordIndex === Math.min(1, words.length - 1)
+              const words = post.title.split(" ");
+              const targetWordIndex =
+                wordIndex === Math.min(1, words.length - 1);
               const shouldHighlight = targetWordIndex;
-              
+
               return (
                 <span key={wordIndex}>
-                  <span 
-                    className={shouldHighlight ? "relative inline-block px-1" : ""}
+                  <span
+                    className={
+                      shouldHighlight ? "relative inline-block px-1" : ""
+                    }
                   >
                     {word}
-                    {shouldHighlight && <SketchScribbleOval color={sketchColor} />}
+                    {shouldHighlight && (
+                      <SketchScribbleOval color={sketchColor} />
+                    )}
                   </span>
-                  {wordIndex < words.length - 1 && ' '}
+                  {wordIndex < words.length - 1 && " "}
                 </span>
               );
             })
@@ -134,33 +138,32 @@ export const BentoCard: React.FC<BentoCardProps> = ({
 
         {/* Categories */}
         <div className="flex flex-wrap gap-1">
-        {
-         post.categories.map((category, catIndex) => (
-            <motion.div
-            key={`category-${catIndex}`}
-            id={`category-${catIndex}`}
-            className="mb-3"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: index * 0.1 + 0.2 }}
-          >
-            <span
-              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium ${
-                variant === "light"
-                  ? "bg-black/5 dark:bg-white/10"
-                  : "bg-white/20"
-              }`}
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-current opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-current"></span>
-              </span>
-              {category}
-            </span>
-          </motion.div>
-
-         ))   
-        }
+          {post.categories
+            .slice(0, size === "small" ? 3 : post.categories.length)
+            .map((category, catIndex) => (
+              <motion.div
+                key={`category-${catIndex}`}
+                id={`category-${catIndex}`}
+                className="mb-3"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: index * 0.1 + 0.2 }}
+              >
+                <span
+                  className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium ${
+                    variant === "light"
+                      ? "bg-black/5 dark:bg-white/10"
+                      : "bg-white/20"
+                  }`}
+                >
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-current opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-current"></span>
+                  </span>
+                  {category}
+                </span>
+              </motion.div>
+            ))}
         </div>
 
         {/* Footer */}

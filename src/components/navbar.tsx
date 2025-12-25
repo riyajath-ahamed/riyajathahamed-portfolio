@@ -10,7 +10,6 @@ import {
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import SpotifyPlayingNow from "./statusBar";
 import { Icons } from "./icons";
 
 export default function Navbar() {
@@ -40,15 +39,8 @@ export default function Navbar() {
         ))}
         <Separator orientation="vertical" className="h-full  mr-1" />
         <DockIcon  key={"spotify"}>
-          <div className="w-28 flex flex-row bg-black/10 dark:bg-white/10 rounded-full backdrop-blur-sm ">
-            <Tooltip>
-              <TooltipTrigger asChild>
+          <div className=" flex flex-row bg-black/10 dark:bg-white/10 rounded-full backdrop-blur-sm ">
                 <Icons.spotify className="size-6" />
-              </TooltipTrigger>
-              <TooltipContent className="bg-transparent w-max-content">
-                {/* <SpotifyPlayingNow /> */}
-              </TooltipContent>
-            </Tooltip>
             </div>
           </DockIcon>
           <Separator orientation="vertical" className="h-full ml-1" />
@@ -76,8 +68,6 @@ export default function Navbar() {
           ))}
           <Separator orientation="vertical" className="h-full py-2" /> */}
 
-          
-          
         <DockIcon>
           <Tooltip>
             <TooltipTrigger asChild>
