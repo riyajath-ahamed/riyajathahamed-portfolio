@@ -13,7 +13,7 @@ export default function ResponsiveNavbar() {
       </div>
       
       {/* Mobile Navigation Menu - hidden on desktop */}
-      <div className="md:hidden fixed inset-0 z-50 ">
+      <div className="md:hidden fixed h-fit inset-0  z-50 ">
         <BubbleMenu logo="/favicon.ico" items={DATA.navbar.map((item) => ({
           label: item.label,
           href: item.href,
