@@ -1,6 +1,5 @@
 import { Icons } from "@/components/icons";
 import { BookIcon, HomeIcon, NotebookIcon, WandSparklesIcon } from "lucide-react";
-import { title } from "process";
 
 export const DATA = {
   name: "Riyajath Ahamed",
@@ -9,9 +8,9 @@ export const DATA = {
   location: "Colombo, SL",
   locationLink: "https://www.google.com/maps/place/Colombo,+Sri+Lanka",
   description:
-    "Welcome to my corner of the internet! Young Passionate Software Engineer turned Entrepreneur. I love building things and helping people.",
+    "Builds Intelligent, Data-Driven FRONT-END Products That Transform Complex Systems Into Intuitive User Experiences.",
   summary:
-    "I'm an experienced FRONT_END developer with a passion for design and a knack for tinkering. Web development is my playground,where I push boundaries and chase new horizons.",
+    "I'm an experienced FRONT_END developer with a passion for design and a knack for tinkering. Web development is my playground,where I push boundaries and chase new horizons. I’ve worked close to product and design to shape interfaces that scale, perform, and feel intentional. From design-system-led UI to data-dense visualizations, I treat the front end not as a layer, but as a product-defining system",
   avatarUrl: "https://avatars.githubusercontent.com/u/64283797?v=4",
   skills: [
     "React",

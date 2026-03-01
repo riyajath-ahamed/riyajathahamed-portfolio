@@ -21,27 +21,27 @@ export default function Page() {
 type Project = (typeof DATA.projects)[number];
 
   return (
-    <main className="flex flex-col min-h-screen space-y-10 max-w-2xl mx-auto py-12 sm:py-24 px-6 bg-transparent overflow-x-hidden">
+    <main className="flex flex-col min-h-screen space-y-10 max-w-4xl mx-auto py-12 sm:py-24 px-6 bg-transparent overflow-x-hidden">
       <section id="hero" className="">
         <div className="mx-auto w-full max-w-2xl space-y-8">
           {/* TODO : onHover Show the email pop over */}
-          <BlurFade className="flex justify-end gap-1 mt-10 md:mt-0" delay={BLUR_FADE_DELAY}>
-            <span className="relative flex h-3 w-3 bottom-1">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+          <BlurFade className="flex justify-center gap-1 mt-10 md:mt-0" delay={BLUR_FADE_DELAY}>
+            <span className="relative flex items-center h-2 w-2 ">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4cd9af]"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4cd9af]"></span>
             </span>
             <BlurFadeText
               delay={BLUR_FADE_DELAY}
               className=" font-bold tracking-tighter  whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-transparent dark:from-white dark:to-slate-900/10"
               yOffset={8}
-              text={`Available`}
+              text={`Available for work`}
             />
           </BlurFade>
           <div className="gap-2 flex justify-between">
             <div className="flex-col flex flex-1 space-y-1.5">
               <BlurFadeText
                 delay={BLUR_FADE_DELAY}
-                className="text-6xl font-bold font-serif tracking-tighter sm:text-6xl xl:text-7xl/none pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10"
+                className="text-6xl font-medium font-sans tracking-tighter sm:text-6xl xl:text-7xl/none pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10"
                 yOffset={8}
                 text={`Hi, I'm`}
               />
@@ -52,14 +52,14 @@ type Project = (typeof DATA.projects)[number];
                 y={-1}
                 strokeDasharray={"4 2"}
                 className={cn(
-                  "[mask-image:radial-gradient(300px_circle_at_center,white,transparent)]"
+                  "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]"
                 )}
               />
               <BlurFade delay={BLUR_FADE_DELAY}>
                 <Image
                   src="/hero.png"
                   alt="Descriptive text for screen readers"
-                  width={500}
+                  width={300}
                   height={300}
                   className="responsive"
                   placeholder="blur"
@@ -144,7 +144,7 @@ type Project = (typeof DATA.projects)[number];
             </h2>
           </BlurFade>
           <div className="flex flex-wrap gap-1 ">
-          <SkillRadarChart />
+          {/* <SkillRadarChart /> */}
             {DATA.skills.map((skill, id) => (
               <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
                 <Badge key={skill}>{skill}</Badge>
@@ -208,18 +208,7 @@ type Project = (typeof DATA.projects)[number];
                   />
                 </BlurFade>
                 <div className="w-full md:w-1/2  px-3 ">
-                  <div className=" fixed mt-2 rounded-full bg-black/10 dark:bg-white/50 p-2 w-fit top-0 right-0">
-                      <PictureInPicture2 className="w-6 h-6" />
-                  </div>
-                  
-                  
-                </div>
-              </div>
-            </div>
-
-            
-            <div>
-            <p className="mx-auto  text-left text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                  <p className="mx-auto  text-left text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                     If you&apos;d like to get in touch, feel free to send me an
                     email at{" "}
                     <a
@@ -275,6 +264,10 @@ type Project = (typeof DATA.projects)[number];
                       </span>
                     </span>
                   </p>
+                </div>
+              </div>
+            </div>
+            <div>
             </div>
             <h2 className="text-6xl pt-4 font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
               だってばよ

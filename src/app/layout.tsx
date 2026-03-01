@@ -70,6 +70,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <meta name="apple-mobile-web-app-title" content="Riyajath Ahamed" />
       <body
         className={cn(
           " bg-background font-sans overflow-x-hidden",
