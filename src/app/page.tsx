@@ -13,6 +13,8 @@ import { Link2, PictureInPicture2 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import ProfileCard from "@/components/profileCard";
+import Folder from "@/components/magicui/folder";
+import StickerPeel from "@/components/magicui/stickerPeel";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -32,7 +34,7 @@ type Project = (typeof DATA.projects)[number];
             </span>
             <BlurFadeText
               delay={BLUR_FADE_DELAY}
-              className=" font-bold tracking-tighter  whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-transparent dark:from-white dark:to-slate-900/10"
+              className=" font-semibold tracking-tighter  whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-transparent dark:from-white dark:to-slate-900/10"
               yOffset={8}
               text={`Available for work`}
             />
@@ -41,7 +43,7 @@ type Project = (typeof DATA.projects)[number];
             <div className="flex-col flex flex-1 space-y-1.5">
               <BlurFadeText
                 delay={BLUR_FADE_DELAY}
-                className="text-6xl font-medium font-sans tracking-tighter sm:text-6xl xl:text-7xl/none pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10"
+                className="text-6xl font-semibold font-sans tracking-tighter sm:text-6xl xl:text-7xl/none pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10"
                 yOffset={8}
                 text={`Hi, I'm`}
               />
@@ -67,7 +69,7 @@ type Project = (typeof DATA.projects)[number];
                 />
               </BlurFade>
               <BlurFadeText
-                className="max-w-[600px] font-serif pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-2xl font-normal leading-none text-transparent dark:from-white dark:to-slate-900/10  p-2 md:text-xl lg:text-2xl xl:text-3xl"
+                className="max-w-[600px] font-serif text-left pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-2xl font-normal leading-none text-transparent dark:from-white dark:to-slate-900/10  p-2 md:text-xl lg:text-2xl xl:text-3xl"
                 delay={BLUR_FADE_DELAY}
                 text={DATA.description}
               />
@@ -85,57 +87,7 @@ type Project = (typeof DATA.projects)[number];
           />
         </BlurFade>
 
-        {/* TODO : Cu=urrent and previes roles */}
       </section>
-
-      {/* <section id="work">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 5}>
-            <h2 className="text-xl font-serif font-bold">Work Experience</h2>
-          </BlurFade>
-          {DATA.work.map((work, id) => (
-            <BlurFade
-              key={work.company}
-              delay={BLUR_FADE_DELAY * 6 + id * 0.05}
-            >
-              <ResumeCard
-                key={work.company}
-                logoUrl={work.logoUrl}
-                altText={work.company}
-                title={work.company}
-                subtitle={work.title}
-                href={work.href}
-                badges={work.badges}
-                period={`${work.start} - ${work.end ?? "Present"}`}
-                description={work.description}
-              />
-            </BlurFade>
-          ))}
-        </div>
-      </section>
-      <section id="education">
-        <div className="flex min-h-0 flex-col gap-y-3">
-          <BlurFade delay={BLUR_FADE_DELAY * 7}>
-            <h2 className="text-xl font-serif font-bold">Education</h2>
-          </BlurFade>
-          {DATA.education.map((education, id) => (
-            <BlurFade
-              key={education.school}
-              delay={BLUR_FADE_DELAY * 8 + id * 0.05}
-            >
-              <ResumeCard
-                key={education.school}
-                href={education.href}
-                logoUrl={education.logoUrl}
-                altText={education.school}
-                title={education.school}
-                subtitle={education.degree}
-                period={`${education.start} - ${education.end}`}
-              />
-            </BlurFade>
-          ))}
-        </div>
-      </section> */}
       <section id="skills">
         <div className="flex min-h-0 flex-col gap-y-3">
           <BlurFade delay={BLUR_FADE_DELAY * 9}>
@@ -144,12 +96,28 @@ type Project = (typeof DATA.projects)[number];
             </h2>
           </BlurFade>
           <div className="flex flex-wrap gap-1 ">
-          {/* <SkillRadarChart /> */}
+          <SkillRadarChart />
             {DATA.skills.map((skill, id) => (
               <BlurFade key={skill} delay={BLUR_FADE_DELAY * 10 + id * 0.05}>
                 <Badge key={skill}>{skill}</Badge>
               </BlurFade>
             ))}
+          </div>
+          <div className="flex flex-wrap gap-1 bg-slate-100/50 p-4 rounded-lg">
+            <Folder size={2} color="#5227FF" className="custom-folder"
+            />
+
+            <StickerPeel
+              imageSrc={"https://img.icons8.com/?size=100&id=asWSSTBrDlTW&format=png&color=000000"}
+              width={100}
+              rotate={10}
+              peelBackHoverPct={30}
+              peelBackActivePct={40}
+              shadowIntensity={0.5}
+              lightingIntensity={0.1}
+              initialPosition={{ x: -100, y: 100 }}
+              peelDirection={0}
+            />
           </div>
         </div>
       </section>

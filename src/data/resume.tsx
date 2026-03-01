@@ -25,8 +25,9 @@ export const DATA = {
     "Postgres",
     "Kubernetes",
     "AWS",
-    "Google Cloud",
+    "GCP",
     "Firebase",
+    "Terraform",
   ],
   navbar: [
     { href: "/", icon: HomeIcon, label: "Home" },

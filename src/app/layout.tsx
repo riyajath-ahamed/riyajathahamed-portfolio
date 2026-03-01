@@ -14,7 +14,7 @@ import AuroraBackground from "@/components/AuroraBackground";
 const fontSans = FontSans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-poppins',
+  variable: '--font-cal-sans',
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
 });
 
@@ -74,7 +74,7 @@ export default function RootLayout({
       <body
         className={cn(
           " bg-background font-sans overflow-x-hidden",
-          fontSans.variable, acorn.variable
+          fontSans.variable, acorn.variable,
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
