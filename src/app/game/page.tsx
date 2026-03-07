@@ -63,9 +63,7 @@ const edgeFn = async <T,>(body: Record<string, unknown>): Promise<T> => {
   return data;
 };
 
-// Step 1: ask server to issue a signed token for this score
 const issueToken = (score: number): Promise<IssueTokenResponse> => edgeFn<IssueTokenResponse>({ action: "issue", score });
-// Step 2: submit name + token to save to DB
 const submitScore = (name: string, score: number, token: string, timestamp: number): Promise<unknown> =>
   edgeFn({ action: "submit", name, score, token, timestamp });
 
@@ -242,7 +240,6 @@ export default function App() {
     return () => clearInterval(timer);
   }, []);
 
-  // Canvas sizing - prevent scroll bounce on iOS.
   useEffect(() => {
     document.body.style.overflow = "hidden";
     document.body.style.position = "fixed";
