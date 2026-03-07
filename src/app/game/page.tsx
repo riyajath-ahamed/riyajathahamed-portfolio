@@ -10,7 +10,7 @@ type DrawEvent = MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>;
 const SB_URL = process.env.NEXT_PUBLIC_SB_URL;
 const SB_KEY = process.env.NEXT_PUBLIC_SB_KEY;
 const WS_URL_PREFIX = process.env.NEXT_PUBLIC_WS_URL;
-const WS_URL = `${WS_URL_PREFIX}?apikey=${SB_KEY}&vsn=1.0.0`;
+const WS_Handshake = `${WS_URL_PREFIX}?apikey=${SB_KEY}&vsn=1.0.0`;
 
 if (!SB_URL || !SB_KEY || !WS_URL_PREFIX) {
   throw new Error("Missing required Supabase environment variables.");
@@ -109,7 +109,7 @@ function useRealtimeCursors(
     let reconnectTimer: ReturnType<typeof setTimeout> | null = null;
 
     const connect = () => {
-      const s = new WebSocket(WS_URL);
+      const s = new WebSocket(WS_Handshake);
       ws.current = s;
       s.onopen = () => {
         join();
