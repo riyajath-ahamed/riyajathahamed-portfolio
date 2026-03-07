@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback, type MouseEvent, type TouchEvent } from "react";
 import { CircleResult, IssueTokenResponse, LeaderboardEntry, PeerCursor, ScoreToken, SocketEnvelope, SocketSendMessage } from "./config";
 import { Point } from "framer-motion";
+import { useTheme } from "next-themes";
 
 type DrawEvent = MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>;
 
@@ -21,6 +22,10 @@ const pickColor = (id: string): string => {
   let h = 0;
   for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) >>> 0;
   return COLORS[h % COLORS.length];
+};
+const readHslVar = (styles: CSSStyleDeclaration, name: string, fallback: string): string => {
+  const value = styles.getPropertyValue(name).trim();
+  return value ? `hsl(${value})` : fallback;
 };
 
 const sbFetch = async <T,>(path: string, opts: RequestInit = {}): Promise<T> => {
@@ -170,6 +175,8 @@ export default function App() {
   const [saveError, setSaveErr] = useState<string | null>(null);
   const [peers, setPeers] = useState<Record<string, PeerCursor>>({});
   const [isMobile, setIsMobile] = useState(false);
+  const [themeTick, setThemeTick] = useState(0);
+  const { theme, resolvedTheme } = useTheme();
 
   const onPeer = useCallback((p: { id: string; x: number; y: number; name: string }) => {
     setPeers((prev) => ({ ...prev, [p.id]: { ...p, color: pickColor(p.id), ts: Date.now() } }));
@@ -184,7 +191,29 @@ export default function App() {
   }, []);
 
   const myName = nameInput.trim() || "Anonymous";
+  const currentTheme = theme === "system" ? resolvedTheme : theme;
   const broadcastCursor = useRealtimeCursors(myId, myName, onPeer, onLeave);
+
+  // Force canvas redraw when theme classes/attributes are applied on <html>.
+  useEffect(() => {
+    const root = document.documentElement;
+    const trigger = () => {
+      requestAnimationFrame(() => setThemeTick((t) => t + 1));
+    };
+
+    trigger();
+    const observer = new MutationObserver((mutations) => {
+      for (const mutation of mutations) {
+        if (mutation.type === "attributes") {
+          trigger();
+          break;
+        }
+      }
+    });
+
+    observer.observe(root, { attributes: true, attributeFilter: ["class", "style", "data-theme"] });
+    return () => observer.disconnect();
+  }, []);
 
   // Keep cursor style accurate without touching window during render.
   useEffect(() => {
@@ -255,12 +284,17 @@ export default function App() {
     const w = canvas.width / dpr;
     const h = canvas.height / dpr;
 
-    ctx.fillStyle = "#fff";
+    const styles = getComputedStyle(document.documentElement);
+    const canvasBg = readHslVar(styles, "--background", "#ffffff");
+    const gridColor = readHslVar(styles, "--border", "#f0f0f0");
+    const strokeColor = readHslVar(styles, "--foreground", "#111111");
+
+    ctx.fillStyle = canvasBg;
     ctx.fillRect(0, 0, w, h);
 
     if (showGrid) {
       const step = window.innerWidth < 480 ? 30 : 40;
-      ctx.strokeStyle = "#f0f0f0";
+      ctx.strokeStyle = gridColor;
       ctx.lineWidth = 1;
       for (let x = 0; x < w; x += step) {
         ctx.beginPath();
@@ -277,7 +311,7 @@ export default function App() {
     }
 
     if (points.length > 1) {
-      ctx.strokeStyle = "#111";
+      ctx.strokeStyle = strokeColor;
       ctx.lineWidth = 3;
       ctx.lineJoin = "round";
       ctx.lineCap = "round";
@@ -286,7 +320,7 @@ export default function App() {
       for (let i = 1; i < points.length; i++) ctx.lineTo(points[i].x, points[i].y);
       ctx.stroke();
     }
-  }, [points, showGrid]);
+  }, [points, showGrid, currentTheme, themeTick]);
 
   // Draw cursor overlay.
   useEffect(() => {
@@ -296,6 +330,8 @@ export default function App() {
     if (!ctx) return;
 
     const dpr = window.devicePixelRatio || 1;
+    const styles = getComputedStyle(document.documentElement);
+    const cursorStroke = readHslVar(styles, "--foreground", "#ffffff");
     ctx.clearRect(0, 0, canvas.width / dpr, canvas.height / dpr);
     for (const { x, y, name, color } of Object.values(peers)) {
       ctx.save();
@@ -311,7 +347,7 @@ export default function App() {
       ctx.lineTo(11, 9);
       ctx.closePath();
       ctx.fill();
-      ctx.strokeStyle = "#fff";
+      ctx.strokeStyle = cursorStroke;
       ctx.lineWidth = 1.5;
       ctx.stroke();
       ctx.restore();
@@ -322,10 +358,10 @@ export default function App() {
       ctx.beginPath();
       ctx.roundRect(x + 14, y + 14, tw + 10, 20, 4);
       ctx.fill();
-      ctx.fillStyle = "#fff";
+       ctx.fillStyle = "#ffffff";
       ctx.fillText(name, x + 19, y + 28);
     }
-  }, [peers]);
+  }, [peers, currentTheme, themeTick]);
 
   const evaluateCircle = (pts: Point[]): CircleResult => {
     if (pts.length < 10) return { score: 0, message: "Draw a complete circle!" };
@@ -447,37 +483,55 @@ export default function App() {
   const peerCount = Object.keys(peers).length;
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-white select-none">
+    <div className="relative w-screen h-screen overflow-hidden bg-background select-none">
+   
       {/* Canvases */}
-      <canvas ref={canvasRef} className="absolute inset-0" style={{cursor:isMobile?"default":"crosshair",zIndex:1,touchAction:"none"}}
-        onMouseDown={startDrawing} onMouseMove={onMove} onMouseUp={stopDrawing} onMouseLeave={stopDrawing}
-        onTouchStart={startDrawing} onTouchMove={onMove} onTouchEnd={stopDrawing} />
-      <canvas ref={overlayRef} className="absolute inset-0 pointer-events-none" style={{zIndex:2}} />
+      <canvas
+        ref={canvasRef}
+        className="absolute inset-0"
+        style={{
+          cursor: isMobile ? "default" : "crosshair",
+          zIndex: 1,
+          touchAction: "none"
+        }}
+        onMouseDown={startDrawing}
+        onMouseMove={onMove}
+        onMouseUp={stopDrawing}
+        onMouseLeave={stopDrawing}
+        onTouchStart={startDrawing}
+        onTouchMove={onMove}
+        onTouchEnd={stopDrawing}
+      />
+      <canvas
+        ref={overlayRef}
+        className="absolute inset-0 pointer-events-none"
+        style={{ zIndex: 2 }}
+      />
 
       {/* ── Top bar ── */}
       <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-3 pt-3 gap-2">
         {/* Desktop buttons */}
         <div className="hidden sm:flex gap-2">
-          <button onClick={clear} className="px-4 py-2 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 text-sm font-medium">Clear</button>
-          <button onClick={()=>setShowGrid(g=>!g)} className="px-4 py-2 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 text-sm font-medium">{showGrid?"Hide":"Show"} Grid</button>
-          <button onClick={openLB} className="px-4 py-2 bg-white border border-gray-200 rounded-lg shadow-sm hover:bg-gray-50 text-sm font-medium">🏆 Leaderboard</button>
+          <button onClick={clear} className="px-4 py-2 bg-card text-card-foreground border border-border rounded-lg shadow-sm hover:bg-accent hover:text-accent-foreground text-sm font-medium">Clear</button>
+          <button onClick={()=>setShowGrid(g=>!g)} className="px-4 py-2 bg-card text-card-foreground border border-border rounded-lg shadow-sm hover:bg-accent hover:text-accent-foreground text-sm font-medium">{showGrid?"Hide":"Show"} Grid</button>
+          <button onClick={openLB} className="px-4 py-2 bg-card text-card-foreground border border-border rounded-lg shadow-sm hover:bg-accent hover:text-accent-foreground text-sm font-medium">🏆 Leaderboard</button>
         </div>
 
         {/* Mobile: icon buttons */}
         <div className="flex sm:hidden mt-20 gap-2">
-          <button onClick={clear} className="w-10 h-10 bg-white border border-gray-200 rounded-lg shadow-sm flex items-center justify-center text-lg">✕</button>
-          <button onClick={()=>setShowGrid(g=>!g)} className="w-10 h-10 bg-white border border-gray-200 rounded-lg shadow-sm flex items-center justify-center text-lg">{showGrid?"◻":"▦"}</button>
-          <button onClick={openLB} className="w-10 h-10 bg-white border border-gray-200 rounded-lg shadow-sm flex items-center justify-center text-lg">🏆</button>
+          <button onClick={clear} className="w-10 h-10 bg-card text-card-foreground border border-border rounded-lg shadow-sm flex items-center justify-center text-lg">✕</button>
+          <button onClick={()=>setShowGrid(g=>!g)} className="w-10 h-10 bg-card text-card-foreground border border-border rounded-lg shadow-sm flex items-center justify-center text-lg">{showGrid?"◻":"▦"}</button>
+          <button onClick={openLB} className="w-10 h-10 bg-card text-card-foreground border border-border rounded-lg shadow-sm flex items-center justify-center text-lg">🏆</button>
         </div>
 
         {/* Online indicator */}
         {peerCount > 0 && (
-          <div className="flex mt-20 sm:mt-0 items-center gap-1.5 bg-white border border-gray-200 rounded-lg shadow-sm px-2.5 py-1.5">
+          <div className="flex mt-20 sm:mt-0 items-center gap-1.5 bg-card border border-border rounded-lg shadow-sm px-2.5 py-1.5">
             <span className="relative flex h-2 w-2">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </span>
-            <span className="text-xs sm:text-sm text-gray-600 whitespace-nowrap">{peerCount} online</span>
+            <span className="text-xs sm:text-sm text-muted-foreground whitespace-nowrap">{peerCount} online</span>
           </div>
         )}
       </div>
@@ -486,35 +540,34 @@ export default function App() {
       {points.length===0 && !result && !showLB && (
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none px-6 text-center" style={{zIndex:3}}>
           <h1 className="text-2xl sm:text-4xl font-bold mb-2 sm:mb-3">Draw a Perfect Circle</h1>
-          <p className="text-gray-500 text-sm sm:text-base">{isMobile ? "Trace a circle with your finger" : "Click and drag to draw your circle"}</p>
-          <p className="text-gray-400 text-xs sm:text-sm mt-1">Attempts: {attempts}</p>
+          <p className="text-muted-foreground text-sm sm:text-base">{isMobile ? "Trace a circle with your finger" : "Click and drag to draw your circle"}</p>
+          <p className="text-muted-foreground text-xs sm:text-sm mt-1">Attempts: {attempts}</p>
         </div>
       )}
-
       {/* ── Result panel ── */}
       {result && !showLB && (
-        <div className="absolute inset-0 flex items-end sm:items-center justify-center bg-white/90 z-20 px-4 pb-4 mb-20  sm:pb-0">
-          <div className="bg-white rounded-2xl shadow-xl p-6 sm:p-8 w-full max-w-sm text-center">
+        <div className="absolute inset-0 flex items-end sm:items-center justify-center bg-background/90 z-20 px-4 pb-4 mb-20  sm:pb-0">
+          <div className="bg-card text-card-foreground border border-border rounded-2xl shadow-xl p-6 sm:p-8 w-full max-w-sm text-center">
             <div className={`text-5xl sm:text-6xl font-bold mb-1 sm:mb-2 ${sColor(result.score)}`}>
-              {result.score}<span className="text-xl sm:text-2xl text-gray-400">/100</span>
+              {result.score}<span className="text-xl sm:text-2xl text-muted-foreground">/100</span>
             </div>
             <p className="text-base sm:text-lg font-medium mb-4 sm:mb-5">{result.message}</p>
             <div className="mb-4">
-              <p className="text-sm text-gray-500 mb-2">Your name for the leaderboard</p>
+              <p className="text-sm text-muted-foreground mb-2">Your name for the leaderboard</p>
               <input
-                className="w-full border border-gray-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-black"
+                className="w-full bg-background border border-input rounded-lg px-3 py-2.5 text-sm outline-none focus:ring-2 focus:ring-ring placeholder:text-muted-foreground"
                 placeholder="Your name" value={nameInput}
                 onChange={e=>setNameInput(e.target.value)}
                 onKeyDown={e=>e.key==="Enter"&&!saving&&handleSubmit()}
               />
-              {saveError && <p className="text-red-500 text-xs mt-1">⚠️ {saveError}</p>}
+              {saveError && <p className="text-destructive text-xs mt-1">⚠️ {saveError}</p>}
             </div>
             <div className="flex flex-col gap-2">
               <button onClick={handleSubmit} disabled={saving}
-                className="w-full py-2.5 bg-black text-white rounded-lg hover:bg-gray-800 text-sm font-medium disabled:opacity-50">
+                className="w-full py-2.5 bg-primary text-primary-foreground rounded-lg hover:opacity-90 text-sm font-medium disabled:opacity-50">
                 {saving?"Saving…":"Save to Leaderboard"}
               </button>
-              <button onClick={clear} className="w-full py-2.5 border border-gray-200 rounded-lg hover:bg-gray-50 text-sm font-medium">Skip & Try Again</button>
+              <button onClick={clear} className="w-full py-2.5 border border-border rounded-lg hover:bg-accent hover:text-accent-foreground text-sm font-medium">Skip & Try Again</button>
             </div>
           </div>
         </div>
@@ -522,36 +575,36 @@ export default function App() {
 
       {/* ── Leaderboard ── */}
       {showLB && (
-        <div className="absolute inset-0 flex items-end sm:items-center justify-center bg-white/95 dark:bg-gray-800/95 z-30 px-4 pb-4 mb-20 sm:pb-0">
-          <div className="bg-white dark:bg-primary-foreground rounded-2xl shadow-xl p-5 sm:p-6 w-full max-w-sm">
+        <div className="absolute inset-0 flex items-end sm:items-center justify-center bg-background/95 z-30 px-4 pb-4 mb-20 sm:pb-0">
+          <div className="bg-card text-card-foreground border border-border rounded-2xl shadow-xl p-5 sm:p-6 w-full max-w-sm">
             <div className="flex items-center justify-between mb-4 sm:mb-5">
               <h2 className="text-lg sm:text-xl font-bold">🏆 Top 10</h2>
-              <button onClick={()=>setShowLB(false)} className="text-gray-400 hover:text-gray-600 text-2xl leading-none w-8 h-8 flex items-center justify-center">&times;</button>
+              <button onClick={()=>setShowLB(false)} className="text-muted-foreground hover:text-foreground text-2xl leading-none w-8 h-8 flex items-center justify-center">&times;</button>
             </div>
 
             {lbLoading ? (
-              <div className="py-10 text-center text-gray-400 text-sm">Loading…</div>
+              <div className="py-10 text-center text-muted-foreground text-sm">Loading…</div>
             ) : lbError ? (
               <div className="py-6 text-center">
-                <p className="text-red-500 text-sm mb-3">{lbError}</p>
-                <button onClick={openLB} className="px-4 py-2 bg-black text-white rounded-lg text-sm">Retry</button>
+                <p className="text-destructive text-sm mb-3">{lbError}</p>
+                <button onClick={openLB} className="px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm hover:opacity-90">Retry</button>
               </div>
             ) : leaderboard.length===0 ? (
-              <p className="text-gray-400 text-center py-6 text-sm">No records yet. Be the first!</p>
+              <p className="text-muted-foreground text-center py-6 text-sm">No records yet. Be the first!</p>
             ) : (
               <div className="space-y-1.5 max-h-72 overflow-y-auto">
                 {leaderboard.map((e,i)=>(
-                  <div key={i} className={`flex items-center gap-2 px-3 py-2 rounded-lg ${i===0?"bg-yellow-50 dark:bg-yellow-950 border border-yellow-100":i===1?"bg-gray-50 dark:bg-gray-900":i===2?"bg-orange-50 dark:bg-orange-950 border border-orange-100":""}`}>
+                  <div key={i} className={`flex items-center gap-2 px-3 py-2 rounded-lg ${i===0?"bg-accent/70 border border-border":i===1?"bg-muted/60":i===2?"bg-accent/40 border border-border":""}`}>
                     <span className="w-7 text-center text-base">{medal(i)}</span>
                     <span className="flex-1 font-medium text-sm truncate">{e.name}</span>
-                    <span className="text-xs text-gray-400 hidden xs:block">{fDate(e.created_at)}</span>
+                    <span className="text-xs text-muted-foreground hidden xs:block">{fDate(e.created_at)}</span>
                     <span className={`font-bold text-sm w-10 text-right ${sColor(e.score)}`}>{e.score}</span>
                   </div>
                 ))}
               </div>
             )}
 
-            <button onClick={clear} className="mt-4 w-full py-2.5 bg-black text-white rounded-lg hover:bg-gray-800 text-sm font-medium">Play Again</button>
+            <button onClick={clear} className="mt-4 w-full py-2.5 bg-primary text-primary-foreground rounded-lg hover:opacity-90 text-sm font-medium">Play Again</button>
           </div>
         </div>
       )}
