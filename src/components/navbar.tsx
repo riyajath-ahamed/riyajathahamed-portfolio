@@ -21,7 +21,7 @@ export default function Navbar() {
           <Tooltip>
             <TooltipTrigger asChild>
               <Link
-                href={DATA.navbar[0].href}
+                href={"/"}
                 className={cn(
                   buttonVariants({ variant: "ghost", size: "icon" }),
                   "size-12 group",
@@ -80,30 +80,6 @@ export default function Navbar() {
           </div>
         </DockIcon>
         <Separator orientation="vertical" className="h-full ml-1" />
-        {/* {Object.entries(DATA.contact.social)
-          .filter(([_, social]) => social.navbar)
-          .map(([name, social]) => (
-            <DockIcon key={name}>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Link
-                    href={social.url}
-                    className={cn(
-                      buttonVariants({ variant: "ghost", size: "icon" }),
-                      "size-12"
-                    )}
-                  >
-                    <social.icon className="size-4" />
-                  </Link>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>{name}</p>
-                </TooltipContent>
-              </Tooltip>
-            </DockIcon>
-          ))}
-          <Separator orientation="vertical" className="h-full py-2" /> */}
-
         <DockIcon>
           <Tooltip>
             <TooltipTrigger asChild>
