@@ -19,6 +19,8 @@ interface StickerPeelProps {
   initialPosition?: 'center' | 'random' | { x: number; y: number };
   peelDirection?: number;
   className?: string;
+  label?: string;
+  freeDrag?: boolean;
 }
 
 interface CSSVars extends CSSProperties {
@@ -48,7 +50,9 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
   lightingIntensity = 0.1,
   initialPosition = 'center',
   peelDirection = 0,
-  className = ''
+  className = '',
+  label,
+  freeDrag = false,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const dragTargetRef = useRef<HTMLDivElement>(null);
@@ -85,8 +89,11 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
 
     const draggable = Draggable.create(target, {
       type: 'x,y',
-      bounds: boundsEl,
+      bounds: freeDrag ? document.body : boundsEl,
       inertia: true,
+      onDragStart() {
+        if (freeDrag) gsap.set(target, { zIndex: 9999 });
+      },
       onDrag(this: Draggable) {
         const rot = gsap.utils.clamp(-24, 24, this.deltaX * 0.4);
         gsap.to(target, { rotation: rot, duration: 0.15, ease: 'power1.out' });
@@ -95,35 +102,30 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
         const rotationEase = 'power2.out';
         const duration = 0.8;
         gsap.to(target, { rotation: 0, duration, ease: rotationEase });
+        if (freeDrag) gsap.set(target, { zIndex: 10 });
       }
     });
 
     draggableInstanceRef.current = draggable[0];
 
     const handleResize = () => {
-      if (draggableInstanceRef.current) {
-        draggableInstanceRef.current.update();
+      if (freeDrag || !draggableInstanceRef.current) return;
+      draggableInstanceRef.current.update();
 
-        const currentX = gsap.getProperty(target, 'x') as number;
-        const currentY = gsap.getProperty(target, 'y') as number;
+      const currentX = gsap.getProperty(target, 'x') as number;
+      const currentY = gsap.getProperty(target, 'y') as number;
 
-        const boundsRect = boundsEl.getBoundingClientRect();
-        const targetRect = target.getBoundingClientRect();
+      const boundsRect = boundsEl.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
 
-        const maxX = boundsRect.width - targetRect.width;
-        const maxY = boundsRect.height - targetRect.height;
+      const maxX = boundsRect.width - targetRect.width;
+      const maxY = boundsRect.height - targetRect.height;
 
-        const newX = Math.max(0, Math.min(currentX, maxX));
-        const newY = Math.max(0, Math.min(currentY, maxY));
+      const newX = Math.max(0, Math.min(currentX, maxX));
+      const newY = Math.max(0, Math.min(currentY, maxY));
 
-        if (newX !== currentX || newY !== currentY) {
-          gsap.to(target, {
-            x: newX,
-            y: newY,
-            duration: 0.3,
-            ease: 'power2.out'
-          });
-        }
+      if (newX !== currentX || newY !== currentY) {
+        gsap.to(target, { x: newX, y: newY, duration: 0.3, ease: 'power2.out' });
       }
     };
 
@@ -254,7 +256,7 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
 
   return (
     <div
-      className={`absolute cursor-grab active:cursor-grabbing transform-gpu ${className}`}
+      className={`absolute top-0 left-0 cursor-grab active:cursor-grabbing transform-gpu ${className}`}
       ref={dragTargetRef}
       style={cssVars}
     >
@@ -382,7 +384,7 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
           </div>
         </div>
       </div>
-      <p className='text-center text-sm text-gray-500 bg-slate-400 rounded-xl'>hwwiijo</p>
+      {label && <p className='text-center text-sm text-gray-500 bg-slate-400 rounded-xl'>{label}</p>}
     </div>
   );
 };

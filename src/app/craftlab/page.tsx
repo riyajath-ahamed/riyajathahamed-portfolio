@@ -69,7 +69,7 @@ export default function CraftLabShowcasePage() {
       <BlurFade delay={BLUR_FADE_DELAY}>
       <section className="grid gap-6 md:grid-cols-3">
       
-        {bentoCards.map((card) => (
+        {/* {bentoCards.map((card) => (
           <article
             key={card.title}
             className={`group relative overflow-hidden rounded-2xl border border-black/[0.08] bg-white/70 p-6 text-slate-900 shadow-[0_20px_60px_-30px_rgba(15,23,42,0.45)] backdrop-blur-lg transition duration-300 hover:-translate-y-1 hover:border-black/20 hover:bg-white ${card.cols} dark:border-white/10 dark:bg-white/5 dark:text-white dark:hover:border-white/30 dark:hover:bg-white/10`}
@@ -90,9 +90,14 @@ export default function CraftLabShowcasePage() {
               </div>
             </div>
           </article>
-        ))}
-        
+        ))} */}
       </section>
+      <div className=" w-full">
+          {/* Bookmark grid or list component goes here */}
+          <p className="text-center text-gray-500">
+             Craft Lab feature is under construction. Please check back later.
+          </p>
+        </div>
       </BlurFade>
 
       <section className="flex flex-col items-center justify-center pt-12 text-center">

@@ -10,7 +10,7 @@ export const DATA = {
   description:
     "Builds Intelligent, Data-Driven FRONT-END Products That Transform Complex Systems Into Intuitive User Experiences.",
   summary:
-    "I'm an experienced FRONT_END developer with a passion for design and a knack for tinkering. Web development is my playground,where I push boundaries and chase new horizons. I’ve worked close to product and design to shape interfaces that scale, perform, and feel intentional. From design-system-led UI to data-dense visualizations, I treat the front end not as a layer, but as a product-defining system",
+    "I’m an experienced front-end developer with a passion for design and a knack for tinkering. Web development is my playground, where I push boundaries and chase new horizons. I’ve worked close to product and design to shape interfaces that scale, perform, and feel intentional. From design-system-led UI to data-dense visualizations, I treat the front end not as a layer, but as a product-defining system — who builds systems that handle real load, real data, and real users and architects them to stay that way.",
   avatarUrl: "https://avatars.githubusercontent.com/u/64283797?v=4",
   skills: [
     "React",
