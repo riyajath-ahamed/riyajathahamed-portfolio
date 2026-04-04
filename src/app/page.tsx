@@ -1,7 +1,7 @@
 import { Icons } from "@/components/icons";
 import BlurFade from "@/components/magicui/blur-fade";
 import BlurFadeText from "@/components/magicui/blur-fade-text";
-import FlowingMenu from "@/components/magicui/FlowingMenu/FlowingMenu";
+import FolderProjects from "@/components/FolderProjects";
 import SkillRadarChart from "@/components/skillRadarChart";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
@@ -19,9 +19,6 @@ import StickerPeel from "@/components/magicui/stickerPeel";
 const BLUR_FADE_DELAY = 0.04;
 
 export default function Page() {
-
-type Project = (typeof DATA.projects)[number];
-
   return (
     <main className="flex flex-col min-h-screen space-y-10 max-w-4xl mx-auto py-12 sm:py-24 px-6 bg-transparent overflow-x-clip">
       <section id="hero" className="">
@@ -186,16 +183,8 @@ type Project = (typeof DATA.projects)[number];
             </div>
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 12}>
-          <FlowingMenu
-            items={DATA.projects.map((project) => ({
-              text: project.title,
-              link: project.href,
-              image: project.image,
-              project: project,
-            }))}
-          />
+            <FolderProjects />
           </BlurFade>
-          
         </div>
       </section>
       <section id="contact">
