@@ -135,7 +135,7 @@ export default function FolderProjects() {
               onClick={() => handleToggle(group.id)}
               className="flex flex-col items-center gap-0.5 cursor-pointer"
             >
-              <span className="text-xs font-mono uppercase tracking-widest text-muted-foreground hover:text-foreground transition-colors">
+              <span className={`text-xs mt-2 font-mono uppercase tracking-widest font-semibold text-muted-foreground hover:text-foreground py-2 px-3 rounded-md transition-colors ${activeGroup === group.id ? 'bg-blue-500 text-white' : 'bg-slate-300'}`}>
                 {group.label}
               </span>
               <span className="text-[10px] font-mono text-muted-foreground/50">

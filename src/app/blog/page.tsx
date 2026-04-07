@@ -20,8 +20,8 @@ export async function generateMetadata(): Promise<Metadata> {
 
   const recentDescriptions = posts
     .slice(0, 5)
-    .map((p) => p.description?.replace(/<[^>]*>/g, "").trim())
-    .filter((d): d is string => typeof d === "string" && d.length > 0)
+    .map((p: { description: string; }) => p.description?.replace(/<[^>]*>/g, "").trim())
+    .filter((d: string | any[]): d is string => typeof d === "string" && d.length > 0)
     .join(" · ");
 
   const description = recentDescriptions
