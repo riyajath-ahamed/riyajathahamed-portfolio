@@ -116,11 +116,7 @@ export default function FolderProjects() {
   };
 
   return (
-    <div className="relative w-full rounded-3xl border border-foreground/10 bg-gradient-to-br from-background via-background to-foreground/5 p-8 md:p-10 overflow-hidden shadow-sm">
-      {/* Background accents */}
-      <div className="pointer-events-none absolute -top-20 -right-20 h-56 w-56 rounded-full bg-foreground/[0.03] blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-16 -left-16 h-44 w-44 rounded-full bg-foreground/[0.03] blur-3xl" />
-
+    <>
       {/* Folders row */}
       <div className="relative flex gap-12 sm:gap-20 justify-center items-end">
         {FOLDER_GROUPS.map(group => (
@@ -172,6 +168,6 @@ export default function FolderProjects() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }
