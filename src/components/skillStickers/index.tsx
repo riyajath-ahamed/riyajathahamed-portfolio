@@ -1,5 +1,6 @@
 "use client";
 
+import { useRef, useState, useEffect, useCallback } from "react";
 import StickerPeel from "@/components/magicui/stickerPeel";
 import { DATA } from "@/data/resume";
 
@@ -28,33 +29,46 @@ const SKILL_ICONS: Record<string, string> = {
   "MCP":          "https://img.icons8.com/?size=100&id=MWq04yMLKiTZ&format=png&color=000000",
 };
 
-// 5 columns × 3 rows, row 2 offset by half a column for a brick pattern
-const STICKER_CONFIG = [
-  // Row 1
-  { rotate: 10,  peelDirection: 0,   initialPosition: { x: 20,  y: 8   } },
-  { rotate: -14, peelDirection: 180, initialPosition: { x: 130, y: 16  } },
-  { rotate: 18,  peelDirection: 0,   initialPosition: { x: 240, y: 6   } },
-  { rotate: -6,  peelDirection: 180, initialPosition: { x: 350, y: 14  } },
-  { rotate: 12,  peelDirection: 0,   initialPosition: { x: 460, y: 8   } },
-{ rotate: -16, peelDirection: 180, initialPosition: { x: 570, y: 12  } },
-  // Row 2 (shifted right by ~55 px for visual interest)
-  { rotate: -18, peelDirection: 180, initialPosition: { x: 75,  y: 110 } },
-  { rotate: 8,   peelDirection: 0,   initialPosition: { x: 185, y: 102 } },
-  { rotate: -10, peelDirection: 180, initialPosition: { x: 295, y: 112 } },
-  { rotate: 16,  peelDirection: 0,   initialPosition: { x: 405, y: 104 } },
-  { rotate: -8,  peelDirection: 180, initialPosition: { x: 515, y: 110 } },
-  { rotate: 14,  peelDirection: 0,   initialPosition: { x: 625, y: 108 } },
-  // Row 3
-  { rotate: 14,  peelDirection: 0,   initialPosition: { x: 20,  y: 212 } },
-  { rotate: -16, peelDirection: 180, initialPosition: { x: 130, y: 204 } },
-  { rotate: 6,   peelDirection: 0,   initialPosition: { x: 240, y: 214 } },
-  { rotate: -20, peelDirection: 180, initialPosition: { x: 350, y: 206 } },
-  { rotate: 10,  peelDirection: 0,   initialPosition: { x: 460, y: 212 } },
-  { rotate: -12, peelDirection: 180, initialPosition: { x: 570, y: 208 } },
-  
-];
+const ROTATIONS = [10, -14, 18, -6, 12, -16, -18, 8, -10, 16, -8, 14, 14, -16, 6, -20, 10, -12];
+const PEEL_DIRS = [0, 180, 0, 180, 0, 180, 180, 0, 180, 0, 180, 0, 0, 180, 0, 180, 0, 180];
+
+function computeGrid(count: number, containerWidth: number) {
+  const cols = containerWidth < 400 ? 3 : containerWidth < 600 ? 4 : 6;
+  const rows = Math.ceil(count / cols);
+  const cellW = (containerWidth - 16) / cols;
+  const rowH = 100;
+  const offsetX = cellW * 0.3;
+
+  return Array.from({ length: count }, (_, i) => {
+    const row = Math.floor(i / cols);
+    const col = i % cols;
+    const shift = row % 2 === 1 ? offsetX : 0;
+    return {
+      x: col * cellW + shift + 10,
+      y: row * rowH + 8 + (i % 3) * 4,
+    };
+  });
+}
 
 export default function SkillStickers() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [width, setWidth] = useState(700);
+
+  const measure = useCallback(() => {
+    if (containerRef.current) {
+      setWidth(containerRef.current.offsetWidth);
+    }
+  }, []);
+
+  useEffect(() => {
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, [measure]);
+
+  const positions = computeGrid(DATA.skills.length, width);
+  const rows = Math.ceil(DATA.skills.length / (width < 400 ? 3 : width < 600 ? 4 : 6));
+
   return (
     <div className="rounded-2xl border border-border bg-card shadow-md">
       <div className="flex items-center gap-2 px-4 py-2 border-b border-border">
@@ -63,28 +77,29 @@ export default function SkillStickers() {
           <span className="w-3 h-3 rounded-full bg-yellow-400" />
           <span className="w-3 h-3 rounded-full bg-green-400" />
         </div>
-        <span className="text-xs text-muted-foreground ml-1">drag stickers anywhere on the page</span>
+        <span className="text-xs text-muted-foreground ml-1">🐛 Drag at your own risk - it&apos;s a feature, not a bug (okay maybe a bug)</span>
       </div>
-      <div className="relative min-h-[300px] overflow-visible p-2">
-        {DATA.skills.map((skill, id) => {
-          const config = STICKER_CONFIG[id % STICKER_CONFIG.length];
-          return (
-            <StickerPeel
-              key={skill}
-              imageSrc={SKILL_ICONS[skill] ?? fallbackIcon(skill)}
-              width={48}
-              rotate={config.rotate}
-              peelBackHoverPct={30}
-              peelBackActivePct={40}
-              shadowIntensity={0.5}
-              lightingIntensity={0.1}
-              initialPosition={config.initialPosition}
-              peelDirection={config.peelDirection}
-              label={skill}
-              freeDrag
-            />
-          );
-        })}
+      <div
+        ref={containerRef}
+        className="relative overflow-visible p-2"
+        style={{ minHeight: rows * 100 + 20 }}
+      >
+        {DATA.skills.map((skill, id) => (
+          <StickerPeel
+            key={skill}
+            imageSrc={SKILL_ICONS[skill] ?? fallbackIcon(skill)}
+            width={48}
+            rotate={ROTATIONS[id % ROTATIONS.length]}
+            peelBackHoverPct={30}
+            peelBackActivePct={40}
+            shadowIntensity={0.5}
+            lightingIntensity={0.1}
+            initialPosition={positions[id]}
+            peelDirection={PEEL_DIRS[id % PEEL_DIRS.length]}
+            label={skill}
+            freeDrag
+          />
+        ))}
       </div>
     </div>
   );

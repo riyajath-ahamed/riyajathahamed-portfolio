@@ -16,6 +16,7 @@ import ProfileCard from "@/components/profileCard";
 import SkillStickers from "@/components/skillStickers";
 import StickerPeel from "@/components/magicui/stickerPeel";
 import BeyondCoding from "@/components/BeyondCoding";
+import Terminal from "@/components/Terminal";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -184,104 +185,108 @@ export default function Page() {
         </div>
       </section>
       <section id="contact">
-        <div className="grid items-center justify-center gap-4 px-4 text-center md:px-6 w-full py-12">
+        <div className="w-full py-12">
           <BlurFade delay={BLUR_FADE_DELAY * 16}>
-            <div className="space-y-3">
-              <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                Contact
-              </div>
-              <h2 className="text-5xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
-                Get in Touch
-              </h2>
-              <div className="flex flex-col md:flex-row items-center justify-center space-x-4 ">
-              <BlurFade delay={BLUR_FADE_DELAY}>
-                  <Image
-                    src="/tagCard.png"
-                    alt="Descriptive text for screen readers"
-                    width={250}
-                    height={50}
-                    className="responsive"
-                    placeholder="blur"
-                    blurDataURL="data:image/png"
+            <div className="relative w-full rounded-3xl border border-foreground/10 bg-gradient-to-br from-background via-background to-foreground/[0.03] px-5 py-8 md:p-12 shadow-sm">
+              <div className="flex flex-col md:flex-row gap-8 md:gap-10 items-center">
+                <div className="relative w-[240px] h-[300px] md:w-[280px] md:h-[340px] shrink-0 -mt-16 md:-mt-24 md:-ml-6 z-10">
+                  <StickerPeel
+                    imageSrc="/tagCard.png"
+                    width={240}
+                    rotate={-5}
+                    peelDirection={0}
+                    peelBackHoverPct={25}
+                    peelBackActivePct={40}
+                    shadowIntensity={0.55}
+                    lightingIntensity={0.08}
+                    initialPosition={{ x: 8, y: 8 }}
                   />
-                </BlurFade>
-                <div className="w-full md:w-1/2  px-3 ">
-                  <p className="mx-auto  text-left text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                </div>
+
+                <div className="flex-1 flex flex-col gap-4">
+                  <div className="inline-block self-start rounded-lg bg-foreground text-background px-3 py-1 text-sm">
+                    Contact
+                  </div>
+                  <h2 className="text-3xl md:text-4xl font-serif font-bold bg-gradient-to-b from-black to-gray-300/80 bg-clip-text leading-tight text-transparent dark:from-white dark:to-slate-900/10 tracking-tight">
+                    Get in Touch
+                  </h2>
+                  <p className="font-serif text-base md:text-lg text-foreground/70 leading-relaxed">
                     If you&apos;d like to get in touch, feel free to send me an
                     email at{" "}
                     <a
                       href={`mailto:${DATA.contact.email}`}
-                      className="text-blue-500 underline"
+                      className="text-blue-500 hover:text-blue-600 underline underline-offset-2 transition-colors"
                     >
                       {DATA.contact.email}
                     </a>
-                    . I&apos;ll get back to you as soon as I can. <br />
-                    <span className="cursor-pointer ">
-                      <span className="inline-block ">
-                        <Link2 className="inline-block" />{" "}
-                        <span className="inline-block "> My socials</span>
-                      </span>
-
-                      <span className="flex gap-3">
-                        <Link
-                          href={DATA.contact.social.GitHub.url}
-                          className={cn(
-                            buttonVariants({ variant: "ghost", size: "icon" }),
-                            "size-10"
-                          )}
-                        >
-                          <Icons.github className="inline-block w-5 h-5" />
-                        </Link>
-                        <Link
-                          href={DATA.contact.social.LinkedIn.url}
-                          className={cn(
-                            buttonVariants({ variant: "ghost", size: "icon" }),
-                            "size-10"
-                          )}
-                        >
-                          <Icons.linkedin className="inline-block w-5 h-5" />
-                        </Link>
-                        <Link
-                          href={DATA.contact.social.X.url}
-                          className={cn(
-                            buttonVariants({ variant: "ghost", size: "icon" }),
-                            "size-10"
-                          )}
-                        >
-                          <Icons.x className="inline-block w-5 h-5" />
-                        </Link>
-                        <Link
-                          href={DATA.contact.social.Medium.url}
-                          className={cn(
-                            buttonVariants({ variant: "ghost", size: "icon" }),
-                            "size-10"
-                          )}
-                        >
-                          <Icons.medium className="inline-block w-5 h-5" />
-                        </Link>
-                      </span>
-                    </span>
+                    . I&apos;ll get back to you as soon as I can.
                   </p>
+
+                  <div className="flex flex-col gap-2 mt-1">
+                    <span className="flex items-center gap-1.5 text-sm text-foreground/50">
+                      <Link2 className="w-4 h-4" />
+                      My socials
+                    </span>
+                    <div className="flex gap-1">
+                      <Link
+                        href={DATA.contact.social.GitHub.url}
+                        className={cn(
+                          buttonVariants({ variant: "ghost", size: "icon" }),
+                          "size-9 rounded-xl hover:bg-foreground/[0.06]"
+                        )}
+                      >
+                        <Icons.github className="w-5 h-5" />
+                      </Link>
+                      <Link
+                        href={DATA.contact.social.LinkedIn.url}
+                        className={cn(
+                          buttonVariants({ variant: "ghost", size: "icon" }),
+                          "size-9 rounded-xl hover:bg-foreground/[0.06]"
+                        )}
+                      >
+                        <Icons.linkedin className="w-5 h-5" />
+                      </Link>
+                      <Link
+                        href={DATA.contact.social.X.url}
+                        className={cn(
+                          buttonVariants({ variant: "ghost", size: "icon" }),
+                          "size-9 rounded-xl hover:bg-foreground/[0.06]"
+                        )}
+                      >
+                        <Icons.x className="w-5 h-5" />
+                      </Link>
+                      <Link
+                        href={DATA.contact.social.Medium.url}
+                        className={cn(
+                          buttonVariants({ variant: "ghost", size: "icon" }),
+                          "size-9 rounded-xl hover:bg-foreground/[0.06]"
+                        )}
+                      >
+                        <Icons.medium className="w-5 h-5" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-            <div>
-            </div>
-            <h2 className="text-6xl pt-4 font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
-              だってばよ
-            </h2>
-            <div className="mx-auto max-w-6xl px-4 sm:px-6">
-              <div className="space-y-2 sm:col-span-12 lg:col-span-4">
-                <div className="text-sm text-gray-600">
-                  &copy; {new Date().getFullYear()} {DATA.name} - All rights
-                  reserved.
-                </div>
+
+            <div className="text-center mt-8">
+              <h2 className="text-5xl md:text-6xl pt-4 font-serif font-bold pointer-events-none bg-gradient-to-b from-black to-gray-300/80 bg-clip-text leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter">
+                だってばよ
+              </h2>
+              <Terminal />
+              <p className="text-xs text-foreground/50 mt-4">
+                Crafted by a human, polished by an AI - because even engineers need a copilot ✦
+              </p>
+              <div className="text-sm text-gray-600 mt-2">
+                &copy; {new Date().getFullYear()} {DATA.name} - All rights
+                reserved.
               </div>
             </div>
           </BlurFade>
         </div>
       </section>
-      {/* <FooterPattern name={'RJ'} /> */}
+      
     </main>
   );
 }
