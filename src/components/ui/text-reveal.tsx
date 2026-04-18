@@ -22,26 +22,22 @@ export const TextRevealByWord: FC<TextRevealByWordProps> = ({
   const words = text.split(" ");
 
   return (
-    <div ref={targetRef} className={cn("relative z-0 h-[200vh]  ", className)}>
-      <div
-        className={
-          "sticky top-0 mx-auto flex flex-col h-[50%] max-w-4xl  px-[1rem] pt-[50rem] items-center bg-transparent gap-3 "
-        }
-      >
-        <h2 className=" text-4xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
+    <div ref={targetRef} className={cn("relative z-0 h-[180vh]", className)}>
+      <div className="sticky top-0 flex h-screen flex-col items-center justify-center gap-6 px-6 max-w-4xl mx-auto">
+        <div className="flex flex-col items-center gap-3">
+          <span className="inline-block rounded-full border border-foreground/20 px-4 py-1 text-xs font-medium uppercase tracking-widest text-muted-foreground">
+            About me
+          </span>
+          <h2 className="text-5xl font-serif font-bold pointer-events-none bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-6xl">
             About
           </h2>
-        <p
-          ref={targetRef}
-          className={
-            "flex flex-wrap text-2xl font-bold whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-black/20 dark:text-white/20 sm:text-xl  md:text-3xl  lg:text-4xl xl:text-5xl"
-          }
-        >
+        </div>
+        <p className="flex flex-wrap justify-center font-sans font-medium text-black/20 dark:text-white/20 text-xl sm:text-2xl md:text-3xl leading-snug max-w-3xl text-center">
           {words.map((word, i) => {
             const start = i / words.length;
             const end = start + 1 / words.length;
             return (
-              <Word key={i} progress={scrollYProgress} range={[start , end]}>
+              <Word key={i} progress={scrollYProgress} range={[start, end]}>
                 {word}
               </Word>
             );
@@ -61,11 +57,11 @@ interface WordProps {
 const Word: FC<WordProps> = ({ children, progress, range }) => {
   const opacity = useTransform(progress, range, [0, 1]);
   return (
-    <span className="xl:lg-3 relative mx-1 lg:mx-2.5">
-      <span className={"absolute opacity-30"}>{children}</span>
+    <span className="relative mx-1 lg:mx-1.5">
+      <span className="absolute opacity-20">{children}</span>
       <motion.span
-        style={{ opacity: opacity }}
-        className={"text-black dark:text-white"}
+        style={{ opacity }}
+        className="text-black dark:text-white"
       >
         {children}
       </motion.span>
