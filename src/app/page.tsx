@@ -15,6 +15,7 @@ import Link from "next/link";
 import ProfileCard from "@/components/profileCard";
 import SkillStickers from "@/components/skillStickers";
 import StickerPeel from "@/components/magicui/stickerPeel";
+import BeyondCoding from "@/components/BeyondCoding";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -80,63 +81,73 @@ export default function Page() {
         <TextRevealByWord text={DATA.summary} />
       </section>
 
-      <section id="engineering-philosophy" className="py-8">
-        <BlurFade delay={BLUR_FADE_DELAY * 5}>
-          <div className="relative w-full rounded-3xl border border-foreground/10 bg-gradient-to-br from-background via-background to-foreground/[0.03] px-5 py-8 md:p-12 overflow-hidden shadow-sm">
-            <div className="flex flex-col md:flex-row gap-6 md:gap-10">
-              <div className="flex-1 flex flex-col gap-4 justify-center">
-                <h2 className="text-xl font-serif font-bold bg-gradient-to-b from-black to-gray-400/80 bg-clip-text leading-tight text-transparent dark:from-white dark:to-slate-900/10 tracking-tight md:text-2xl">
-                  Engineering Philosophy
-                </h2>
-                <p className="font-serif text-base md:text-lg text-foreground/70 leading-relaxed">
-                  My approach to design is deeply shaped by a personal philosophy that echoes ideas like this.{" "}
-                  <span className="italic text-foreground/50">For me —</span>{" "}
-                  the interface is the product. Everything else is infrastructure. It&apos;s this mindset that keeps me curious, creative, and driven every day.
-                </p>
-                <p className="font-sans text-xs md:text-sm text-foreground/40 leading-relaxed border-l-2 border-foreground/10 pl-3">
-                  The iceberg principle. Complexity belongs inside, hidden. The surface should be calm.
-                </p>
-              </div>
-
-              <div className="relative flex flex-col items-center md:flex-row md:items-start md:justify-center shrink-0 w-full md:w-[320px] md:gap-0">
-                <div className="relative w-[120px] h-[168px] shrink-0 z-0 md:z-10 order-1 -mt-12 md:mt-0">
-                  <StickerPeel
-                    imageSrc="/philosophy-of-software-design.jpg"
-                    width={108}
-                    rotate={-3}
-                    peelDirection={0}
-                    peelBackHoverPct={30}
-                    peelBackActivePct={45}
-                    shadowIntensity={0.5}
-                    lightingIntensity={0.08}
-                    initialPosition={{ x: 4, y: 4 }}
-                  />
+      <div className="relative">
+        <section id="engineering-philosophy" className="sticky top-8 z-10 py-8">
+          <BlurFade delay={BLUR_FADE_DELAY * 5}>
+            <div className="relative w-full rounded-3xl border border-foreground/10 bg-gradient-to-br from-background via-background to-foreground/[0.03] px-5 py-8 md:p-12 overflow-hidden shadow-sm">
+              <div className="flex flex-col md:flex-row gap-6 md:gap-10">
+                <div className="flex-1 flex flex-col gap-4 justify-center">
+                  <h2 className="text-xl font-serif font-bold bg-gradient-to-b from-black to-gray-400/80 bg-clip-text leading-tight text-transparent dark:from-white dark:to-slate-900/10 tracking-tight md:text-2xl">
+                    Engineering Philosophy
+                  </h2>
+                  <p className="font-serif text-base md:text-lg text-foreground/70 leading-relaxed">
+                    My approach to design is deeply shaped by a personal philosophy that echoes ideas like this.{" "}
+                    <span className="italic text-foreground/50">For me —</span>{" "}
+                    the interface is the product. Everything else is infrastructure. It&apos;s this mindset that keeps me curious, creative, and driven every day.
+                  </p>
+                  <p className="font-sans text-xs md:text-sm text-foreground/40 leading-relaxed border-l-2 border-foreground/10 pl-3">
+                    The iceberg principle. Complexity belongs inside, hidden. The surface should be calm.
+                  </p>
                 </div>
 
-                <div className="relative z-10 md:z-0 w-full max-w-[280px] md:max-w-[220px] rounded-[2px] bg-amber-50 dark:bg-amber-950/80 transform rotate-0 md:rotate-2 md:-ml-2 md:mt-8 shadow-[2px_3px_12px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.06)] order-2">
-                  <div className="absolute top-0 left-0 right-0 h-6 bg-amber-100/80 dark:bg-amber-900/40 border-b border-amber-200/50 dark:border-amber-800/30" />
-                  <div
-                    className="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.06]"
-                    style={{
-                      backgroundImage: "repeating-linear-gradient(transparent, transparent 23px, currentColor 23px, currentColor 24px)",
-                      backgroundPositionY: "28px",
-                    }}
-                  />
-                  <div className="absolute left-7 top-0 bottom-0 w-px bg-rose-300/30 dark:bg-rose-400/15" />
-                  <div className="relative px-10 pt-8 pb-5">
-                    <blockquote className="font-serif italic text-sm md:text-base text-amber-900/80 dark:text-amber-200/70 leading-[24px]">
-                      &ldquo;The best modules are those that provide powerful functionality yet have simple interfaces.&rdquo;
-                    </blockquote>
-                    <span className="block text-[10px] font-mono uppercase tracking-widest text-amber-700/50 dark:text-amber-400/40 mt-3">
-                      — John Ousterhout
-                    </span>
+                <div className="relative flex flex-col items-center md:flex-row md:items-start md:justify-center shrink-0 w-full md:w-[320px] md:gap-0">
+                  <div className="relative w-[120px] h-[168px] shrink-0 z-0 md:z-10 order-1 -mt-12 md:mt-0">
+                    <StickerPeel
+                      imageSrc="/philosophy-of-software-design.jpg"
+                      width={108}
+                      rotate={-3}
+                      peelDirection={0}
+                      peelBackHoverPct={30}
+                      peelBackActivePct={45}
+                      shadowIntensity={0.5}
+                      lightingIntensity={0.08}
+                      initialPosition={{ x: 4, y: 4 }}
+                    />
+                  </div>
+
+                  <div className="relative z-10 md:z-0 w-full max-w-[280px] md:max-w-[220px] rounded-[2px] bg-amber-50 dark:bg-amber-950/80 transform rotate-0 md:rotate-2 md:-ml-2 md:mt-8 shadow-[2px_3px_12px_rgba(0,0,0,0.12),0_1px_3px_rgba(0,0,0,0.06)] order-2">
+                    <div className="absolute top-0 left-0 right-0 h-6 bg-amber-100/80 dark:bg-amber-900/40 border-b border-amber-200/50 dark:border-amber-800/30" />
+                    <div
+                      className="pointer-events-none absolute inset-0 overflow-hidden opacity-[0.06]"
+                      style={{
+                        backgroundImage: "repeating-linear-gradient(transparent, transparent 23px, currentColor 23px, currentColor 24px)",
+                        backgroundPositionY: "28px",
+                      }}
+                    />
+                    <div className="absolute left-7 top-0 bottom-0 w-px bg-rose-300/30 dark:bg-rose-400/15" />
+                    <div className="relative px-10 pt-8 pb-5">
+                      <blockquote className="font-serif italic text-sm md:text-base text-amber-900/80 dark:text-amber-200/70 leading-[24px]">
+                        &ldquo;The best modules are those that provide powerful functionality yet have simple interfaces.&rdquo;
+                      </blockquote>
+                      <span className="block text-[10px] font-mono uppercase tracking-widest text-amber-700/50 dark:text-amber-400/40 mt-3">
+                        — John Ousterhout
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </BlurFade>
-      </section>
+          </BlurFade>
+        </section>
+
+        <section id="beyond-coding" className="relative z-20 py-8">
+          <BlurFade delay={BLUR_FADE_DELAY * 7}>
+            <div className="relative w-full rounded-3xl border border-foreground/10 bg-gradient-to-br from-background via-background to-foreground/[0.03] px-5 py-8 md:p-8 overflow-hidden shadow-md">
+              <BeyondCoding />
+            </div>
+          </BlurFade>
+        </section>
+      </div>
 
       <section id="skills">
         <div className="flex min-h-0 flex-col gap-y-3">

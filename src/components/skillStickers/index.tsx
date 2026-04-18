@@ -3,6 +3,12 @@
 import StickerPeel from "@/components/magicui/stickerPeel";
 import { DATA } from "@/data/resume";
 
+function fallbackIcon(name: string): string {
+  const initials = name.slice(0, 2).toUpperCase();
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="%23e5e7eb"/><text x="32" y="38" text-anchor="middle" font-family="system-ui,sans-serif" font-size="22" font-weight="600" fill="%236b7280">${initials}</text></svg>`;
+  return `data:image/svg+xml,${svg}`;
+}
+
 const SKILL_ICONS: Record<string, string> = {
   "React":        "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
   "Next.js":      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
@@ -19,6 +25,7 @@ const SKILL_ICONS: Record<string, string> = {
   "GCP":          "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg",
   "Firebase":     "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
   "Terraform":    "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/terraform/terraform-original.svg",
+  "MCP":          "https://img.icons8.com/?size=100&id=MWq04yMLKiTZ&format=png&color=000000",
 };
 
 // 5 columns × 3 rows, row 2 offset by half a column for a brick pattern
@@ -29,18 +36,22 @@ const STICKER_CONFIG = [
   { rotate: 18,  peelDirection: 0,   initialPosition: { x: 240, y: 6   } },
   { rotate: -6,  peelDirection: 180, initialPosition: { x: 350, y: 14  } },
   { rotate: 12,  peelDirection: 0,   initialPosition: { x: 460, y: 8   } },
+{ rotate: -16, peelDirection: 180, initialPosition: { x: 570, y: 12  } },
   // Row 2 (shifted right by ~55 px for visual interest)
   { rotate: -18, peelDirection: 180, initialPosition: { x: 75,  y: 110 } },
   { rotate: 8,   peelDirection: 0,   initialPosition: { x: 185, y: 102 } },
   { rotate: -10, peelDirection: 180, initialPosition: { x: 295, y: 112 } },
   { rotate: 16,  peelDirection: 0,   initialPosition: { x: 405, y: 104 } },
   { rotate: -8,  peelDirection: 180, initialPosition: { x: 515, y: 110 } },
+  { rotate: 14,  peelDirection: 0,   initialPosition: { x: 625, y: 108 } },
   // Row 3
   { rotate: 14,  peelDirection: 0,   initialPosition: { x: 20,  y: 212 } },
   { rotate: -16, peelDirection: 180, initialPosition: { x: 130, y: 204 } },
   { rotate: 6,   peelDirection: 0,   initialPosition: { x: 240, y: 214 } },
   { rotate: -20, peelDirection: 180, initialPosition: { x: 350, y: 206 } },
   { rotate: 10,  peelDirection: 0,   initialPosition: { x: 460, y: 212 } },
+  { rotate: -12, peelDirection: 180, initialPosition: { x: 570, y: 208 } },
+  
 ];
 
 export default function SkillStickers() {
@@ -60,7 +71,7 @@ export default function SkillStickers() {
           return (
             <StickerPeel
               key={skill}
-              imageSrc={SKILL_ICONS[skill] ?? ""}
+              imageSrc={SKILL_ICONS[skill] ?? fallbackIcon(skill)}
               width={48}
               rotate={config.rotate}
               peelBackHoverPct={30}

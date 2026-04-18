@@ -384,7 +384,11 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
           </div>
         </div>
       </div>
-      {label && <p className='text-center text-sm text-gray-500 bg-slate-400 rounded-xl'>{label}</p>}
+      {label && (
+        <p className='absolute left-1/2 -translate-x-1/2 whitespace-nowrap text-center text-[11px] font-medium tracking-wide px-3 py-1 text-foreground/50 bg-foreground/[0.04] backdrop-blur-sm rounded-full border border-foreground/[0.06] transition-colors duration-200 hover:bg-foreground/[0.08] hover:text-foreground/70 hover:border-foreground/10'
+          style={{ top: `calc(var(--sticker-width) + 8px)` }}
+        >{label}</p>
+      )}
     </div>
   );
 };
