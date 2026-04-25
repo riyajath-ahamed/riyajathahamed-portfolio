@@ -2,17 +2,14 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 
-function getRequiredEnv(name: "NEXT_PUBLIC_SB_URL" | "NEXT_PUBLIC_SB_KEY"): string {
-  const value = process.env[name];
-  if (!value) {
-    throw new Error(`Missing required env var: ${name}`);
-  }
-  return value;
+const SB_URL = process.env.NEXT_PUBLIC_SB_URL;
+const SB_KEY = process.env.NEXT_PUBLIC_SB_KEY;
+
+if (!SB_URL || !SB_KEY) {
+  throw new Error("Missing required Supabase environment variables.");
 }
-
-const SB_URL = getRequiredEnv("NEXT_PUBLIC_SB_URL");
-const SB_KEY = getRequiredEnv("NEXT_PUBLIC_SB_KEY");
-
+const SUPABASE_URL: string = SB_URL;
+const SUPABASE_KEY: string = SB_KEY;
 const DIFF = {
   easy:   { label: "Easy",   ms: 4000, hint: "4 seconds" },
   medium: { label: "Medium", ms: 2000, hint: "2 seconds" },
@@ -132,24 +129,40 @@ function getClientY(event: KnownPointerEvent): number {
 
 async function sbFetch(diff: Difficulty): Promise<LeaderboardRow[]> {
   try {
-    const response = await fetch(`${SB_URL}/rest/v1/color_memory_scores?difficulty=eq.${diff}&order=score.desc&limit=10`, {
-      headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` }
+    const headers = new Headers();
+    headers.set("apikey", SUPABASE_KEY);
+    headers.set("Authorization", `Bearer ${SUPABASE_KEY}`);
+    headers.set("Content-Type", "application/json");
+
+    const response = await fetch(`${SUPABASE_URL}/rest/v1/color_memory_scores?difficulty=eq.${diff}&order=score.desc&limit=10`, {
+      headers
     });
 
-    if (!response.ok) {
-      return [];
+    if (response.ok) {
+      return (response.status === 204 ? [] : await response.json()) as LeaderboardRow[];
     }
 
-    const data = (await response.json()) as LeaderboardRow[];
-    return Array.isArray(data) ? data : [];
+    let message = "Request failed";
+    try {
+      const data = (await response.json()) as { error?: string; message?: string };
+      message = data.error ?? data.message ?? message;
+    } catch {
+      // Keep fallback message.
+    }
+    throw new Error(message);
   } catch {
     return [];
   }
 }
 
 async function sbFetchTop10(): Promise<LeaderboardRow[]> {
-  const response = await fetch(`${SB_URL}/rest/v1/color_memory_scores?&order=score.desc&limit=10`, {
-    headers: { apikey: SB_KEY, Authorization: `Bearer ${SB_KEY}` }
+  const headers = new Headers();
+  headers.set("apikey", SUPABASE_KEY);
+  headers.set("Authorization", `Bearer ${SUPABASE_KEY}`);
+  headers.set("Content-Type", "application/json");
+
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/color_memory_scores?&order=score.desc&limit=10`, {
+    headers
   });
 
   if (!response.ok) {
