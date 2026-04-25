@@ -276,7 +276,7 @@ export default function Page() {
               </h2>
               <Terminal />
               <p className="text-xs text-foreground/50 mt-4">
-                Crafted by a human, polished by an AI - because even engineers need a copilot ✦
+              ✦ Crafted by a human ✦
               </p>
               <div className="text-sm text-gray-600 mt-2">
                 &copy; {new Date().getFullYear()} {DATA.name} - All rights
