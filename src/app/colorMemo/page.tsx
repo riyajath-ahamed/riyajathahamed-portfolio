@@ -2,8 +2,16 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 
-const SB_URL = "https://nganxdoqkrjnoqhbxaub.supabase.co";
-const SB_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5nYW54ZG9xa3Jqbm9xaGJ4YXViIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI4NjUyMzMsImV4cCI6MjA4ODQ0MTIzM30.k25WTcE8FWJApZTXjrgLrUUJnNT8JaLqdc4rsg29ukg";
+function getRequiredEnv(name: "NEXT_PUBLIC_SB_URL" | "NEXT_PUBLIC_SB_KEY"): string {
+  const value = process.env[name];
+  if (!value) {
+    throw new Error(`Missing required env var: ${name}`);
+  }
+  return value;
+}
+
+const SB_URL = getRequiredEnv("NEXT_PUBLIC_SB_URL");
+const SB_KEY = getRequiredEnv("NEXT_PUBLIC_SB_KEY");
 
 const DIFF = {
   easy:   { label: "Easy",   ms: 4000, hint: "4 seconds" },
@@ -220,7 +228,7 @@ export default function App() {
   const leaderboard = lb;
 
   const sliderConfigs: SliderConfig[] = [
-    { key: "h", ref: hRef, bg: "linear-gradient(to bottom,#f00,#ff0,#0f0,#0ff,#00f,#f0f,#f00)", val: hsv.h, max: 360 },
+    { key: "h", ref: hRef, bg: "linear-gradient(to bottom,#f00,#f0f,#00f,#0ff,#0f0,#ff0,#f00)", val: hsv.h, max: 360 },
     { key: "s", ref: sRef, bg: `linear-gradient(to bottom,${toHex(hsvToRgb(hsv.h, 1, hsv.v))},${toHex(hsvToRgb(hsv.h, 0, hsv.v))})`, val: hsv.s, max: 1 },
     { key: "v", ref: vRef, bg: `linear-gradient(to bottom,${toHex(hsvToRgb(hsv.h, hsv.s, 1))},#000)`, val: hsv.v, max: 1 }
   ];
@@ -355,7 +363,7 @@ export default function App() {
       const rect = bar.getBoundingClientRect();
       const clientY = getClientY(ev);
       const ratio = Math.max(0, Math.min(1, (clientY - rect.top) / rect.height));
-      const nextValue = key === "h" ? ratio * 360 : 1 - ratio;
+      const nextValue = key === "h" ? (1 - ratio) * 360 : 1 - ratio;
       setHsv((h) => ({ ...h, [key]: nextValue }));
     };
 
@@ -375,14 +383,14 @@ export default function App() {
     const rect = bar.getBoundingClientRect();
     const clientY = getClientY(e);
     const ratio = Math.max(0, Math.min(1, (clientY - rect.top) / rect.height));
-    const nextValue = key === "h" ? ratio * 360 : 1 - ratio;
+    const nextValue = key === "h" ? (1 - ratio) * 360 : 1 - ratio;
     setHsv((h) => ({ ...h, [key]: nextValue }));
   }, []);
 
   const thumbTop = (val: number, max = 1): string => `calc(${(1 - val / max) * 100}% - 10px)`;
 
   return (
-    <div className="min-h-screen bg-stone-100 dark:bg-stone-950 text-stone-900 dark:text-stone-100 flex items-center justify-center px-4 py-8 relative z-10 ">
+    <div className="min-h-screen bg-stone-100/50 dark:bg-stone-950/50 text-stone-900 dark:text-stone-100 flex items-center justify-center px-4 py-8 relative z-10 ">
       <div className="w-full max-w-sm">
 
         {/* ── MENU ── */}
