@@ -55,8 +55,6 @@ interface IssueTokenResponse extends ApiErrorResponse {
   timestamp: number;
 }
 
-interface SubmitScoreResponse extends ApiErrorResponse {}
-
 interface SliderConfig {
   key: SliderKey;
   ref: React.RefObject<HTMLDivElement | null>;
@@ -190,13 +188,13 @@ async function submitScore(
   difficulty: Difficulty,
   token: string,
   timestamp: number
-): Promise<SubmitScoreResponse> {
+): Promise<ApiErrorResponse> {
   const res = await fetch(EDGE_FN, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ action: "submit", name, score, difficulty, token, timestamp })
   });
-  const data = (await res.json()) as SubmitScoreResponse;
+  const data = (await res.json()) as ApiErrorResponse;
   if (!res.ok) throw new Error(data.error ?? `Submit error ${res.status}`);
   return data;
 }
