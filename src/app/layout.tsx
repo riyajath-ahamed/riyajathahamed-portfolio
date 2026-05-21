@@ -14,7 +14,7 @@ import AuroraBackground from "@/components/AuroraBackground";
 const fontSans = FontSans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-poppins',
+  variable: '--font-cal-sans',
   weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
 });
 
@@ -70,10 +70,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <meta name="apple-mobile-web-app-title" content="Riyajath Ahamed" />
       <body
         className={cn(
           " bg-background font-sans overflow-x-hidden",
-          fontSans.variable, acorn.variable
+          fontSans.variable, acorn.variable,
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
@@ -100,11 +101,11 @@ export default function RootLayout({
           </TooltipProvider>
         </ThemeProvider>
         {/*  xl:inset-y-0 xl:-right-[70vh] xl:inset-x-auto  */}
-        <div className=" hidden sm:block absolute inset-x-0 top-[60vh] -z-10 overflow-x-hidden ">
+        {/* <div className=" hidden sm:block absolute inset-x-0 top-[60vh] -z-10 overflow-x-hidden ">
         <Spline className="fixed w-full h-full inset-x-0 top-[60vh] -z-10 overflow-x-hidden"
           scene="https://prod.spline.design/IKyLNSd3P6WxwJpg/scene.splinecode" 
         />
-        </div>
+        </div> */}
         
       </body>
     </html>

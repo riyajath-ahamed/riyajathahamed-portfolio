@@ -21,7 +21,8 @@ const config = {
   	extend: {
   		fontFamily: {
   			sans: ['var(--font-poppins)', 'sans-serif'],
-  			serif: ['var(--font-acorn)', 'serif']
+  			serif: ['var(--font-acorn)', 'serif'],
+			mono: ['var(--font-cal-sans)', 'sans-serif'],
   		},
   		colors: {
   			border: 'hsl(var(--border))',
