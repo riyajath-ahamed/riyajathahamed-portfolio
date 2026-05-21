@@ -366,7 +366,7 @@ export default function BubbleMenu({
           className={[
             "bubble logo-bubble",
             "inline-flex items-center justify-center",
-            "rounded-full",
+            "rounded-lg",
             "bg-white",
             "shadow-[0_4px_16px_rgba(0,0,0,0.12)]",
             "pointer-events-auto",
@@ -414,7 +414,7 @@ export default function BubbleMenu({
             "bubble toggle-bubble menu-btn",
             isMenuOpen ? "open" : "",
             "inline-flex flex-col items-center justify-center",
-            "rounded-full",
+            "rounded-lg",
             "bg-white",
             "shadow-[0_4px_16px_rgba(0,0,0,0.12)]",
             "pointer-events-auto",
@@ -561,7 +561,7 @@ export default function BubbleMenu({
                 className={[
                   "bubble theme-toggle-bubble",
                   "inline-flex items-center justify-center",
-                  "rounded-full",
+                  "rounded-lg",
                   "bg-white",
                   "shadow-[0_4px_16px_rgba(0,0,0,0.12)]",
                   "pointer-events-auto",

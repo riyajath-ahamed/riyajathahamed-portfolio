@@ -21,6 +21,7 @@ interface StickerPeelProps {
   className?: string;
   label?: string;
   freeDrag?: boolean;
+  imgClassName?: string;
 }
 
 interface CSSVars extends CSSProperties {
@@ -53,6 +54,7 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
   className = '',
   label,
   freeDrag = false,
+  imgClassName = '',
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const dragTargetRef = useRef<HTMLDivElement>(null);
@@ -350,7 +352,7 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
             <img
               src={imageSrc}
               alt=""
-              className="block"
+              className={`block ${imgClassName}`}
               style={imageStyle}
               draggable="false"
               onContextMenu={e => e.preventDefault()}
@@ -363,7 +365,7 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
             <img
               src={imageSrc}
               alt=""
-              className="block"
+              className={`block ${imgClassName}`}
               style={shadowImageStyle}
               draggable="false"
               onContextMenu={e => e.preventDefault()}
@@ -376,7 +378,7 @@ const StickerPeel: React.FC<StickerPeelProps> = ({
             <img
               src={imageSrc}
               alt=""
-              className="block"
+              className={`block ${imgClassName}`}
               style={shadowImageStyle}
               draggable="false"
               onContextMenu={e => e.preventDefault()}

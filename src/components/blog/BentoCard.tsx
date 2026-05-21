@@ -58,7 +58,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
       href={post.link}
       target="_blank"
       rel="noopener noreferrer"
-      className={`group relative overflow-hidden rounded-3xl p-6 flex flex-col justify-between transition-all duration-500 ${sizeClasses[size]} ${variantStyles[variant]}`}
+      className={`group relative overflow-hidden rounded-lg p-6 flex flex-col justify-between transition-all duration-500 ${sizeClasses[size]} ${variantStyles[variant]}`}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -150,7 +150,7 @@ export const BentoCard: React.FC<BentoCardProps> = ({
                 transition={{ delay: index * 0.1 + 0.2 }}
               >
                 <span
-                  className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium ${
+                  className={`inline-flex items-center gap-2 px-3 py-1 rounded-lg text-xs font-medium ${
                     variant === "light"
                       ? "bg-black/5 dark:bg-white/10"
                       : "bg-white/20"
