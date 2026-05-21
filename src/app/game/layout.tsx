@@ -1,11 +1,10 @@
-import Beams from "@/components/magicui/Beams/Beams";
 import React, { ReactNode } from "react";
 
-interface BookMarkLayoutProps {
+interface GameLayoutProps {
     children: ReactNode;
 }
 
-export default function BookmarkLayout({ children }: BookMarkLayoutProps) {
+export default function GameLayout({ children }: GameLayoutProps) {
     return (
         <div>
             <main >
