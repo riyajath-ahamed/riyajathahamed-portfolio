@@ -4,6 +4,7 @@ import { useState, useRef, useEffect, useCallback, type MouseEvent, type TouchEv
 import { CircleResult, IssueTokenResponse, LeaderboardEntry, PeerCursor, ScoreToken, SocketEnvelope, SocketSendMessage } from "./config";
 import { Point } from "framer-motion";
 import { useTheme } from "next-themes";
+import { ANALYTICS_EVENTS, captureEvent } from "@/lib/analytics";
 
 type DrawEvent = MouseEvent<HTMLCanvasElement> | TouchEvent<HTMLCanvasElement>;
 
@@ -215,6 +216,10 @@ export default function App() {
 
   // Keep cursor style accurate without touching window during render.
   useEffect(() => {
+    captureEvent(ANALYTICS_EVENTS.GAME_VIEWED, { game: "circle" });
+  }, []);
+
+  useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 640);
     checkMobile();
     window.addEventListener("resize", checkMobile);
@@ -404,6 +409,10 @@ export default function App() {
     setResult(null);
     setSaveErr(null);
     scoreToken.current = null;
+    captureEvent(ANALYTICS_EVENTS.GAME_DRAW_STARTED, {
+      game: "circle",
+      attempt: attempts + 1,
+    });
   };
 
   const onMove = (e: DrawEvent) => {
@@ -421,6 +430,13 @@ export default function App() {
     const ev = evaluateCircle(points);
     setResult(ev);
     setAttempts((a) => a + 1);
+    captureEvent(ANALYTICS_EVENTS.GAME_CIRCLE_SCORED, {
+      game: "circle",
+      score: ev.score,
+      message: ev.message,
+      attempts: attempts + 1,
+      point_count: points.length,
+    });
 
     // Get server-signed token immediately. No crypto on client.
     try {
@@ -446,14 +462,25 @@ export default function App() {
       setLB((await fetchTop10()) || []);
       setShowLB(true);
       setResult(null);
+      captureEvent(ANALYTICS_EVENTS.GAME_SCORE_SAVED, {
+        game: "circle",
+        score: t.score,
+      });
     } catch (e) {
-      setSaveErr(e instanceof Error ? e.message : "Could not save. Try again.");
+      const message = e instanceof Error ? e.message : "Could not save. Try again.";
+      setSaveErr(message);
+      captureEvent(ANALYTICS_EVENTS.GAME_SCORE_SAVE_FAILED, {
+        game: "circle",
+        score: scoreToken.current?.score ?? null,
+        error: message,
+      });
     } finally {
       setSaving(false);
     }
   };
 
   const openLB = async () => {
+    captureEvent(ANALYTICS_EVENTS.GAME_LEADERBOARD_OPENED, { game: "circle" });
     setShowLB(true);
     setLbLoad(true);
     setLbErr(null);
@@ -466,12 +493,24 @@ export default function App() {
     }
   };
 
-  const clear = () => {
+  const resetBoard = (from: "toolbar" | "skip" | "leaderboard") => {
     setPoints([]);
     setResult(null);
     setSaveErr(null);
     setShowLB(false);
     scoreToken.current = null;
+    captureEvent(ANALYTICS_EVENTS.GAME_PLAY_AGAIN, { game: "circle", from });
+  };
+
+  const toggleGrid = () => {
+    setShowGrid((g) => {
+      const next = !g;
+      captureEvent(ANALYTICS_EVENTS.GAME_GRID_TOGGLED, {
+        game: "circle",
+        show_grid: next,
+      });
+      return next;
+    });
   };
 
   const medal = (i: number): string => ["🥇", "🥈", "🥉"][i] || `${i + 1}`;
@@ -509,15 +548,15 @@ export default function App() {
       <div className="absolute top-0 left-0 right-0 z-10 flex items-center justify-between px-3 pt-3 gap-2">
         {/* Desktop buttons */}
         <div className="hidden sm:flex gap-2">
-          <button onClick={clear} className="px-4 py-2 bg-card text-card-foreground border border-border rounded-lg shadow-sm hover:bg-accent hover:text-accent-foreground text-sm font-medium">Clear</button>
-          <button onClick={()=>setShowGrid(g=>!g)} className="px-4 py-2 bg-card text-card-foreground border border-border rounded-lg shadow-sm hover:bg-accent hover:text-accent-foreground text-sm font-medium">{showGrid?"Hide":"Show"} Grid</button>
+          <button onClick={() => resetBoard("toolbar")} className="px-4 py-2 bg-card text-card-foreground border border-border rounded-lg shadow-sm hover:bg-accent hover:text-accent-foreground text-sm font-medium">Clear</button>
+          <button onClick={toggleGrid} className="px-4 py-2 bg-card text-card-foreground border border-border rounded-lg shadow-sm hover:bg-accent hover:text-accent-foreground text-sm font-medium">{showGrid?"Hide":"Show"} Grid</button>
           <button onClick={openLB} className="px-4 py-2 bg-card text-card-foreground border border-border rounded-lg shadow-sm hover:bg-accent hover:text-accent-foreground text-sm font-medium">🏆 Leaderboard</button>
         </div>
 
         {/* Mobile: icon buttons */}
         <div className="flex sm:hidden mt-20 gap-2">
-          <button onClick={clear} className="w-10 h-10 bg-card text-card-foreground border border-border rounded-lg shadow-sm flex items-center justify-center text-lg">✕</button>
-          <button onClick={()=>setShowGrid(g=>!g)} className="w-10 h-10 bg-card text-card-foreground border border-border rounded-lg shadow-sm flex items-center justify-center text-lg">{showGrid?"◻":"▦"}</button>
+          <button onClick={() => resetBoard("toolbar")} className="w-10 h-10 bg-card text-card-foreground border border-border rounded-lg shadow-sm flex items-center justify-center text-lg">✕</button>
+          <button onClick={toggleGrid} className="w-10 h-10 bg-card text-card-foreground border border-border rounded-lg shadow-sm flex items-center justify-center text-lg">{showGrid?"◻":"▦"}</button>
           <button onClick={openLB} className="w-10 h-10 bg-card text-card-foreground border border-border rounded-lg shadow-sm flex items-center justify-center text-lg">🏆</button>
         </div>
 
@@ -564,7 +603,7 @@ export default function App() {
                 className="w-full py-2.5 bg-primary text-primary-foreground rounded-lg hover:opacity-90 text-sm font-medium disabled:opacity-50">
                 {saving?"Saving…":"Save to Leaderboard"}
               </button>
-              <button onClick={clear} className="w-full py-2.5 border border-border rounded-lg hover:bg-accent hover:text-accent-foreground text-sm font-medium">Skip & Try Again</button>
+              <button onClick={() => resetBoard("skip")} className="w-full py-2.5 border border-border rounded-lg hover:bg-accent hover:text-accent-foreground text-sm font-medium">Skip & Try Again</button>
             </div>
           </div>
         </div>
@@ -601,7 +640,7 @@ export default function App() {
               </div>
             )}
 
-            <button onClick={clear} className="mt-4 w-full py-2.5 bg-primary text-primary-foreground rounded-lg hover:opacity-90 text-sm font-medium">Play Again</button>
+            <button onClick={() => resetBoard("leaderboard")} className="mt-4 w-full py-2.5 bg-primary text-primary-foreground rounded-lg hover:opacity-90 text-sm font-medium">Play Again</button>
           </div>
         </div>
       )}

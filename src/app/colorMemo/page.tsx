@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import { ANALYTICS_EVENTS, captureEvent } from "@/lib/analytics";
 
 const SB_URL = process.env.NEXT_PUBLIC_SB_URL;
 const SB_KEY = process.env.NEXT_PUBLIC_SB_KEY;
@@ -263,6 +264,11 @@ export default function App() {
     setTimeLeft(ms);
     setTotalTime(ms);
     setPhase("flash");
+    captureEvent(ANALYTICS_EVENTS.COLORMEMO_GAME_STARTED, {
+      game: "colormemo",
+      difficulty: diff,
+      flash_ms: ms,
+    });
     intervalRef.current = setInterval(() => setTimeLeft((t) => Math.max(0, t - 50)), 50);
     timerRef.current = setTimeout(() => {
       if (intervalRef.current) clearInterval(intervalRef.current);
@@ -289,9 +295,16 @@ export default function App() {
   const clear = () => {
     setShowLB(false);
     setPhase("menu");
+    captureEvent(ANALYTICS_EVENTS.COLORMEMO_PLAY_AGAIN, {
+      game: "colormemo",
+      from: "leaderboard",
+    });
   };
 
   const openLB = useCallback(async () => {
+    captureEvent(ANALYTICS_EVENTS.COLORMEMO_LEADERBOARD_OPENED, {
+      game: "colormemo",
+    });
     setShowLB(true);
     setLbLoading(true);
     setLbError(null);
@@ -310,9 +323,18 @@ export default function App() {
 
     const d = dist(target, picked);
     const s = calcScore(d);
+    const accuracyPct = (s / 10).toFixed(1);
     setScore(s);
-    setAccuracy((s / 10).toFixed(1));
+    setAccuracy(accuracyPct);
     setPhase("result");
+    captureEvent(ANALYTICS_EVENTS.COLORMEMO_GUESS_SUBMITTED, {
+      game: "colormemo",
+      difficulty: diff,
+      score: s,
+      accuracy: Number(accuracyPct),
+      target_hex: toHex(target),
+      guess_hex: toHex(picked),
+    });
 
     // Request server-issued token for score submission.
     try {
@@ -346,8 +368,20 @@ export default function App() {
       const data = await sbFetch(diff);
       setLb(data);
       setSaved(true);
+      captureEvent(ANALYTICS_EVENTS.COLORMEMO_SCORE_SAVED, {
+        game: "colormemo",
+        difficulty: diff,
+        score,
+      });
     } catch (err) {
-      setSaveError(getErrorMessage(err, "Failed to submit score."));
+      const message = getErrorMessage(err, "Failed to submit score.");
+      setSaveError(message);
+      captureEvent(ANALYTICS_EVENTS.COLORMEMO_SCORE_SAVE_FAILED, {
+        game: "colormemo",
+        difficulty: diff,
+        score,
+        error: message,
+      });
     } finally {
       setSaving(false);
     }
@@ -421,7 +455,13 @@ export default function App() {
               <p className="text-xs tracking-widest text-stone-400 dark:text-stone-500 font-medium mb-4">DIFFICULTY</p>
               <div className="flex gap-2 mb-5">
                 {DIFF_ENTRIES.map(([key, val]) => (
-                  <button key={key} onClick={() => setDiff(key)}
+                  <button key={key} onClick={() => {
+                    setDiff(key);
+                    captureEvent(ANALYTICS_EVENTS.COLORMEMO_DIFFICULTY_SELECTED, {
+                      game: "colormemo",
+                      difficulty: key,
+                    });
+                  }}
                     className={`flex-1 py-2.5 rounded-full text-sm font-medium transition-all duration-150 border
                       ${diff === key
                         ? "bg-stone-900 dark:bg-stone-600 text-white border-stone-900"
@@ -607,7 +647,13 @@ export default function App() {
               )}
             </div>
 
-            <button onClick={() => setPhase("menu")}
+            <button onClick={() => {
+              setPhase("menu");
+              captureEvent(ANALYTICS_EVENTS.COLORMEMO_PLAY_AGAIN, {
+                game: "colormemo",
+                from: "result",
+              });
+            }}
               className="w-full py-3.5 rounded-2xl border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 text-stone-600 dark:text-stone-200 text-sm font-medium hover:bg-stone-50 dark:hover:bg-stone-800 transition-colors shadow-sm dark:shadow-black/30">
               Play again
             </button>
