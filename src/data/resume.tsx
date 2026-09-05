@@ -224,6 +224,104 @@ export const DATA = {
       ],
       image: "https://pub-7744c747312a4db3afe9366c16797634.r2.dev/Foss01.PNG",
     },
+     {
+      title: "mcp-gateway",
+      href: "https://github.com/riyajath-ahamed/mcp-gateway",
+      dates: "Jan 2023 - Jan 2023",
+      active: true,
+      description:
+        "Gateway AI agent tool layer. A single Go binary that proxies N MCP servers behind a unified Streamable HTTP endpoint-with capability aggregation, health checks, circuit breakers, pluggable auth, and full observability. ",
+      technologies: [
+        "Go",
+        "NPM",
+      ],
+      links: [
+        {
+          type: "Website",
+          href: "https://foss-kdu.github.io/fosskdu_web/",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "GitHub",
+          href: "https://github.com/riyajath-ahamed/mcp-gateway",
+          icon: <Icons.github className="size-3" />,
+        }
+      ],
+    },
+    {
+      title: "react-unique-id-generator",
+      href: "https://github.com/riyajath-ahamed/react-unique-id-generator",
+      dates: "Jan 2023 - Jan 2023",
+      active: true,
+      description:
+        "A lightweight, flexible library for generating unique IDs in React applications. Perfect for form elements, accessibility attributes, and any scenario where you need guaranteed unique identifiers.",
+      technologies: [
+        "TypeScript",
+        "NPM",
+        "React"
+      ],
+      links: [
+        {
+          type: "Website",
+          href: "https://riyajath-ahamed.github.io/react-unique-id-generator/",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "GitHub",
+          href: "https://github.com/riyajath-ahamed/react-unique-id-generator",
+          icon: <Icons.github className="size-3" />,
+        }
+      ],
+    },
+    {
+      title: "mcp-schema-validator",
+      href: "https://github.com/riyajath-ahamed/mcp-schema-validator",
+      dates: "Jan 2023 - Jan 2023",
+      active: true,
+      description:
+        "Runtime schema validation middleware for MCP tool inputs and outputs.",
+      technologies: [
+        "TypeScript",
+        "MCP"
+      ],
+      links: [
+        {
+          type: "mcp-schema-validator-ui",
+          href: "https://github.com/riyajath-ahamed/mcp-schema-validator-ui",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "GitHub",
+          href: "https://github.com/riyajath-ahamed/mcp-schema-validator",
+          icon: <Icons.github className="size-3" />,
+        }
+      ],
+    },
+     {
+      title: "vite-plugin-bundler",
+      href: "https://github.com/riyajath-ahamed/vite-plugin-bundler",
+      dates: "Jan 2023 - Jan 2023",
+      active: true,
+      description:
+        "A high-performance Vite plugin that compresses build assets using Brotli, Gzip, and Zstandard (zstd), reducing bundle sizes by up to 80% and improving loading times.",
+      technologies: [
+        "TypeScript",
+        "NPM",
+        "Vite"
+      ],
+      links: [
+        {
+          type: "NPM",
+          href: "https://www.npmjs.com/package/vite-plugin-bundler/",
+          icon: <Icons.globe className="size-3" />,
+        },
+        {
+          type: "GitHub",
+          href: "https://github.com/riyajath-ahamed/vite-plugin-bundler",
+          icon: <Icons.github className="size-3" />,
+        }
+      ],
+    },
   ],
   chartData: {
     radar: {

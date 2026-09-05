@@ -20,9 +20,21 @@ const PROJECT_BADGES: Record<string, { label: string; className: string }> = {
     label: 'npm',
     className: 'bg-amber-100 text-amber-800 dark:bg-amber-900/20 dark:text-amber-300',
   },
-  'FOSS KDU': {
+  'mcp-gateway': {
     label: 'oss',
     className: 'bg-violet-100 text-violet-800 dark:bg-violet-900/20 dark:text-violet-300',
+  },
+  'react-unique-id-generator': {
+    label: 'oss',
+    className: 'bg-violet-100 text-violet-800 dark:bg-violet-900/20 dark:text-violet-300',
+  },
+  'mcp-schema-validator': {
+    label: 'oss',
+    className: 'bg-violet-100 text-violet-800 dark:bg-violet-900/20 dark:text-violet-300',
+  },
+  'vite-plugin-bundler': {
+    label: 'NPM',
+    className: 'bg-amber-100 text-amber-800 dark:bg-amber-900/20 dark:text-amber-3000',
   },
 };
 
@@ -46,15 +58,15 @@ const FOLDER_GROUPS: FolderGroup[] = [
     id: 'projects',
     label: 'Projects',
     color: '#5227FF',
-    count: '2 projects',
-    projectTitles: ['MuSync', 'Beyond Childhood Int'],
+    count: '3 projects',
+    projectTitles: ['MuSync', 'Beyond Childhood Int', 'FOSS KDU'],
   },
   {
     id: 'oss',
     label: 'Open Source',
     color: '#1D9E75',
-    count: '2 tools',
-    projectTitles: ['Genso CLI', 'FOSS KDU'],
+    count: '5 tools',
+    projectTitles: ['Genso CLI', 'mcp-gateway', 'react-unique-id-generator', 'mcp-schema-validator', 'vite-plugin-bundler'],
   },
 ];
 
