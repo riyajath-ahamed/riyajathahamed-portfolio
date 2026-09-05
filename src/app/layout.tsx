@@ -101,11 +101,11 @@ export default function RootLayout({
           </TooltipProvider>
         </ThemeProvider>
         {/*  xl:inset-y-0 xl:-right-[70vh] xl:inset-x-auto  */}
-        <div className=" hidden sm:block absolute inset-x-0 top-[60vh] -z-10 overflow-x-hidden ">
+        {/* <div className=" hidden sm:block absolute inset-x-0 top-[60vh] -z-10 overflow-x-hidden ">
         <Spline className="fixed w-full h-full inset-x-0 top-[60vh] -z-10 overflow-x-hidden"
           scene="https://prod.spline.design/IKyLNSd3P6WxwJpg/scene.splinecode" 
         />
-        </div>
+        </div> */}
         
       </body>
     </html>

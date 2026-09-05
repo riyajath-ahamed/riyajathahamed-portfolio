@@ -20,7 +20,7 @@ export default function Terminal() {
   const router = useRouter();
 
   useEffect(() => {
-    inputRef.current?.focus();
+    inputRef.current?.focus({ preventScroll: true });
   }, []);
 
   useEffect(() => {

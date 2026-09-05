@@ -55,7 +55,7 @@ export default function CraftLabShowcasePage() {
               delay={BLUR_FADE_DELAY}
               className="text-6xl font-bold font-serif tracking-tighter sm:text-6xl xl:text-7xl/none pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10"
               yOffset={8}
-              text={`Craft Lab`}
+              text={`Case Studies`}
             />
           </div>
           <BlurFadeText
@@ -95,7 +95,7 @@ export default function CraftLabShowcasePage() {
       <div className=" w-full">
           {/* Bookmark grid or list component goes here */}
           <p className="text-center text-gray-500">
-             Craft Lab feature is under construction. Please check back later.
+             Case Studies feature is under construction. Please check back later.
           </p>
         </div>
       </BlurFade>
