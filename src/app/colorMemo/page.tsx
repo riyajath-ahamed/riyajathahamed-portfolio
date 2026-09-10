@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
+import Link from "next/link";
 import { ANALYTICS_EVENTS, captureEvent } from "@/lib/analytics";
 
 const SB_URL = process.env.NEXT_PUBLIC_SB_URL;
@@ -442,6 +443,9 @@ export default function App() {
         {phase === "menu" && (
           <div>
             <div className="text-center mb-8">
+              <Link href="/game" className="inline-block text-xs text-stone-400 dark:text-stone-500 hover:text-stone-700 dark:hover:text-stone-200 transition-colors mb-4">
+                All games
+              </Link>
               <p className="text-xs tracking-widest text-stone-400 dark:text-stone-500 font-medium mb-3">COLOR MEMORY</p>
               <h1 className="text-2xl font-semibold text-stone-800 dark:text-stone-100 leading-snug mb-3">
                 How well do you<br />remember color?

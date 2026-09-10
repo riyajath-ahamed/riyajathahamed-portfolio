@@ -1,15 +1,5 @@
-import React, { ReactNode } from "react";
+import type { ReactNode } from "react";
 
-interface GameLayoutProps {
-    children: ReactNode;
-}
-
-export default function GameLayout({ children }: GameLayoutProps) {
-    return (
-        <div>
-            <main >
-                {children}
-            </main>
-        </div>
-    );
+export default function GameLayout({ children }: { children: ReactNode }) {
+  return <main>{children}</main>;
 }
