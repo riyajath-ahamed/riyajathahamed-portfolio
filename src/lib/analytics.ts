@@ -12,6 +12,8 @@ export const ANALYTICS_EVENTS = {
   COLORMEMO_SCORE_SAVE_FAILED: "colormemo_score_save_failed",
   COLORMEMO_LEADERBOARD_OPENED: "colormemo_leaderboard_opened",
   COLORMEMO_PLAY_AGAIN: "colormemo_play_again",
+  GAME_HUB_VIEWED: "game_hub_viewed",
+  GAME_SELECTED: "game_selected",
   GAME_VIEWED: "game_viewed",
   GAME_DRAW_STARTED: "game_draw_started",
   GAME_CIRCLE_SCORED: "game_circle_scored",

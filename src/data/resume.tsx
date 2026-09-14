@@ -1,4 +1,5 @@
 import { Icons } from "@/components/icons";
+import { FEATURE_FLAGS } from "@/lib/flags";
 import { BookIcon, HomeIcon, NotebookIcon, WandSparklesIcon } from "lucide-react";
 
 export const DATA = {
@@ -36,6 +37,27 @@ export const DATA = {
     { href: "/casestudies", icon: WandSparklesIcon, label: "Case Studies" },
     { href: "/blog", icon: BookIcon, label: "Blog" },
     { href: "/bookmarks", icon: NotebookIcon, label: "Bookmark" },
+  ],
+  games: [
+    {
+      href: "/drawCircle",
+      slug: "drawCircle",
+      title: "Draw Circle",
+      description: "Draw a circle freehand and see how close you get.",
+    },
+    {
+      href: "/colorMemo",
+      slug: "colorMemo",
+      title: "Color Memo",
+      description: "A color flashes. Recreate it from memory.",
+    },
+    {
+      href: "/CityRise",
+      slug: "cityRise",
+      title: "CityRise",
+      description: "Grow a city from a farm to a skyline.",
+      flag: FEATURE_FLAGS.NEW_GAME,
+    },
   ],
   contact: {
     email: "riyajatha@gmail.com",

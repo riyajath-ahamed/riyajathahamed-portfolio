@@ -10,6 +10,7 @@ import "./globals.css";
 import Particles from "@/components/magicui/particles";
 import Spline from "@splinetool/react-spline";
 import AuroraBackground from "@/components/AuroraBackground";
+import { PostHogProvider } from "@/components/posthog-provider";
 
 const fontSans = FontSans({
   subsets: ['latin'],
@@ -78,6 +79,7 @@ export default function RootLayout({
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
+          <PostHogProvider>
           <AuroraBackground />
           <div
             style={{
@@ -99,6 +101,7 @@ export default function RootLayout({
           <ResponsiveNavbar />
             {children}
           </TooltipProvider>
+          </PostHogProvider>
         </ThemeProvider>
         {/*  xl:inset-y-0 xl:-right-[70vh] xl:inset-x-auto  */}
         {/* <div className=" hidden sm:block absolute inset-x-0 top-[60vh] -z-10 overflow-x-hidden ">
