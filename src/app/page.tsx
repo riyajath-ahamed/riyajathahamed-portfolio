@@ -7,13 +7,13 @@ import { buttonVariants } from "@/components/ui/button";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import { Link2 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import StickerPeel from "@/components/magicui/stickerPeel";
 import BeyondCoding from "@/components/BeyondCoding";
 import Terminal from "@/components/Terminal";
 import GridPattern from "@/components/ui/grid-pattern";
 import CardTextReveal from "@/components/ui/card-text-reveal";
+import HeroLanyard from "@/components/hero-lanyard";
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -24,12 +24,20 @@ export default function Page() {
   return (
     <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 p-5 md:p-8 lg:p-10 max-w-[1400px] mx-auto min-h-screen">
       {/* ── Hero ── */}
-      <section id="hero" className={cn(cardBase, "col-span-full")}>
-        <div className="mx-auto w-full max-w-2xl space-y-8">
-          <BlurFade className="flex justify-center gap-1 mt-10 md:mt-0" delay={BLUR_FADE_DELAY}>
+      <section id="hero" className={cn(cardBase, "col-span-full relative isolate")}>
+        <GridPattern
+          width={30}
+          height={30}
+          x={-1}
+          y={-1}
+          strokeDasharray={"4 2"}
+          className="[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
+        />
+        <div className="relative z-[2] pointer-events-none flex flex-col justify-center max-w-lg lg:max-w-xl space-y-5 mt-10 md:mt-0 md:min-h-[520px]">
+          <BlurFade className="flex items-center gap-1.5" delay={BLUR_FADE_DELAY}>
             <span className="relative flex items-center h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4cd9af]"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4cd9af]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4cd9af]" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4cd9af]" />
             </span>
             <BlurFadeText
               delay={BLUR_FADE_DELAY}
@@ -38,10 +46,8 @@ export default function Page() {
               text="Available for work"
             />
           </BlurFade>
-          <div className="gap-2 flex justify-between">
-            <div className="flex-col flex flex-1 space-y-1.5">
-              <BlurFade delay={BLUR_FADE_DELAY} className="flex justify-center">
-                <div className="w-full max-w-sm rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.12)] -rotate-1">
+          <BlurFade delay={BLUR_FADE_DELAY * 2}>
+            <div className="w-full max-w-sm rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.12)] -rotate-1">
                   <div className="bg-[#e8413c] px-4 pb-2 text-center">
                     <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-tight font-sans">
                       Hello
@@ -57,38 +63,18 @@ export default function Page() {
                     >
                       {DATA.name}
                     </span>
-                    <BlurFade delay={BLUR_FADE_DELAY}>
-                      <Image
-                        src="/hero.png"
-                        alt="Descriptive text for screen readers"
-                        width={300}
-                        height={300}
-                        className="responsive"
-                        placeholder="blur"
-                        blurDataURL="data:image/png"
-                      />
-                    </BlurFade>
                   </div>
                   <div className="bg-[#e8413c] h-3" />
                 </div>
-              </BlurFade>
-              <GridPattern
-                width={30}
-                height={30}
-                x={-1}
-                y={-1}
-                strokeDasharray={"4 2"}
-                className={cn(
-                  "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]"
-                )}
-              />
-              <BlurFadeText
-                className="max-w-[600px] font-serif text-left pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-2xl font-normal leading-none text-transparent dark:from-white dark:to-slate-900/10 p-2 md:text-xl lg:text-2xl xl:text-3xl"
-                delay={BLUR_FADE_DELAY}
-                text={DATA.description}
-              />
-            </div>
-          </div>
+          </BlurFade>
+          <BlurFadeText
+            className="max-w-[540px] font-serif text-left whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-xl font-normal leading-snug text-transparent dark:from-white dark:to-slate-900/10 md:text-2xl"
+            delay={BLUR_FADE_DELAY * 3}
+            text={DATA.description}
+          />
+        </div>
+        <div className="relative z-[1] h-[380px] md:absolute md:inset-0 md:h-auto">
+          <HeroLanyard />
         </div>
       </section>
 
