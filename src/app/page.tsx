@@ -14,6 +14,8 @@ import Terminal from "@/components/Terminal";
 import GridPattern from "@/components/ui/grid-pattern";
 import CardTextReveal from "@/components/ui/card-text-reveal";
 import HeroLanyard from "@/components/hero-lanyard";
+import HeroStamp from "@/components/hero-stamp";
+
 
 const BLUR_FADE_DELAY = 0.04;
 
@@ -24,20 +26,71 @@ export default function Page() {
   return (
     <main className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 p-5 md:p-8 lg:p-10 max-w-[1400px] mx-auto min-h-screen">
       {/* ── Hero ── */}
-      <section id="hero" className={cn(cardBase, "col-span-full relative isolate")}>
-        <GridPattern
-          width={30}
-          height={30}
-          x={-1}
-          y={-1}
-          strokeDasharray={"4 2"}
-          className="[mask-image:radial-gradient(500px_circle_at_center,white,transparent)]"
+      <section
+        id="hero"
+        className="col-span-full relative isolate overflow-hidden rounded-md bg-[#fbf8f1] dark:bg-background/80 backdrop-blur-sm p-6 md:p-8 shadow-[0_2px_20px_rgba(0,0,0,0.08),0_1px_2px_rgba(0,0,0,0.05)] transition-shadow duration-300 hover:shadow-[0_6px_34px_rgba(0,0,0,0.12)]"
+      >
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 p-[7px] dark:opacity-80"
+          style={{
+            backgroundImage:
+              "repeating-linear-gradient(-45deg, #e8413c 0 14px, transparent 14px 24px, #2b4c7e 24px 38px, transparent 38px 48px)",
+            WebkitMask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            WebkitMaskComposite: "xor",
+            mask: "linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0)",
+            maskComposite: "exclude",
+          }}
         />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-[7px] overflow-hidden rounded-[3px]"
+        >
+          <svg className="absolute inset-0 h-full w-full opacity-[0.18] mix-blend-multiply dark:opacity-[0.08] dark:mix-blend-screen">
+            <filter id="postcardGrain">
+              <feTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch" />
+              <feColorMatrix type="saturate" values="0" />
+            </filter>
+            <rect width="100%" height="100%" filter="url(#postcardGrain)" />
+          </svg>
+        </div>
+
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-y-14 left-[632px] hidden lg:flex flex-col items-center"
+        >
+          <span className="w-px flex-1 bg-foreground/15" />
+          <span className="py-4 font-mono text-[10px] uppercase tracking-[0.45em] text-foreground/40 [writing-mode:vertical-rl] rotate-180">
+            Post Card
+          </span>
+          <span className="w-px flex-1 bg-foreground/15" />
+        </div>
+
+        <div className="absolute z-[3] top-16 right-5 w-28 sm:w-32 md:right-auto md:top-8 md:left-[calc(50%+200px)] md:w-28 xl:left-auto xl:right-10 xl:w-32 2xl:w-40">
+          <BlurFade delay={BLUR_FADE_DELAY * 4}>
+            <HeroStamp />
+          </BlurFade>
+        </div>
+
+        <div
+          aria-hidden
+          className="pointer-events-none absolute bottom-14 left-[672px] hidden w-[210px] space-y-4 xl:block text-foreground/60"
+          style={{ fontFamily: "Mynerve, cursive" }}
+        >
+          <p className="h-8 border-b border-foreground/20 text-base leading-8 whitespace-nowrap">To: you, curious visitor</p>
+          <p className="h-8 border-b border-foreground/20 text-base leading-8 whitespace-nowrap">somewhere on the internet</p>
+          <p className="h-8 border-b border-foreground/20" />
+        </div>
+
+        <div className="relative z-[1] h-[500px] -mx-6 -mt-6 -mb-16 md:m-0 md:absolute md:inset-0 md:h-auto">
+          <HeroLanyard />
+        </div>
+
         <div className="relative z-[2] pointer-events-none flex flex-col justify-center max-w-lg lg:max-w-xl space-y-5 mt-10 md:mt-0 md:min-h-[520px]">
-          <BlurFade className="flex items-center gap-1.5" delay={BLUR_FADE_DELAY}>
+        <BlurFade className="flex justify-start gap-1 mt-10 md:mt-0" delay={BLUR_FADE_DELAY}>
             <span className="relative flex items-center h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4cd9af]" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4cd9af]" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4cd9af]"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#4cd9af]"></span>
             </span>
             <BlurFadeText
               delay={BLUR_FADE_DELAY}
@@ -47,7 +100,7 @@ export default function Page() {
             />
           </BlurFade>
           <BlurFade delay={BLUR_FADE_DELAY * 2}>
-            <div className="w-full max-w-sm rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.12)] -rotate-1">
+            <div className="w-full max-w-sm rounded-[20px] overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.12)] -rotate-3">
                   <div className="bg-[#e8413c] px-4 pb-2 text-center">
                     <h1 className="text-5xl sm:text-6xl font-bold text-white tracking-tight font-sans">
                       Hello
@@ -58,7 +111,7 @@ export default function Page() {
                   </div>
                   <div className="bg-white px-6 py-8 text-center flex items-center justify-center">
                     <span
-                      className="text-3xl sm:text-4xl text-gray-800"
+                      className="text-3xl font-bold sm:text-5xl text-gray-800"
                       style={{ fontFamily: "Mynerve, cursive" }}
                     >
                       {DATA.name}
@@ -72,9 +125,6 @@ export default function Page() {
             delay={BLUR_FADE_DELAY * 3}
             text={DATA.description}
           />
-        </div>
-        <div className="relative z-[1] h-[380px] md:absolute md:inset-0 md:h-auto">
-          <HeroLanyard />
         </div>
       </section>
 
@@ -365,7 +415,7 @@ export default function Page() {
           <Terminal />
           <p className="text-xs text-foreground/50 mt-4">
             Crafted by a human. No AI was involved in the making of this portfolio.
-          </p>
+          </p>  
         </BlurFade>
       </footer>
 

@@ -7,6 +7,7 @@ export const DATA = {
   url: "https://riyajathahamed.lk",
   location: "Colombo, SL",
   locationLink: "https://www.google.com/maps/place/Colombo,+Sri+Lanka",
+  timezone: "Asia/Colombo",
   description:
     "Builds Intelligent, Data-Driven Front-End Products That Transform Complex Systems Into Intuitive User Experiences.",
   summary:

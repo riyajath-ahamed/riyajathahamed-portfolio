@@ -42,6 +42,7 @@ interface LanyardProps {
   gravity?: [number, number, number];
   fov?: number;
   transparent?: boolean;
+  interactive?: boolean;
   className?: string;
 }
 
@@ -50,6 +51,7 @@ export default function Lanyard({
   gravity = [0, -40, 0],
   fov = 20,
   transparent = true,
+  interactive = true,
   className,
 }: LanyardProps) {
   const [reduceMotion, setReduceMotion] = useState(false);
@@ -88,14 +90,19 @@ export default function Lanyard({
         onCreated={({ gl }) =>
           gl.setClearColor(new THREE.Color(0x000000), transparent ? 0 : 1)
         }
-        style={{ width: "100%", height: "100%", touchAction: "none" }}
+        style={{
+          width: "100%",
+          height: "100%",
+          touchAction: interactive ? "none" : "auto",
+          pointerEvents: interactive ? "auto" : "none",
+        }}
       >
         <ambientLight intensity={Math.PI} />
         <Suspense fallback={null}>
           <Physics gravity={gravity} timeStep={1 / 60} paused={reduceMotion}>
             <Band
               key={anchor.join(",")}
-              interactive={!reduceMotion}
+              interactive={interactive && !reduceMotion}
               anchor={anchor}
             />
           </Physics>
