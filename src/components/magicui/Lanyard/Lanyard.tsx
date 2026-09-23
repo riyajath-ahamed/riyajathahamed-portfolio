@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 "use client";
 
-import { Suspense, useEffect, useRef, useState } from "react";
+import { Suspense, useEffect, useRef, useState, type RefObject } from "react";
 import { Canvas, extend, useFrame, type ThreeElement } from "@react-three/fiber";
 import {
   useGLTF,
@@ -28,7 +28,7 @@ extend({ MeshLineGeometry, MeshLineMaterial });
 declare module "@react-three/fiber" {
   interface ThreeElements {
     meshLineGeometry: ThreeElement<typeof MeshLineGeometry>;
-    meshLineMaterial: ThreeElement<typeof MeshLineMaterial>;
+    meshLineMaterial: Omit<ThreeElement<typeof MeshLineMaterial>, "args">;
   }
 }
 
@@ -137,6 +137,13 @@ export default function Lanyard({
 
 type RopeBody = RapierRigidBody & { lerped?: THREE.Vector3 };
 
+/** Rapier joint hooks still expect React 18's non-null RefObject. */
+function asBodyRef(
+  ref: RefObject<RapierRigidBody | null>,
+): RefObject<RapierRigidBody> {
+  return ref as RefObject<RapierRigidBody>;
+}
+
 interface BandProps {
   maxSpeed?: number;
   minSpeed?: number;
@@ -202,10 +209,10 @@ function Band({
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  useRopeJoint(fixed, j1, [[0, 0, 0], [0, 0, 0], 1]);
-  useRopeJoint(j1, j2, [[0, 0, 0], [0, 0, 0], 1]);
-  useRopeJoint(j2, j3, [[0, 0, 0], [0, 0, 0], 1]);
-  useSphericalJoint(j3, card, [
+  useRopeJoint(asBodyRef(fixed), asBodyRef(j1), [[0, 0, 0], [0, 0, 0], 1]);
+  useRopeJoint(asBodyRef(j1), asBodyRef(j2), [[0, 0, 0], [0, 0, 0], 1]);
+  useRopeJoint(asBodyRef(j2), asBodyRef(j3), [[0, 0, 0], [0, 0, 0], 1]);
+  useSphericalJoint(asBodyRef(j3), asBodyRef(card), [
     [0, 0, 0],
     [0, 1.45, 0],
   ]);
@@ -254,7 +261,7 @@ function Band({
     band.current.geometry.setPoints(curve.getPoints(isSmall ? 16 : 32));
     ang.copy(card.current.angvel());
     rot.copy(card.current.rotation());
-    card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z });
+    card.current.setAngvel({ x: ang.x, y: ang.y - rot.y * 0.25, z: ang.z }, true);
   });
 
   curve.curveType = "chordal";
@@ -286,13 +293,13 @@ function Band({
             onPointerOver={() => interactive && hover(true)}
             onPointerOut={() => hover(false)}
             onPointerUp={(e) => {
-              e.target.releasePointerCapture(e.pointerId);
+              (e.target as Element).releasePointerCapture(e.pointerId);
               drag(false);
             }}
             onPointerDown={(e) => {
               if (!interactive || !card.current) return;
               e.stopPropagation();
-              e.target.setPointerCapture(e.pointerId);
+              (e.target as Element).setPointerCapture(e.pointerId);
               drag(
                 new THREE.Vector3()
                   .copy(e.point)
