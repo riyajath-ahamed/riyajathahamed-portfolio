@@ -15,11 +15,12 @@ import GridPattern from "@/components/ui/grid-pattern";
 import CardTextReveal from "@/components/ui/card-text-reveal";
 import HeroLanyard from "@/components/hero-lanyard";
 import HeroStamp from "@/components/hero-stamp";
+import { Mascot } from "@/components/mascot";
+import AboutMe from "@/components/aboutMe";
 
+export const BLUR_FADE_DELAY = 0.04;
 
-const BLUR_FADE_DELAY = 0.04;
-
-const cardBase =
+export const cardBase =
   "rounded-lg border border-foreground/[0.06] bg-background/80 backdrop-blur-sm shadow-[0_2px_20px_rgba(0,0,0,0.06)] overflow-hidden p-6 md:p-8 transition-shadow duration-300 hover:shadow-[0_4px_30px_rgba(0,0,0,0.10)]";
 
 export default function Page() {
@@ -71,6 +72,17 @@ export default function Page() {
             <HeroStamp />
           </BlurFade>
         </div>
+
+        {/* <div className="absolute z-[3] hidden md:block left-[430px] top-[170px]">
+          <BlurFade delay={BLUR_FADE_DELAY * 5}>
+            <Mascot
+              directions="/mascots/riyajath-directions.webp"
+              reactions="/mascots/riyajath-reactions.webp"
+              size={180}
+              label={`${DATA.name} mascot`}
+            />
+          </BlurFade>
+        </div> */}
 
         <div
           aria-hidden
@@ -129,7 +141,7 @@ export default function Page() {
       </section>
 
       {/* ── About ── */}
-      <section id="about" className={cn(cardBase, "md:col-span-1 lg:col-span-2 flex flex-col justify-center")}>
+      {/* <section id="about" className={cn(cardBase, "md:col-span-1 lg:col-span-2 flex flex-col justify-center")}>
          <GridPattern
                 width={30}
                 height={30}
@@ -148,10 +160,11 @@ export default function Page() {
             <CardTextReveal text={DATA.summary} />
           </div>
         </BlurFade>
-      </section>
+      </section> */}
+      <AboutMe />
 
       {/* ── Engineering Philosophy ── */}
-      <section id="engineering-philosophy" className={cn(cardBase, "md:col-span-1 lg:col-span-2 relative")}>
+      {/* <section id="engineering-philosophy" className={cn(cardBase, "md:col-span-1 lg:col-span-2 relative")}>
          <GridPattern
                 width={30}
                 height={30}
@@ -171,12 +184,6 @@ export default function Page() {
               backgroundSize: "40px 40px",
             }}
           />
-          {/* <svg className="pointer-events-none absolute inset-0 w-full h-full opacity-[0.4] dark:opacity-[0.2]" aria-hidden="true">
-            <filter id="noisePhilo">
-              <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-            </filter>
-            <rect width="100%" height="100%" filter="url(#noisePhilo)" />
-          </svg> */}
           <div className="relative flex flex-col md:flex-row gap-6 md:gap-10">
             <div className="flex-1 flex flex-col gap-4 justify-center">
               <h2 className="text-4xl font-serif font-bold pointer-events-none bg-gradient-to-b from-black to-gray-300/80 bg-clip-text leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
@@ -229,10 +236,10 @@ export default function Page() {
             </div>
           </div>
         </BlurFade>
-      </section>
+      </section> */}
 
       {/* ── Beyond Coding ── */}
-      <section id="beyond-coding" className={cn(cardBase, "md:col-span-1 lg:col-span-1")}>
+      {/* <section id="beyond-coding" className={cn(cardBase, "md:col-span-1 lg:col-span-1")}>
          <GridPattern
                 width={30}
                 height={30}
@@ -252,20 +259,14 @@ export default function Page() {
               backgroundSize: "40px 40px",
             }}
           />
-          {/* <svg className="pointer-events-none absolute inset-0 w-full h-full opacity-[0.4] dark:opacity-[0.2]" aria-hidden="true">
-            <filter id="noiseBeyond">
-              <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-            </filter>
-            <rect width="100%" height="100%" filter="url(#noiseBeyond)" />
-          </svg> */}
           <div className="relative">
             <BeyondCoding />
           </div>
         </BlurFade>
-      </section>
+      </section> */}
 
       {/* ── Projects ── */}
-      <section id="projects" className={cn(cardBase, "md:col-span-1 lg:col-span-3")}>
+      {/* <section id="projects" className={cn(cardBase, "md:col-span-1 lg:col-span-3")}>
          <GridPattern
                 width={30}
                 height={30}
@@ -298,7 +299,7 @@ export default function Page() {
             <FolderProjects />
           </BlurFade>
         </div>
-      </section>
+      </section> */}
 
       {/* ── Contact ── */}
       <section id="contact" className={cn(cardBase, "md:col-span-2 lg:col-span-3")}>
