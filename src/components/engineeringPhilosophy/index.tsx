@@ -166,7 +166,7 @@ export default function EngineeringPhilosophy() {
                   fill="currentColor"
                   strokeWidth={1.5}
                 />
-                I've found my Ikigai in building things.
+                I&#39;ve found my Ikigai in building things.
                 <QuoteIcon
                   className="size-8"
                   fill="currentColor"
@@ -181,7 +181,7 @@ export default function EngineeringPhilosophy() {
               </span>
               <span className="font-normal text-foreground/70 text-2xl">
                 {" "}
-                It's the reason I enjoy engineering.
+                It&#39;s the reason I enjoy engineering.
               </span>
               <span className="font-normal text-foreground/70 text-2xl">
                 {" "}
