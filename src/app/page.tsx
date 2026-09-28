@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 import { Link2 } from "lucide-react";
 import Link from "next/link";
 import StickerPeel from "@/components/magicui/stickerPeel";
-import BeyondCoding from "@/components/BeyondCoding";
+import BeyondCoding from "@/components/beyondCoding";
 import Terminal from "@/components/Terminal";
 import GridPattern from "@/components/ui/grid-pattern";
 import CardTextReveal from "@/components/ui/card-text-reveal";
@@ -143,32 +143,10 @@ export default function Page() {
       {/* ── Engineering Philosophy ── */}
     
       <EngineeringPhilosophy />
+
       {/* ── Beyond Coding ── */}
-      {/* <section id="beyond-coding" className={cn(cardBase, "md:col-span-1 lg:col-span-1")}>
-         <GridPattern
-                width={30}
-                height={30}
-                x={-1}
-                y={-1}
-                strokeDasharray={"4 2"}
-                className={cn(
-                  "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]"
-                )}
-              />
-        <BlurFade delay={BLUR_FADE_DELAY * 7}>
-          <div
-            className="pointer-events-none absolute inset-0 opacity-[0.35] dark:opacity-[0.15]"
-            style={{
-              backgroundImage:
-                "linear-gradient(hsl(var(--foreground) / 0.08) 1px, transparent 1px), linear-gradient(90deg, hsl(var(--foreground) / 0.08) 1px, transparent 1px)",
-              backgroundSize: "40px 40px",
-            }}
-          />
-          <div className="relative">
-            <BeyondCoding />
-          </div>
-        </BlurFade>
-      </section> */}
+      <BeyondCoding />
+  
 
       {/* ── Projects ── */}
       {/* <section id="projects" className={cn(cardBase, "md:col-span-1 lg:col-span-3")}>
