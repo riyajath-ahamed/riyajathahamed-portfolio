@@ -19,6 +19,7 @@ import { Mascot } from "@/components/mascot";
 import AboutMe from "@/components/aboutMe";
 import EngineeringPhilosophy from "@/components/engineeringPhilosophy";
 import { BLUR_FADE_DELAY, cardBase } from "@/lib/home";
+import Projects from "@/components/projects";
 
 export default function Page() {
   return (
@@ -149,40 +150,7 @@ export default function Page() {
   
 
       {/* ── Projects ── */}
-      {/* <section id="projects" className={cn(cardBase, "md:col-span-1 lg:col-span-3")}>
-         <GridPattern
-                width={30}
-                height={30}
-                x={-1}
-                y={-1}
-                strokeDasharray={"4 2"}
-                className={cn(
-                  "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]"
-                )}
-              />
-        <div className="space-y-8 w-full">
-          <BlurFade delay={BLUR_FADE_DELAY * 15}>
-            <div className="flex flex-col items-center justify-center space-y-4 text-center">
-              <div className="space-y-2">
-                <div className="inline-block rounded-lg bg-foreground text-background px-3 py-1 text-sm">
-                  My Projects
-                </div>
-                <h2 className="text-4xl font-serif font-bold pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center leading-none text-transparent dark:from-white dark:to-slate-900/10 tracking-tighter sm:text-5xl">
-                  Check out my latest work
-                </h2>
-                <p className="text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-                  I&apos;ve worked on a variety of projects, from simple
-                  websites to complex web applications. Here are a few of my
-                  favorites.
-                </p>
-              </div>
-            </div>
-          </BlurFade>
-          <BlurFade delay={BLUR_FADE_DELAY * 16}>
-            <FolderProjects />
-          </BlurFade>
-        </div>
-      </section> */}
+      <Projects />
 
       {/* ── Contact ── */}
       <section id="contact" className={cn(cardBase, "md:col-span-2 lg:col-span-3")}>
