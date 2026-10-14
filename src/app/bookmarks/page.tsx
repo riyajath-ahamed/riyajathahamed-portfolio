@@ -15,14 +15,14 @@ const BookMarkPage = async () => {
         <div className="relative z-10 flex max-w-3xl flex-col items-center gap-3 mt-10 text-balance text-center">
           <BlurFadeText
             delay={BLUR_FADE_DELAY}
-            className="text-6xl font-bold font-serif tracking-tighter sm:text-6xl xl:text-7xl/none pointer-events-none bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-transparent dark:from-white dark:to-slate-900/10"
+            className="text-6xl font-bold font-serif tracking-tighter sm:text-6xl xl:text-7xl/none pointer-events-none text-foreground text-balance"
             yOffset={8}
-            text={`Bookmarks`}
+            text={`Inspiration`}
           />
           <BlurFadeText
-            className="max-w-[600px] font-serif pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-2xl font-normal leading-none text-transparent dark:from-white dark:to-slate-900/10 p-2 md:text-xl lg:text-2xl xl:text-3xl"
+            className="max-w-[600px] font-serif pointer-events-none whitespace-pre-wrap text-center text-2xl font-normal leading-none p-2 md:text-xl lg:text-2xl xl:text-3xl text-foreground text-balance"
             delay={BLUR_FADE_DELAY}
-            text="Some of my favorite links and resources"
+            text="The key to improve your work is to get inspired by the best. Here's who and what inspires me"
           />
         </div>
       </section>
@@ -31,7 +31,7 @@ const BookMarkPage = async () => {
         <div className="mt-16 w-full">
           {/* Bookmark grid or list component goes here */}
           <p className="text-center text-gray-500">
-            Bookmark feature is under construction. Please check back later.
+          Inspiration feature is under construction. Please check back later.
           </p>
 
           {

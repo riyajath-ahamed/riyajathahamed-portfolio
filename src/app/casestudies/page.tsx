@@ -53,15 +53,15 @@ export default function CraftLabShowcasePage() {
           <div className="inline-flex flex-col items-center gap-2 mt-10">
             <BlurFadeText
               delay={BLUR_FADE_DELAY}
-              className="text-6xl font-bold font-serif tracking-tighter sm:text-6xl xl:text-7xl/none pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center  leading-none text-transparent dark:from-white dark:to-slate-900/10"
+              className="text-6xl font-bold font-serif tracking-tighter sm:text-6xl xl:text-7xl/none pointer-events-none whitespace-pre-wrap text-center leading-none text-foreground text-balance"
               yOffset={8}
-              text={`Case Studies`}
+              text={`Design Engineering`}
             />
           </div>
           <BlurFadeText
-            className="max-w-[600px] font-serif pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-2xl font-normal leading-none text-transparent dark:from-white dark:to-slate-900/10  p-2 md:text-xl lg:text-2xl xl:text-3xl"
+            className="max-w-[600px] font-serif pointer-events-none whitespace-pre-wrap text-center text-2xl font-normal leading-none p-2 md:text-xl lg:text-2xl xl:text-3xl text-foreground text-balance"
             delay={BLUR_FADE_DELAY}
-            text="A space where I experiment, prototype, and play with conceptual ideas."
+            text="A space where I experiment, prototype, and play with design systems and engineering crafts."
           />
         </div>
       </section>
@@ -102,7 +102,7 @@ export default function CraftLabShowcasePage() {
 
       <section className="flex flex-col items-center justify-center pt-12 text-center">
         <BlurFadeText
-          className="max-w-[600px] font-serif pointer-events-none whitespace-pre-wrap bg-gradient-to-b from-black to-gray-300/80 bg-clip-text text-center text-2xl font-normal leading-none text-transparent dark:from-white dark:to-slate-900/10  p-2 md:text-xl lg:text-xl xl:text-2xl"
+          className="max-w-[600px] font-serif pointer-events-none whitespace-pre-wrap text-center text-2xl font-normal leading-none p-2 md:text-xl lg:text-xl xl:text-2xl text-foreground text-balance"
           delay={BLUR_FADE_DELAY}
           text="More experiments are always cooking."
         />

@@ -1,5 +1,6 @@
 import { Icons } from "@/components/icons";
-import { BookIcon, HomeIcon, NotebookIcon, WandSparklesIcon } from "lucide-react";
+import { FEATURE_FLAGS } from "@/lib/flags";
+import { BookIcon, HomeIcon, NotebookIcon, PencilRulerIcon, WandSparklesIcon } from "lucide-react";
 
 export const DATA = {
   name: "Riyajath Ahamed",
@@ -9,7 +10,7 @@ export const DATA = {
   locationLink: "https://www.google.com/maps/place/Colombo,+Sri+Lanka",
   timezone: "Asia/Colombo",
   description:
-    "Builds Intelligent, Data-Driven Front-End Products That Transform Complex Systems Into Intuitive User Experiences.",
+    "Builds intelligent, data-driven front-end products that turn complex systems into interfaces people can use.",
   summary:
     "I’m an experienced front-end developer with a passion for design and a knack for tinkering. Web development is my playground, where I push boundaries and chase new horizons. I’ve worked close to product and design to shape interfaces that scale, perform, and feel intentional. From design-system-led UI to data-dense visualizations, I treat the front end not as a layer, but as a product-defining system - who builds systems that handle real load, real data, and real users and architects them to stay that way.",
   avatarUrl: "https://avatars.githubusercontent.com/u/64283797?v=4",
@@ -34,9 +35,30 @@ export const DATA = {
     "LLM"
   ],
   navbar: [
-    { href: "/casestudies", icon: WandSparklesIcon, label: "Case Studies" },
+    { href: "/casestudies", icon: PencilRulerIcon, label: "Design Engineering" },
     { href: "/blog", icon: BookIcon, label: "Blog" },
-    { href: "/bookmarks", icon: NotebookIcon, label: "Bookmark" },
+    { href: "/bookmarks", icon: WandSparklesIcon, label: "Inspiration" },
+  ],
+  games: [
+    {
+      href: "/drawCircle",
+      slug: "drawCircle",
+      title: "Draw Circle",
+      description: "Draw a circle freehand and see how close you get.",
+    },
+    {
+      href: "/colorMemo",
+      slug: "colorMemo",
+      title: "Color Memo",
+      description: "A color flashes. Recreate it from memory.",
+    },
+    {
+      href: "/CityRise",
+      slug: "cityRise",
+      title: "CityRise",
+      description: "Grow a city from a farm to a skyline.",
+      flag: FEATURE_FLAGS.NEW_GAME,
+    },
   ],
   contact: {
     email: "riyajatha@gmail.com",
@@ -99,7 +121,7 @@ export const DATA = {
     {
       school: "KDU",
       href: "https://kdu.ac.lk",
-      degree: "Bsc (Hons)",
+      degree: "BSc (Hons)",
       logoUrl: "/kdu.png",
       start: "2020",
       end: "2023",
@@ -143,7 +165,7 @@ export const DATA = {
     },
     {
       title: "Beyond Childhood Int",
-      href: "https://craftlab.riyajathahamed.lk",
+      href: "https://dev-beyondchildhoodinternational.netlify.app/",
       dates: "Jan 2023 - Present",
       active: true,
       description:
@@ -152,7 +174,7 @@ export const DATA = {
         "React",
         "Typescript",
         "TailwindCSS",
-        "GpraphQL",
+        "GraphQL",
         "Netlify",
         "HashNode"
       ],
@@ -237,11 +259,6 @@ export const DATA = {
         "NPM",
       ],
       links: [
-        {
-          type: "Website",
-          href: "https://foss-kdu.github.io/fosskdu_web/",
-          icon: <Icons.globe className="size-3" />,
-        },
         {
           type: "GitHub",
           href: "https://github.com/riyajath-ahamed/mcp-gateway",

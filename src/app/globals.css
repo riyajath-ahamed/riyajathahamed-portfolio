@@ -1,45 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Cal+Sans&family=Mynerve&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
     :root {
-      --background: 0 0% 100%;
-      --foreground: 210 34.2% 11.0%;
+      --background: 40 38% 97%;
+      --foreground: 24 14% 11%;
 
-      --card: 0 0% 100%;
-      --card-foreground: 210 30.1% 9.53%;
+      --card: 40 45% 99%;
+      --card-foreground: 24 14% 11%;
 
-      --popover: 0 0% 100%;
-      --popover-foreground: 210 30.1% 9.53%;
+      --popover: 40 45% 99%;
+      --popover-foreground: 24 14% 11%;
 
-      --primary: 0 0% 9%;
-      --primary-foreground: 0 0% 98%;
+      --primary: 24 14% 11%;
+      --primary-foreground: 40 38% 97%;
 
-      --secondary: 0 0% 96.1%;
-      --secondary-foreground: 0 0% 9%;
+      --secondary: 36 22% 93%;
+      --secondary-foreground: 24 14% 11%;
 
-      --muted: 0 0% 96.1%;
-      --muted-foreground: 0 0% 45.1%;
+      --muted: 36 22% 93%;
+      --muted-foreground: 25 8% 38%;
 
-      --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
+      --accent: 36 22% 93%;
+    --accent-foreground: 24 14% 11%;
 
       --destructive: 0 84.2% 60.2%;
       --destructive-foreground: 0 0% 98%;
 
-      --border: 0 0% 89.8%;
-      --input: 0 0% 89.8%;
-      --ring: 0 0% 3.9%;
+      --border: 32 16% 86%;
+      --input: 32 16% 86%;
+      --ring: 24 14% 11%;
 
       --radius: 0.5rem;
-
-      --font-poppins: 'Poppins', sans-serif;
-      --font-acorn: 'Acorn', sans-serif;
-      --font-cal-sans: 'Cal Sans', sans-serif;
     }
 
     .dark {
@@ -53,26 +46,33 @@
       --popover-foreground: 0 0% 98%;
 
       --primary: 0 0% 98%;
-      --primary-foreground: 0 0% 9%;
+      --primary-foreground: 210 34% 11%;
 
-      --secondary: 0 0% 14.9%;
+      --secondary: 210 24% 16%;
       --secondary-foreground: 0 0% 98%;
 
-      --muted: 0 0% 14.9%;
-      --muted-foreground: 0 0% 63.9%;
+      --muted: 210 24% 16%;
+      --muted-foreground: 210 12% 66%;
 
-      --accent: 0 0% 14.9%;
+      --accent: 210 24% 16%;
       --accent-foreground: 0 0% 98%;
 
       --destructive: 0 62.8% 30.6%;
       --destructive-foreground: 0 0% 98%;
 
-      --border: 0 0% 14.9%;
-      --input: 0 0% 14.9%;
-      --ring: 0 0% 83.1%;
+      --border: 210 22% 18%;
+      --input: 210 22% 18%;
+      --ring: 210 16% 83%;
+    }
+  }
 
-      --font-poppins: 'Poppins', sans-serif;
-      --font-cal-sans: 'Cal Sans', sans-serif;
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
     }
   }
 
@@ -166,5 +166,5 @@ code[data-line-numbers-max-digits="3"] > [data-line]::before {
 }
 
 ::view-transition-new(root) {
-  z-index: 9999;
+  z-index: 2;
 }

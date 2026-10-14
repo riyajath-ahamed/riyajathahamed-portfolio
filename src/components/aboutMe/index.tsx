@@ -99,7 +99,7 @@ function AboutDeck() {
           )}
         >
           <MapPin className="size-5" strokeWidth={1.75} />
-          <p style={{ fontFamily: "Mynerve, cursive" }}>
+          <p className="font-hand">
             <span className="block text-[15px] leading-none">based in</span>
             <span className="mt-1 block text-[22px] leading-none">{city}</span>
           </p>
@@ -118,7 +118,7 @@ function AboutDeck() {
         >
           <span className="text-sm font-medium text-white/75">Experience</span>
           <p className="leading-none">
-            <span suppressHydrationWarning className="block text-5xl font-semibold tracking-tight">
+            <span suppressHydrationWarning className="block text-5xl font-semibold tracking-tight tabular-nums">
               {yearsSince(firstRole.start)}+
             </span>
             <span className="mt-1.5 block text-sm font-medium">years</span>
@@ -146,7 +146,7 @@ function AboutDeck() {
               {school.school}, {school.start}-{school.end}
             </span>
           </p>
-          <span className="text-[15px] text-neutral-700" style={{ fontFamily: "Mynerve, cursive" }}>
+          <span className="font-hand text-[15px] text-neutral-700">
             Education
           </span>
         </motion.a>
@@ -212,15 +212,20 @@ export default function AboutMe() {
       className="flex flex-col justify-between gap-8 py-2 md:col-span-1 lg:col-span-2"
     >
       <BlurFade delay={BLUR_FADE_DELAY * 3}>
-        <h2 className="pointer-events-none bg-gradient-to-b from-black to-gray-300/80 bg-clip-text pb-[0.08em] font-serif text-4xl font-bold leading-none tracking-tighter text-transparent dark:from-white dark:to-slate-900/10 sm:text-5xl">
+        <h2 className="pointer-events-none pb-[0.08em] font-serif text-4xl font-bold leading-none tracking-tighter sm:text-5xl text-foreground text-balance">
           Currently
         </h2>
-        <p className="mt-5 max-w-xl text-[1.35rem] font-medium leading-[1.35] tracking-tight text-foreground sm:text-[1.6rem] lg:text-[1.55rem] xl:text-[1.85rem]">
+        <p className="mt-5 max-w-[36rem] text-pretty text-[1.35rem] font-medium leading-[1.35] tracking-tight text-foreground sm:text-[1.6rem] lg:text-[1.55rem] xl:text-[1.85rem]">
           I&apos;m building products from{" "}
-          <InlineMark logo="/hero/flag.jpg" label="Colombo" tooltip="Sri Lanka" />.{" "}
+          <span className="whitespace-nowrap">
+            <InlineMark logo="/hero/flag.jpg" label="Colombo" tooltip="Sri Lanka" />.
+          </span>{" "}
           <span className="text-foreground/60">
             Outside of work, I build developer tools, experiment with{" "}
-            <InlineMark logo="/hero/ai.png" label="AI" tooltip="Cooking with AI" />, and
+            <span className="whitespace-nowrap">
+              <InlineMark logo="/hero/ai.png" label="AI" tooltip="Cooking with AI" />,
+            </span>{" "}
+            and
             explore the space where design meets engineering.
           </span>
         </p>

@@ -4,18 +4,33 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { DATA } from "@/data/resume";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Poppins as FontSans } from "next/font/google";
+import { IBM_Plex_Mono, Mynerve, Outfit } from "next/font/google";
 import localFont from 'next/font/local'
 import "./globals.css";
 import Particles from "@/components/magicui/particles";
-import Spline from "@splinetool/react-spline";
 import AuroraBackground from "@/components/AuroraBackground";
+import { PostHogProvider } from "@/components/posthog-provider";
 
-const fontSans = FontSans({
-  subsets: ['latin'],
-  display: 'swap',
-  variable: '--font-cal-sans',
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900']
+
+const fontSans = Outfit({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-sans",
+  weight: ["400", "500", "600", "700"],
+});
+
+const fontMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-mono",
+  weight: ["400", "500"],
+});
+
+const fontHand = Mynerve({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-hand",
+  weight: "400",
 });
 
 const acorn = localFont({
@@ -57,9 +72,8 @@ export const metadata: Metadata = {
     title: `${DATA.name}`,
     card: "summary_large_image",
   },
-  verification: {
-    google: "",
-    yandex: "",
+  appleWebApp: {
+    title: DATA.name,
   },
 };
 
@@ -70,25 +84,29 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <meta name="apple-mobile-web-app-title" content="Riyajath Ahamed" />
       <body
         className={cn(
           " bg-background font-sans overflow-x-hidden",
-          fontSans.variable, acorn.variable,
+          fontSans.variable, fontMono.variable, fontHand.variable, acorn.variable,
         )}
       >
         <ThemeProvider attribute="class" defaultTheme="light">
+          <PostHogProvider>
+          <a
+            href="#content"
+            className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-[#fbf8f1] focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-neutral-900 focus:shadow-[0_8px_24px_rgba(60,40,20,0.16)] focus:outline-none focus:ring-2 focus:ring-[#e8413c]"
+          >
+            Skip to content
+          </a>
           <AuroraBackground />
           <div
+            aria-hidden
             style={{
               background:
-                "linear-gradient(to bottom, #6C47FF00 0%, #6C47FF 50%, #6C47FF00 100%)",
-              opacity: "15%",
-
-              // TODO: background: "linear-gradient(180deg, #6C47FF 0%, #6C47FF 50%, #6C47FF 100%)", yellow
+                "radial-gradient(ellipse at center, rgba(232,65,60,0.08) 0%, rgba(43,76,126,0.04) 46%, transparent 72%)",
             }}
-            className="w-screen md:w-[840px] h-[632px] overflow-hidden blur-3xl pointer-events-none absolute left-1/2 -translate-x-1/2 top-0 -z-10 "
-          ></div>
+            className="pointer-events-none absolute left-1/2 top-0 -z-10 h-[632px] w-screen -translate-x-1/2 overflow-hidden blur-3xl md:w-[840px]"
+          />
           <Particles
             className="fixed inset-0"
             quantity={500}
@@ -97,16 +115,10 @@ export default function RootLayout({
           />
           <TooltipProvider delayDuration={0}>
           <ResponsiveNavbar />
-            {children}
+            <div id="content">{children}</div>
           </TooltipProvider>
+          </PostHogProvider>
         </ThemeProvider>
-        {/*  xl:inset-y-0 xl:-right-[70vh] xl:inset-x-auto  */}
-        {/* <div className=" hidden sm:block absolute inset-x-0 top-[60vh] -z-10 overflow-x-hidden ">
-        <Spline className="fixed w-full h-full inset-x-0 top-[60vh] -z-10 overflow-x-hidden"
-          scene="https://prod.spline.design/IKyLNSd3P6WxwJpg/scene.splinecode" 
-        />
-        </div> */}
-        
       </body>
     </html>
   );

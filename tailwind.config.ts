@@ -20,9 +20,10 @@ const config = {
   	},
   	extend: {
   		fontFamily: {
-  			sans: ['var(--font-poppins)', 'sans-serif'],
+  			sans: ['var(--font-sans)', ...fontFamily.sans],
   			serif: ['var(--font-acorn)', 'serif'],
-			mono: ['var(--font-cal-sans)', 'sans-serif'],
+  			mono: ['var(--font-mono)', ...fontFamily.mono],
+  			hand: ['var(--font-hand)', 'cursive'],
   		},
   		colors: {
   			border: 'hsl(var(--border))',
