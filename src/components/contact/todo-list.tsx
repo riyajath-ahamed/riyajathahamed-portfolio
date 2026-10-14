@@ -172,14 +172,9 @@ export function TodoList() {
 
   return (
     <div className="relative flex flex-1 flex-col">
-      <p className="absolute -top-[1.85rem] right-0 text-xs tabular-nums tracking-[-0.01em] text-neutral-400">
-        {items.length > 0 && doneCount === items.length
-          ? "All done"
-          : `${doneCount} of ${items.length} done`}
-      </p>
 
       <div className="flex flex-1 items-center justify-center py-3">
-        <div className="group/note relative w-full max-w-[232px] -rotate-[4deg] drop-shadow-[0_14px_14px_rgba(150,120,40,0.22)] transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-rotate-[2deg] motion-reduce:transition-none">
+        <div className="group/note relative w-full max-w-[232px] -rotate-[4deg] transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-rotate-[2deg] motion-reduce:transition-none">
           <div
             aria-hidden
             className="absolute inset-0 translate-y-[5px] rounded-[20px] bg-[#e6cf7c]"

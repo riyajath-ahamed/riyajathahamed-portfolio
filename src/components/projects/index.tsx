@@ -322,7 +322,7 @@ export default function Projects() {
               Open source
             </h3>
             <p className="mt-3 max-w-[34ch] text-base leading-relaxed text-foreground/60">
-              Small tools for React, Vite and MCP servers. Copy a command to try one.
+              Small tools for DX. Copy a command to try one.
             </p>
             <Link
               href={DATA.contact.social.GitHub.url}

@@ -139,10 +139,11 @@ export const DATA = {
       technologies: [
         "React",
         "Javascript",
+        "TensorFlow",
+        "Heroku",
         "MongoDB",
         "FireBase",
         "TailwindCSS",
-        "TensorFlow",
         "Docker",
         "Heroku",
         "NodeJs"
@@ -173,8 +174,8 @@ export const DATA = {
       technologies: [
         "React",
         "Typescript",
-        "TailwindCSS",
         "GraphQL",
+        "TailwindCSS",
         "Netlify",
         "HashNode"
       ],
@@ -201,11 +202,11 @@ export const DATA = {
         "Genso CLI is a React boilerplate designed to simplify development by providing a pre-configured setup",
       technologies: [
         "JavaScript",
+        "NPM",
+        "GitHub Actions",
         "React",
         "TailwindCSS",
-        "NPM",
         "Node.js",
-        "GitHub Actions",
       ],
       links: [
         {
