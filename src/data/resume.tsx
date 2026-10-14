@@ -60,27 +60,6 @@ export const DATA = {
       flag: FEATURE_FLAGS.NEW_GAME,
     },
   ],
-  games: [
-    {
-      href: "/drawCircle",
-      slug: "drawCircle",
-      title: "Draw Circle",
-      description: "Draw a circle freehand and see how close you get.",
-    },
-    {
-      href: "/colorMemo",
-      slug: "colorMemo",
-      title: "Color Memo",
-      description: "A color flashes. Recreate it from memory.",
-    },
-    {
-      href: "/CityRise",
-      slug: "cityRise",
-      title: "CityRise",
-      description: "Grow a city from a farm to a skyline.",
-      flag: FEATURE_FLAGS.NEW_GAME,
-    },
-  ],
   contact: {
     email: "riyajatha@gmail.com",
     tel: "+94779794993",
