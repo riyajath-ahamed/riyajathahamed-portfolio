@@ -1,6 +1,6 @@
 import { Icons } from "@/components/icons";
 import { FEATURE_FLAGS } from "@/lib/flags";
-import { BookIcon, HomeIcon, NotebookIcon, WandSparklesIcon } from "lucide-react";
+import { BookIcon, HomeIcon, NotebookIcon, PencilRulerIcon, WandSparklesIcon } from "lucide-react";
 
 export const DATA = {
   name: "Riyajath Ahamed",
@@ -8,8 +8,9 @@ export const DATA = {
   url: "https://riyajathahamed.lk",
   location: "Colombo, SL",
   locationLink: "https://www.google.com/maps/place/Colombo,+Sri+Lanka",
+  timezone: "Asia/Colombo",
   description:
-    "Builds Intelligent, Data-Driven Front-End Products That Transform Complex Systems Into Intuitive User Experiences.",
+    "Builds intelligent, data-driven front-end products that turn complex systems into interfaces people can use.",
   summary:
     "I’m an experienced front-end developer with a passion for design and a knack for tinkering. Web development is my playground, where I push boundaries and chase new horizons. I’ve worked close to product and design to shape interfaces that scale, perform, and feel intentional. From design-system-led UI to data-dense visualizations, I treat the front end not as a layer, but as a product-defining system - who builds systems that handle real load, real data, and real users and architects them to stay that way.",
   avatarUrl: "https://avatars.githubusercontent.com/u/64283797?v=4",
@@ -34,9 +35,9 @@ export const DATA = {
     "LLM"
   ],
   navbar: [
-    { href: "/casestudies", icon: WandSparklesIcon, label: "Case Studies" },
+    { href: "/casestudies", icon: PencilRulerIcon, label: "Design Engineering" },
     { href: "/blog", icon: BookIcon, label: "Blog" },
-    { href: "/bookmarks", icon: NotebookIcon, label: "Bookmark" },
+    { href: "/bookmarks", icon: WandSparklesIcon, label: "Inspiration" },
   ],
   games: [
     {
@@ -120,7 +121,7 @@ export const DATA = {
     {
       school: "KDU",
       href: "https://kdu.ac.lk",
-      degree: "Bsc (Hons)",
+      degree: "BSc (Hons)",
       logoUrl: "/kdu.png",
       start: "2020",
       end: "2023",
@@ -138,10 +139,11 @@ export const DATA = {
       technologies: [
         "React",
         "Javascript",
+        "TensorFlow",
+        "Heroku",
         "MongoDB",
         "FireBase",
         "TailwindCSS",
-        "TensorFlow",
         "Docker",
         "Heroku",
         "NodeJs"
@@ -164,7 +166,7 @@ export const DATA = {
     },
     {
       title: "Beyond Childhood Int",
-      href: "https://craftlab.riyajathahamed.lk",
+      href: "https://dev-beyondchildhoodinternational.netlify.app/",
       dates: "Jan 2023 - Present",
       active: true,
       description:
@@ -172,8 +174,8 @@ export const DATA = {
       technologies: [
         "React",
         "Typescript",
+        "GraphQL",
         "TailwindCSS",
-        "GpraphQL",
         "Netlify",
         "HashNode"
       ],
@@ -200,11 +202,11 @@ export const DATA = {
         "Genso CLI is a React boilerplate designed to simplify development by providing a pre-configured setup",
       technologies: [
         "JavaScript",
+        "NPM",
+        "GitHub Actions",
         "React",
         "TailwindCSS",
-        "NPM",
         "Node.js",
-        "GitHub Actions",
       ],
       links: [
         {
@@ -258,11 +260,6 @@ export const DATA = {
         "NPM",
       ],
       links: [
-        {
-          type: "Website",
-          href: "https://foss-kdu.github.io/fosskdu_web/",
-          icon: <Icons.globe className="size-3" />,
-        },
         {
           type: "GitHub",
           href: "https://github.com/riyajath-ahamed/mcp-gateway",

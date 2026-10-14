@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, KeyboardEvent } from "react";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 const ROUTES: Record<string, string> = {
   game: "/game",
@@ -12,7 +13,7 @@ const AVAILABLE = Object.keys(ROUTES);
 const PROMPT = "rj@portfolio:~$ ";
 const MAX_LINES = 3;
 
-export default function Terminal() {
+export default function Terminal({ className }: { className?: string }) {
   const [input, setInput] = useState("");
   const [lines, setLines] = useState<{ text: string; type: "prompt" | "output" | "error" }[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -80,7 +81,7 @@ export default function Terminal() {
 
   return (
     <div
-      className="mt-4 w-full max-w-sm cursor-text text-left mx-auto"
+      className={cn("mt-4 w-full max-w-sm cursor-text text-left mx-auto", className)}
       onClick={() => inputRef.current?.focus()}
     >
       <div className="rounded-lg bg-neutral-900 dark:bg-neutral-950 border border-neutral-700/50 shadow-md overflow-hidden transition-all duration-200 hover:shadow-lg hover:border-green-500/20">
@@ -121,6 +122,7 @@ export default function Terminal() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={onKeyDown}
+              aria-label="Terminal command"
               className="flex-1 min-w-0 bg-transparent text-green-400 outline-none caret-transparent font-mono text-xs"
               spellCheck={false}
               autoComplete="off"
