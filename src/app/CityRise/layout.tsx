@@ -1,15 +1,6 @@
-import React, { ReactNode } from "react";
+import type { ReactNode } from "react";
+import NewGameGate from "@/components/game/NewGameGate";
 
-interface CityRiseLayoutProps {
-    children: ReactNode;
-}
-
-export default function CityRiseLayout({ children }: CityRiseLayoutProps) {
-    return (
-        <div>
-            <main>
-                {children}
-            </main>
-        </div>
-    );
+export default function CityRiseLayout({ children }: { children: ReactNode }) {
+  return <NewGameGate>{children}</NewGameGate>;
 }
