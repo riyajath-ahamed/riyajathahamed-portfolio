@@ -5,8 +5,10 @@ import { cn } from "@/lib/utils";
 import { ArrowUpRight, BookOpen, MapPin } from "lucide-react";
 import Image from "next/image";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
+import { useState } from "react";
 import { BLUR_FADE_DELAY } from "@/lib/home";
 import BlurFade from "../magicui/blur-fade";
+import CareerScale from "./career-scale";
 import {
   Dialog,
   DialogContent,
@@ -23,7 +25,7 @@ import {
 
 const school = DATA.education[0];
 const role = DATA.work[0];
-const firstRole = DATA.work[DATA.work.length - 1];
+const firstRole = DATA.work[0];
 const city = DATA.location.split(",")[0];
 
 const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
@@ -95,10 +97,10 @@ function AboutDeck() {
           aria-label={`${city} on Google Maps`}
           className={cn(
             cardBase,
-            "z-[1] bg-[#e8413c] text-white shadow-[0_14px_28px_rgba(120,24,20,0.24)]",
+            "z-[1] bg-gradient-to-tr from-purple-500 to-purple-900 text-white ",
           )}
         >
-          <MapPin className="size-5" strokeWidth={1.75} />
+          📍
           <p className="font-hand">
             <span className="block text-[15px] leading-none">based in</span>
             <span className="mt-1 block text-[22px] leading-none">{city}</span>
@@ -125,7 +127,7 @@ function AboutDeck() {
           </p>
         </motion.article>
 
-        <motion.a
+        {/* <motion.a
           custom={2}
           variants={card}
           whileHover={lift}
@@ -149,7 +151,7 @@ function AboutDeck() {
           <span className="font-hand text-[15px] text-neutral-700">
             Education
           </span>
-        </motion.a>
+        </motion.a> */}
 
         <DialogTrigger asChild>
           <motion.button
@@ -193,9 +195,9 @@ function InlineMark({
             <Image
               src={logo}
               alt={tooltip}
-              width={40}
-              height={40}
-              className="size-[1.15em] rounded-[0.2em] object-contain"
+              width={50}
+              height={30}
+              className="size-[1.15em] rounded-sm object-cover"
             />
           </span>
         </TooltipTrigger>
@@ -206,6 +208,9 @@ function InlineMark({
 }
 
 export default function AboutMe() {
+  const reduce = useReducedMotion();
+  const [tldr, setTldr] = useState(false);
+
   return (
     <section
       id="about"
@@ -216,47 +221,62 @@ export default function AboutMe() {
           Currently
         </h2>
         <p className="mt-5 max-w-[36rem] text-pretty text-[1.35rem] font-medium leading-[1.35] tracking-tight text-foreground sm:text-[1.6rem] lg:text-[1.55rem] xl:text-[1.85rem]">
-          I&apos;m building products from{" "}
+          I&apos;m engineering products, architecting UI systems, and turning complex ideas into software that ships.
+          <span className="text-foreground/60">
+          Building developer tools, experimenting with {" "}
+            <span className="whitespace-nowrap">
+              <InlineMark logo="/hero/ai.png" label="AI agents," tooltip="Cooking with AI" />
+            </span>{" "}
+            and exploring new ways to engineer better products.
+          </span>
+          {" "} All from {" "}
           <span className="whitespace-nowrap">
             <InlineMark logo="/hero/flag.jpg" label="Colombo" tooltip="Sri Lanka" />.
-          </span>{" "}
-          <span className="text-foreground/60">
-            Outside of work, I build developer tools, experiment with{" "}
-            <span className="whitespace-nowrap">
-              <InlineMark logo="/hero/ai.png" label="AI" tooltip="Cooking with AI" />,
-            </span>{" "}
-            and
-            explore the space where design meets engineering.
           </span>
         </p>
       </BlurFade>
-
-      <Dialog>
+      <Dialog onOpenChange={(open) => { if (!open) setTldr(false); }}>
         <AboutDeck />
         <DialogContent className="max-h-[calc(100dvh-2rem)] w-[calc(100%-1.5rem)] max-w-xl gap-0 overflow-y-auto rounded-2xl p-6 sm:p-8">
           <DialogHeader className="text-left">
-            <DialogTitle className="font-serif text-3xl font-bold tracking-tight">
-              The long version
-            </DialogTitle>
+            <div className="flex items-center justify-between gap-3 pr-8">
+              <DialogTitle className="relative w-fit font-serif text-3xl font-bold tracking-tight">
+                <span className={cn("transition-colors duration-300", tldr && "text-foreground/35")}>
+                  The long version
+                </span>
+                <motion.span
+                  aria-hidden
+                  className="absolute left-0 top-[55%] h-[2px] w-full origin-left bg-foreground"
+                  initial={false}
+                  animate={{ scaleX: tldr ? 1 : 0 }}
+                  transition={reduce ? { duration: 0 } : { duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                />
+              </DialogTitle>
+              <button
+                type="button"
+                aria-pressed={tldr}
+                onClick={() => setTldr((on) => !on)}
+                className={cn(
+                  "shrink-0 rounded-full px-3 py-1 text-xs font-semibold tracking-tight transition-colors",
+                  tldr
+                    ? "bg-foreground text-background"
+                    : "bg-foreground/5 text-foreground/70 hover:bg-foreground/10 hover:text-foreground",
+                )}
+              >
+                TL;DR
+              </button>
+            </div>
             <DialogDescription className="sr-only">
-              A longer note on how I work.
+              {tldr ? "A short note on how I work." : "A longer note on how I work."}
             </DialogDescription>
           </DialogHeader>
           <p className="mt-4 text-base leading-relaxed text-foreground/75 md:text-lg">
-            {DATA.summary}
+            {tldr ? DATA.summaryTldr : DATA.summary}
           </p>
-          <p className="mt-6 border-t border-foreground/10 pt-4 text-sm text-foreground/60">
-            {role.title} at{" "}
-            <a
-              href={role.href}
-              target="_blank"
-              rel="noreferrer"
-              className="font-medium text-foreground underline underline-offset-4 hover:text-[#e8413c]"
-            >
-              {role.company}
-            </a>
-            , since {role.start}.
-          </p>
+          <BlurFade delay={BLUR_FADE_DELAY * 4} className="w-full mt-6 border-t border-foreground/10 pt-4">
+            <CareerScale />
+          </BlurFade>
+          
         </DialogContent>
       </Dialog>
     </section>

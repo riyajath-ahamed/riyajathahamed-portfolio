@@ -1,6 +1,6 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -263,6 +263,59 @@ function DrawerRise() {
   return <span ref={anchorRef} className="sr-only" />;
 }
 
+function KanwaVideo() {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const video = ref.current;
+    const section = video?.closest("section");
+    if (!video || !section) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    video.setAttribute("fetchpriority", "low");
+
+    let loaded = false;
+    const show = () => setReady(true);
+    video.addEventListener("loadeddata", show);
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry) return;
+        if (entry.isIntersecting) {
+          if (!loaded) {
+            loaded = true;
+            video.src = "/video/kanwa.mp4";
+          }
+          void video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { rootMargin: "240px 0px", threshold: 0.01 },
+    );
+    observer.observe(section);
+
+    return () => {
+      video.removeEventListener("loadeddata", show);
+      observer.disconnect();
+      video.pause();
+    };
+  }, []);
+
+  return (
+    <video
+      ref={ref}
+      muted
+      loop
+      playsInline
+      preload="none"
+      aria-hidden
+      className={`pointer-events-none absolute inset-0 size-full object-cover transition-opacity duration-700 ease-out motion-reduce:hidden ${ready ? "opacity-100" : "opacity-0"}`}
+    />
+  );
+}
+
 export default function EngineeringPhilosophy() {
   const sectionRef = useRef<HTMLElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
@@ -321,7 +374,8 @@ export default function EngineeringPhilosophy() {
         id="my-ikigai"
         className="relative aspect-[640/584] w-full self-start overflow-hidden rounded-[1.35rem] bg-[#f3eee4] shadow-[0_18px_44px_rgba(16,47,83,0.14)] ring-1 ring-[#173653]/10 dark:bg-[#111820] dark:shadow-[0_18px_44px_rgba(0,0,0,0.35)] dark:ring-white/10 md:col-span-1 lg:col-span-2"
       >
-        <WaveDiorama className="absolute inset-0" />
+        {/* <WaveDiorama className="absolute inset-0" /> */}
+        <KanwaVideo />
 
         <div className="pointer-events-none absolute left-6 top-6 z-10 max-w-[13rem] text-left sm:left-8 sm:top-8">
           <h2 className="font-serif text-3xl font-bold leading-none tracking-tighter text-[#172331] text-balance sm:text-4xl dark:text-[#e7edf0]">

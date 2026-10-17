@@ -12,7 +12,9 @@ export const DATA = {
   description:
     "Builds intelligent, data-driven front-end products that turn complex systems into interfaces people can use.",
   summary:
-    "I’m an experienced front-end developer with a passion for design and a knack for tinkering. Web development is my playground, where I push boundaries and chase new horizons. I’ve worked close to product and design to shape interfaces that scale, perform, and feel intentional. From design-system-led UI to data-dense visualizations, I treat the front end not as a layer, but as a product-defining system - who builds systems that handle real load, real data, and real users and architects them to stay that way.",
+    "I’m a software engineer with a passion for product engineering, thoughtful design, and a knack for tinkering. Software is my playground — a space to explore ideas, solve complex problems, and push the boundaries of what’s possible. I work at the intersection of product, design, and engineering, building experiences that scale, perform, and feel intentional. From design-system-driven UI architecture to data-intensive visualizations, I see interfaces as more than a layer of the application — they’re product-defining systems that shape how people interact with software. I care about what happens beneath the surface, too: the architecture, performance, and engineering decisions that keep products reliable under real load, with real data and real users. Beyond product work, I build developer tools, explore AI-powered applications, and experiment with new ways to make software development more capable, efficient, and expressive.",
+  summaryTldr:
+    "I build at the intersection of product, design, and engineering — interfaces that scale, the systems under them, and the tools and AI experiments around them.",
   avatarUrl: "https://avatars.githubusercontent.com/u/64283797?v=4",
   skills: [
     "React",
@@ -96,7 +98,6 @@ export const DATA = {
         name: "Send Email",
         url: "mailto:riyajatha@gmail.com",
         icon: Icons.email,
-
         navbar: true,
       },
     },
@@ -115,6 +116,18 @@ export const DATA = {
       description:
         " ",
     },
+    {
+      company: "Qoria",
+      href: "https://qoria.com",
+      badges: [],
+      location: "Colombo, SL",
+      title: "Software Engineer",
+      logoUrl: "/qorialogo.jpg",
+      start: " 2025 July",
+      end: "Present",
+      description:
+        "Qoria is a global technology company, dedicated to keeping children safe and well in their digital lives.",
+    }
     
   ],
   education: [
@@ -139,11 +152,10 @@ export const DATA = {
       technologies: [
         "React",
         "Javascript",
-        "TensorFlow",
-        "Heroku",
         "MongoDB",
         "FireBase",
         "TailwindCSS",
+        "TensorFlow",
         "Docker",
         "Heroku",
         "NodeJs"
@@ -174,8 +186,8 @@ export const DATA = {
       technologies: [
         "React",
         "Typescript",
-        "GraphQL",
         "TailwindCSS",
+        "GraphQL",
         "Netlify",
         "HashNode"
       ],
@@ -202,11 +214,11 @@ export const DATA = {
         "Genso CLI is a React boilerplate designed to simplify development by providing a pre-configured setup",
       technologies: [
         "JavaScript",
-        "NPM",
-        "GitHub Actions",
         "React",
         "TailwindCSS",
+        "NPM",
         "Node.js",
+        "GitHub Actions",
       ],
       links: [
         {

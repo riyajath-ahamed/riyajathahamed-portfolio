@@ -5,11 +5,12 @@ import { DATA } from "@/data/resume";
 import { Icons } from "@/components/icons";
 import BlurFade from "@/components/magicui/blur-fade";
 import { CopyEmailButton } from "@/components/contact/copy-email-button";
+import PhotoCard from "./photocard";
 import { TodoList } from "@/components/contact/todo-list";
 import IpodPreview from "@/components/phonePreview";
 
 const tile =
-  "relative flex h-full flex-col overflow-hidden rounded-[22px] border border-black/[0.05] bg-[#f6f6f7] p-5 text-neutral-900 shadow-[0_1px_1px_rgba(0,0,0,0.03)] transition-[transform,box-shadow] duration-300 ease-out hover:shadow-[0_10px_28px_rgba(20,20,20,0.06)] dark:border-white/[0.07] dark:bg-[#1a222e] dark:text-neutral-100";
+  "relative flex h-full flex-col overflow-hidden rounded-[22px] border border-black/[0.05] bg-background p-5 text-neutral-900 shadow-[0_1px_1px_rgba(0,0,0,0.03)] transition-[transform,box-shadow] duration-300 ease-out hover:shadow-[0_10px_28px_rgba(20,20,20,0.06)] dark:border-white/[0.07] dark:text-neutral-100";
 
 const title =
   "text-balance text-[15px] font-medium tracking-[-0.015em] text-neutral-900 dark:text-neutral-100";
@@ -25,7 +26,7 @@ const SKILLS: { name: string; className: string }[] = [
   { name: "GraphQL", className: "left-[16%] top-[54%] -rotate-1" },
   { name: "React Native", className: "left-[40%] top-[50%] rotate-[2deg]" },
   { name: "Docker", className: "right-[7%] top-[56%] rotate-[3deg]" },
-  { name: "AWS", className: "left-[8%] bottom-[8%] -rotate-[7deg]" },
+  { name: "GCP", className: "left-[8%] bottom-[8%] -rotate-[7deg]" },
   { name: "Postgres", className: "right-[12%] bottom-[10%] rotate-[8deg]" },
 ];
 
@@ -101,56 +102,15 @@ function GmailMark({ className }: { className?: string }) {
   );
 }
 
-function WritingStack() {
-  return (
-    <div className="relative mx-auto h-44 w-full max-w-[250px]" aria-hidden>
-      <div className="absolute left-[18%] top-[22%] h-28 w-[62%] -rotate-[8deg] rounded-xl bg-[#d5e8f8] shadow-[0_8px_18px_rgba(80,130,180,0.16)]" />
-      <div className="absolute left-[10%] top-[30%] h-[7.5rem] w-[78%] rounded-[18px] bg-[#c5dff6] shadow-[0_10px_22px_rgba(70,120,170,0.18)]">
-        <span className="absolute -top-2.5 left-5 h-3.5 w-16 rounded-t-lg bg-[#b5d4f2]" />
-      </div>
-      <div className="absolute left-[16%] top-[14%] h-[6.6rem] w-[64%] -rotate-[2deg] overflow-hidden rounded-lg bg-white/75 shadow-[0_8px_20px_rgba(40,60,90,0.12)] backdrop-blur-[2px]">
-        <div className="h-[58%] bg-[radial-gradient(circle_at_30%_40%,#f6d98a,transparent_55%),radial-gradient(circle_at_70%_30%,#f3b4c4,transparent_50%),linear-gradient(160deg,#d7ecfb,#f7e7c4)] blur-[1.5px]" />
-        <p className="px-2.5 pt-1.5 text-[10px] leading-tight text-neutral-500/90 blur-[0.3px]">
-          Interfaces, up close
-        </p>
-      </div>
-      <div
-        className="absolute right-[6%] top-[26%] h-28 w-7 bg-[#f3e49a] shadow-[2px_2px_0_rgba(0,0,0,0.03)]"
-        style={{
-          maskImage:
-            "radial-gradient(circle at left, transparent 5px, black 5.5px)",
-          WebkitMaskImage:
-            "radial-gradient(circle at left, transparent 5px, black 5.5px)",
-          maskSize: "100% 14px",
-          WebkitMaskSize: "100% 14px",
-        }}
-      />
-    </div>
-  );
-}
-
 export default function Contact() {
   return (
     <section id="contact" className="col-span-full">
       <BlurFade delay={BLUR_FADE_DELAY * 18}>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-          <Link
-            href="/blog"
-            className={cn(
-              tile,
-              "group min-h-[230px] transition-transform active:scale-[0.99] lg:col-start-1 lg:row-start-1",
-              focusRing,
-            )}
-          >
-            <h2 className={title}>Writing</h2>
-            <WritingStack />
-            <p className="mt-auto text-sm text-neutral-500 transition-colors duration-200 group-hover:text-[#e8413c] dark:text-neutral-400 dark:group-hover:text-[#ff7a6e]">
-              Notes on interfaces
-            </p>
-          </Link>
+          <PhotoCard className="lg:col-start-1 lg:row-start-1" />
 
           <article className={cn(tile, "min-h-[230px] lg:col-start-2 lg:row-start-1")}>
-            <h2 className={title}>Skills</h2>
+            <h2 className={title}>Skills & Stack</h2>
             <div className="relative mt-3 min-h-[168px] flex-1 md:block">
               {SKILLS.map((skill) => (
                 <SkillPill key={skill.name} name={skill.name} className={skill.className} />

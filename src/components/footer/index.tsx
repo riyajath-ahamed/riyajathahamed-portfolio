@@ -19,7 +19,7 @@ export default function Footer() {
         </p>
         <Terminal className="mt-2" />
         <p className="text-xs text-foreground/50 mt-4">
-          Crafted by a human. No AI was involved in the making of this portfolio.
+          Crafted by a human & AI. 
         </p>
         <p className="text-xs text-foreground/40 mt-1">
           &copy; {new Date().getFullYear()} {DATA.name}. All rights reserved.
