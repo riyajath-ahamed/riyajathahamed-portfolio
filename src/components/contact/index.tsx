@@ -176,6 +176,7 @@ export default function Contact() {
               "min-h-[92px] flex-row  gap-3 px-6 py-4 md:col-span-2 lg:col-span-2 lg:col-start-2 lg:row-start-3",
             )}
           >
+            <div className="flex items-center gap-2.5">
             {SOCIALS.map((social) => {
               const Icon = social.icon;
               return (
@@ -186,14 +187,15 @@ export default function Contact() {
                   rel="noreferrer"
                   aria-label={social.name}
                   className={cn(
-                    "grid size-10 place-items-center bg-background/90 rounded-lg shadow-[0_6px_14px_rgba(0,0,0,0.12)] transition-transform duration-200 hover:scale-[1.5] active:scale-[1]",
+                    "grid size-10 place-items-center rounded-xl bg-white text-foreground shadow-[0_1px_1px_rgba(20,20,20,0.04),0_6px_14px_rgba(20,20,20,0.05)] transition-[transform,box-shadow,background-color] duration-200 ease-out hover:-translate-y-0.5 hover:shadow-[0_8px_16px_rgba(20,20,20,0.08)] active:translate-y-0 active:scale-[0.96] dark:bg-white/[0.06] dark:shadow-none dark:hover:bg-white/10",
                     focusRing,
                   )}
                 >
-                  <Icon className="size-[22px] text-foreground" />
+                  <Icon className="size-[18px]" />
                 </Link>
               );
             })}
+            </div>
           </div>
         </div>
       </BlurFade>
