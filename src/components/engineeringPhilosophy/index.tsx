@@ -80,16 +80,16 @@ const drawerMotion = `
   .gw-base-rig, .gw-shadow-rig, .gw-foam-rig, .gw-water-rig, .gw-claw-rig {
     will-change: transform;
   }
-  .gw-sheet {
-    background:
-      linear-gradient(90deg, rgba(23,54,83,.045) 1px, transparent 1px),
-      #f3eee4;
-    background-size: 32px 32px;
+  .gw-sheet { --gw-line: rgba(23,54,83,.12); background: #f3eee4; }
+  .dark .gw-sheet { --gw-line: rgba(213,227,234,.1); background: #111820; }
+  .gw-hatch {
+    background-image: repeating-linear-gradient(
+      90deg, var(--gw-line) 0 1px, transparent 1px 5px
+    );
   }
-  .dark .gw-sheet {
-    background:
-      linear-gradient(90deg, rgba(213,227,234,.035) 1px, transparent 1px),
-      #111820;
+  .gw-dots {
+    background-image: radial-gradient(var(--gw-line) 0.8px, transparent 1px);
+    background-size: 10px 10px;
   }
   @media (prefers-reduced-motion: no-preference) {
     .is-motion .gw-fragment {
@@ -134,90 +134,78 @@ const drawerMotion = `
   }
 `;
 
-function WaveFrame({
-  variant,
-  className,
-}: {
-  variant: "curl" | "claws" | "horizon";
-  className: string;
-}) {
+const noteMarks = ["curl", "claws", "horizon"] as const;
+
+function SectionLabel({ children }: { children: string }) {
   return (
-    <div className={`gw-fragment relative overflow-hidden rounded-2xl ${className}`}>
-      <WaveMark variant={variant} />
+    <div className="gw-hatch relative flex h-8 items-center justify-center border-b border-[var(--gw-line)]">
+      <span className="bg-[#f3eee4] px-2 font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-[#172331] dark:bg-[#111820] dark:text-[#e7edf0]">
+        [ {children} ]
+      </span>
+    </div>
+  );
+}
+
+function WaveFrame({ variant }: { variant: (typeof noteMarks)[number] }) {
+  return (
+    <div className="gw-fragment gw-dots relative aspect-[16/9] w-full overflow-hidden rounded-xl ring-1 ring-[var(--gw-line)]">
+      <div className="absolute inset-4 overflow-hidden rounded-md">
+        <WaveMark variant={variant} />
+      </div>
+      {["left-2 top-2", "right-2 top-2", "bottom-2 left-2", "bottom-2 right-2"].map((pos) => (
+        <span
+          key={pos}
+          aria-hidden
+          className={`absolute size-1 rounded-full bg-[#172331]/60 dark:bg-[#e7edf0]/60 ${pos}`}
+        />
+      ))}
     </div>
   );
 }
 
 function IkigaiCopy() {
-  const [build, simple, learn] = ikigaiNotes;
-
   return (
-    <div className="mx-auto flex w-full max-w-6xl flex-col px-4 py-14 pb-24 pr-16 text-foreground sm:px-10 sm:py-20">
-      <Dialog.Title className="ikigai-line font-serif text-4xl font-bold tracking-tighter sm:text-5xl">
-        My IKIGAI
-      </Dialog.Title>
-      <Dialog.Description className="ikigai-line mt-3 max-w-md font-sans text-lg text-foreground/80">
-        生き甲斐 - a reason for being.
-      </Dialog.Description>
-      <p className="ikigai-line mt-6 max-w-xl font-serif text-2xl leading-snug text-foreground">
-        <QuoteIcon
-          className="mr-1 inline size-6 -translate-y-1 rotate-180"
-          fill="currentColor"
-          strokeWidth={1.5}
-          aria-hidden
-        />
-        I&apos;ve found my Ikigai in building things.
-        <QuoteIcon
-          className="ml-1 inline size-6 -translate-y-1"
-          fill="currentColor"
-          strokeWidth={1.5}
-          aria-hidden
-        />
-      </p>
-      <p className="ikigai-line mt-4 max-w-xl font-sans text-base leading-relaxed text-foreground/75 md:text-lg">
-        I love the intersection of technology, creativity, and problem solving,
-        turning an idea into something real, useful, and beautifully crafted.
-        It&apos;s the reason I enjoy engineering. Not just writing code, but
-        figuring out how things should work, how they should feel, and how they
-        can be made better.
-      </p>
+    <div className="mx-auto w-full max-w-6xl border-x border-[var(--gw-line)] text-[#172331] dark:text-[#e7edf0]">
+      <SectionLabel>My Ikigai</SectionLabel>
 
-      <div className="mt-16 flex max-w-4xl flex-col gap-20">
-        <article className="ikigai-line grid grid-cols-1 gap-5 md:grid-cols-[minmax(0,1.45fr)_minmax(15rem,.8fr)] md:items-end md:gap-9">
-          <WaveFrame variant="curl" className="aspect-[16/10] w-full" />
-          <div className="md:pb-2">
-            <h3 className="font-serif text-2xl font-bold leading-tight tracking-tight">
-              {build.title}
-            </h3>
-            <p className="mt-3 font-sans text-sm leading-relaxed text-foreground/75 md:text-base">
-              {build.body}
-            </p>
-          </div>
-        </article>
+      <div className="px-6 py-16 sm:px-10 sm:py-20">
+        <Dialog.Title className="font-sans text-3xl font-semibold tracking-tight text-balance sm:text-4xl">
+          <QuoteIcon
+            className="mr-1 inline size-5 -translate-y-1 rotate-180 opacity-60"
+            fill="currentColor"
+            strokeWidth={1.5}
+            aria-hidden
+          />
+          I&apos;ve found my Ikigai in building things.
+        </Dialog.Title>
+        <Dialog.Description className="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-[#173653]/70 dark:text-[#d5e3ea]/70">
+          生き甲斐 · a reason for being
+        </Dialog.Description>
+        <p className="mt-6 max-w-[62ch] font-sans text-[15px] leading-7 text-[#172331]/70 text-pretty dark:text-[#e7edf0]/70">
+          I love the intersection of technology, creativity, and problem solving,
+          turning an idea into something real, useful, and beautifully crafted.
+          It&apos;s the reason I enjoy engineering. Not just writing code, but
+          figuring out how things should work, how they should feel, and how they
+          can be made better.
+        </p>
+      </div>
 
-        <article className="ikigai-line grid grid-cols-1 gap-5 md:grid-cols-[minmax(16rem,.72fr)_minmax(0,1.35fr)] md:items-center md:gap-10">
-          <div>
-            <h3 className="font-serif text-2xl font-bold leading-tight tracking-tight">
-              {simple.title}
-            </h3>
-            <p className="mt-3 font-sans text-sm leading-relaxed text-foreground/75 md:text-base">
-              {simple.body}
-            </p>
-          </div>
-          <WaveFrame variant="claws" className="aspect-[4/3] w-full" />
-        </article>
+      <div className="border-t border-[var(--gw-line)]">
+        <SectionLabel>What drives me</SectionLabel>
+      </div>
 
-        <article className="ikigai-line">
-          <div className="max-w-xl">
-            <h3 className="font-serif text-2xl font-bold leading-tight tracking-tight">
-              {learn.title}
+      <div className="grid grid-cols-1 divide-y divide-[var(--gw-line)] md:grid-cols-3 md:divide-x md:divide-y-0">
+        {ikigaiNotes.map((note, i) => (
+          <article key={note.title} className="px-6 py-14 sm:px-8 md:pb-28 md:pt-24">
+            <WaveFrame variant={noteMarks[i]} />
+            <h3 className="mt-8 max-w-[22ch] font-sans text-[15px] font-semibold leading-snug tracking-tight text-balance">
+              {note.title}
             </h3>
-            <p className="mt-3 font-sans text-sm leading-relaxed text-foreground/75 md:text-base">
-              {learn.body}
+            <p className="mt-4 font-sans text-sm leading-7 text-[#172331]/65 text-pretty dark:text-[#e7edf0]/65">
+              {note.body}
             </p>
-          </div>
-          <WaveFrame variant="horizon" className="mt-6 aspect-[12/4] w-full" />
-        </article>
+          </article>
+        ))}
       </div>
     </div>
   );
@@ -422,7 +410,9 @@ export default function EngineeringPhilosophy() {
                 <div className="gw-sheet relative z-[2]">
                   <IkigaiCopy />
                 </div>
-                <div className="gw-sheet h-[20dvh]" aria-hidden />
+                <div className="gw-sheet h-[20dvh]" aria-hidden>
+                  <div className="mx-auto h-full max-w-6xl border-x border-t border-[var(--gw-line)]" />
+                </div>
               </div>
             </div>
 
