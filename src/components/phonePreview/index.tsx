@@ -6,6 +6,62 @@ import Image from "next/image";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
+type SpotifyPlayback = {
+  position: number;
+  duration: number;
+  isPaused: boolean;
+  playingURI?: string;
+};
+
+type SpotifyEmbedController = {
+  loadEntity: (uriOrUrl: string) => void;
+  play: () => void;
+  pause: () => void;
+  restart: () => void;
+  seek: (seconds: number) => void;
+  destroy: () => void;
+  addListener: (event: "ready" | "playback_update", cb: (event: { data: SpotifyPlayback }) => void) => void;
+  removeListener: (event: "playback_update") => void;
+};
+
+type SpotifyIFrameAPI = {
+  createController: (
+    element: HTMLElement,
+    options: { url?: string; width?: number; height?: number },
+    callback: (controller: SpotifyEmbedController) => void,
+  ) => void;
+};
+
+declare global {
+  interface Window {
+    onSpotifyIframeApiReady?: (api: SpotifyIFrameAPI) => void;
+    __spotifyIframeApi?: SpotifyIFrameAPI;
+  }
+}
+
+function spotifyTrackId(src: string) {
+  return src.match(/(?:open\.spotify\.com\/track\/|spotify:track:)([A-Za-z0-9]+)/)?.[1] ?? null;
+}
+
+function loadSpotifyIframeApi() {
+  if (window.__spotifyIframeApi) return Promise.resolve(window.__spotifyIframeApi);
+  return new Promise<SpotifyIFrameAPI>((resolve) => {
+    const previous = window.onSpotifyIframeApiReady;
+    window.onSpotifyIframeApiReady = (api) => {
+      window.__spotifyIframeApi = api;
+      previous?.(api);
+      resolve(api);
+    };
+    if (!document.querySelector("script[data-spotify-iframe-api]")) {
+      const script = document.createElement("script");
+      script.src = "https://open.spotify.com/embed/iframe-api/v1";
+      script.async = true;
+      script.dataset.spotifyIframeApi = "true";
+      document.body.appendChild(script);
+    }
+  });
+}
+
 type Track = {
   title: string;
   artist: string;
@@ -19,7 +75,13 @@ type Track = {
 };
 
 const TRACKS: Track[] = [
-  { title: "Blue Bird", artist: "Ikimonogakari", album: "Naruto Shippuden", length: 218, src: "", cover: "" },
+  { 
+    title: "Ma meilleure ennemie", 
+    artist: "Luc Van Haver, Pomme, and Stroma", 
+    album: "Arcane", 
+    length: 147, 
+    src: "https://open.spotify.com/track/4lriIG2vNqwDWzOj2I9rtj?si=373457257ddf454d", 
+    cover: "https://i.pinimg.com/736x/dc/52/48/dc5248b0850b57c94b8591b56156e3c9.jpg" },
   {
     title: "Running Up That Hill (A Deal with God)",
     artist: "Kate Bush",
@@ -152,29 +214,131 @@ export default function IpodPreview() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const clickCtx = useRef<AudioContext | null>(null);
   const wheelRef = useRef<HTMLDivElement>(null);
+  const embedSlotRef = useRef<HTMLDivElement>(null);
+  const spotifyRef = useRef<SpotifyEmbedController | null>(null);
+  const spotifyReady = useRef(false);
+  const pendingPlay = useRef(false);
+  const loadedSpotifyId = useRef<string | null>(null);
+  const playingRef = useRef(false);
+  const indexRef = useRef(index);
+  const spotifyEnded = useRef(false);
   const drag = useRef({ angle: 0, acc: 0, moved: false });
 
   const track = TRACKS[index];
-  const hasAudio = Boolean(track.src);
+  const spotifyId = spotifyTrackId(track.src);
+  const hasFileAudio = Boolean(track.src) && !spotifyId;
   const length = duration ?? track.length;
 
-  useEffect(() => {
-    if (!playing || hasAudio) return;
-    const id = window.setInterval(() => setElapsed((e) => e + 1), 1000);
-    return () => window.clearInterval(id);
-  }, [playing, hasAudio]);
+  playingRef.current = playing;
+  indexRef.current = index;
 
   useEffect(() => {
-    if (!hasAudio && elapsed >= length) goTo(index + 1);
+    const slot = embedSlotRef.current;
+    if (!slot) return;
+    let cancelled = false;
+    const host = document.createElement("div");
+    slot.appendChild(host);
+    const initial = TRACKS.find((item) => spotifyTrackId(item.src));
+
+    const onUpdate = (event: { data: SpotifyPlayback }) => {
+      const { position, duration: rawDuration, isPaused, playingURI } = event.data;
+      const currentId = spotifyTrackId(TRACKS[indexRef.current].src);
+      if (!currentId || (playingURI && !playingURI.includes(currentId))) return;
+      if (rawDuration > 0) {
+        const useMs = rawDuration > 1000;
+        const durationSec = useMs ? rawDuration / 1000 : rawDuration;
+        const positionSec = useMs ? position / 1000 : position;
+        setDuration(durationSec);
+        setElapsed(positionSec);
+        if (!isPaused) spotifyEnded.current = false;
+        if (
+          isPaused &&
+          playingRef.current &&
+          !spotifyEnded.current &&
+          durationSec > 1 &&
+          positionSec >= durationSec - 0.4
+        ) {
+          spotifyEnded.current = true;
+          pendingPlay.current = false;
+          const next = (indexRef.current + 1) % TRACKS.length;
+          setIndex(next);
+          setElapsed(0);
+          setDuration(null);
+          return;
+        }
+      }
+      setPlaying(!isPaused);
+    };
+
+    loadSpotifyIframeApi()
+      .then((api) => {
+        if (cancelled) return;
+        api.createController(
+          host,
+          {
+            width: 300,
+            height: 80,
+            ...(initial ? { url: initial.src } : {}),
+          },
+          (controller) => {
+            if (cancelled) {
+              controller.destroy();
+              return;
+            }
+            spotifyRef.current = controller;
+            if (initial) loadedSpotifyId.current = spotifyTrackId(initial.src);
+            controller.addListener("ready", () => {
+              spotifyReady.current = true;
+              if (pendingPlay.current) controller.play();
+            });
+            controller.addListener("playback_update", onUpdate);
+          },
+        );
+      })
+      .catch(() => {});
+
+    return () => {
+      cancelled = true;
+      spotifyReady.current = false;
+      spotifyRef.current?.removeListener("playback_update");
+      spotifyRef.current?.destroy();
+      spotifyRef.current = null;
+      slot.replaceChildren();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!playing || hasFileAudio || spotifyId) return;
+    const id = window.setInterval(() => setElapsed((e) => e + 1), 1000);
+    return () => window.clearInterval(id);
+  }, [playing, hasFileAudio, spotifyId]);
+
+  useEffect(() => {
+    if (hasFileAudio || spotifyId || elapsed < length) return;
+    goTo(index + 1);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [elapsed, length, hasAudio]);
+  }, [elapsed, length, hasFileAudio, spotifyId]);
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio || !hasAudio) return;
+    if (!audio || !hasFileAudio) return;
     if (playing) audio.play().catch(() => setPlaying(false));
     else audio.pause();
-  }, [playing, hasAudio, index]);
+  }, [playing, hasFileAudio, index]);
+
+  useEffect(() => {
+    const controller = spotifyRef.current;
+    if (!controller || !spotifyReady.current) return;
+    if (!spotifyId) {
+      controller.pause();
+      return;
+    }
+    if (loadedSpotifyId.current !== spotifyId) {
+      loadedSpotifyId.current = spotifyId;
+      controller.loadEntity(track.src);
+      if (playingRef.current) controller.play();
+    }
+  }, [spotifyId, track.src]);
 
   useEffect(() => {
     if (audioRef.current) audioRef.current.volume = volume;
@@ -218,8 +382,35 @@ export default function IpodPreview() {
     setDuration(null);
   }
 
+  function playSpotify(src: string) {
+    const id = spotifyTrackId(src);
+    if (!id) return false;
+    pendingPlay.current = true;
+    const controller = spotifyRef.current;
+    if (controller && spotifyReady.current) {
+      if (loadedSpotifyId.current !== id) {
+        loadedSpotifyId.current = id;
+        controller.loadEntity(src);
+      }
+      controller.play();
+    }
+    setPlaying(true);
+    return true;
+  }
+
+  function pausePlayback() {
+    pendingPlay.current = false;
+    spotifyRef.current?.pause();
+    setPlaying(false);
+  }
+
   function restart() {
     setElapsed(0);
+    if (spotifyId && spotifyRef.current) {
+      if (playing) spotifyRef.current.restart();
+      else spotifyRef.current.seek(0);
+      return;
+    }
     if (audioRef.current) audioRef.current.currentTime = 0;
   }
 
@@ -247,7 +438,11 @@ export default function IpodPreview() {
       return;
     }
     if (elapsed > 3) restart();
-    else goTo(index - 1);
+    else {
+      const prev = (index - 1 + TRACKS.length) % TRACKS.length;
+      goTo(prev);
+      if (playing) playSpotify(TRACKS[prev].src);
+    }
   }
 
   function onNext() {
@@ -255,17 +450,20 @@ export default function IpodPreview() {
       setCursor((c) => (c + 1) % TRACKS.length);
       return;
     }
-    goTo(index + 1);
+    const next = (index + 1) % TRACKS.length;
+    goTo(next);
+    if (playing) playSpotify(TRACKS[next].src);
   }
 
   function onSelect() {
     if (view === "menu") {
       if (cursor !== index) goTo(cursor);
-      setPlaying(true);
+      if (!playSpotify(TRACKS[cursor].src)) setPlaying(true);
       setView("now");
       return;
     }
-    setPlaying((p) => !p);
+    if (playing) pausePlayback();
+    else if (!playSpotify(track.src)) setPlaying(true);
   }
 
   function scrollWheel(direction: number) {
@@ -321,7 +519,9 @@ export default function IpodPreview() {
   return (
     <div className="relative flex h-full min-h-[440px] w-full flex-1 items-center justify-center overflow-hidden p-5">
 
-      {hasAudio && (
+      <div ref={embedSlotRef} className="pointer-events-none fixed left-0 top-0 -z-10 h-20 w-[300px] opacity-0" aria-hidden />
+
+      {hasFileAudio && (
         <audio
           ref={audioRef}
           src={track.src}
@@ -481,7 +681,7 @@ export default function IpodPreview() {
             </button>
             <button
               type="button"
-              onClick={press(() => setPlaying((p) => !p))}
+              onClick={press(() => (playing ? pausePlayback() : playSpotify(track.src) || setPlaying(true)))}
               aria-label={playing ? "Pause" : "Play"}
               className={cn(wheelButton, "bottom-[4%] left-1/2 h-[26%] w-[40%] -translate-x-1/2")}
             >
