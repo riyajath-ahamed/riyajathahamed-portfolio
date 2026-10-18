@@ -5,16 +5,16 @@ import { BookIcon, HomeIcon, NotebookIcon, PencilRulerIcon, WandSparklesIcon } f
 export const DATA = {
   name: "Riyajath Ahamed",
   initials: "RJ",
-  url: "https://riyajathahamed.lk",
+  url: "https://riyajathahamed.netlify.app/",
   location: "Colombo, SL",
   locationLink: "https://www.google.com/maps/place/Colombo,+Sri+Lanka",
   timezone: "Asia/Colombo",
   description:
-    "Builds intelligent, data-driven front-end products that turn complex systems into interfaces people can use.",
+    "Builds scalable B2B and B2C products, combining product engineering, data-driven systems, and AI to turn complex problems into intuitive experiences.",
   summary:
-    "I’m a software engineer with a passion for product engineering, thoughtful design, and a knack for tinkering. Software is my playground — a space to explore ideas, solve complex problems, and push the boundaries of what’s possible. I work at the intersection of product, design, and engineering, building experiences that scale, perform, and feel intentional. From design-system-driven UI architecture to data-intensive visualizations, I see interfaces as more than a layer of the application — they’re product-defining systems that shape how people interact with software. I care about what happens beneath the surface, too: the architecture, performance, and engineering decisions that keep products reliable under real load, with real data and real users. Beyond product work, I build developer tools, explore AI-powered applications, and experiment with new ways to make software development more capable, efficient, and expressive.",
+    "I’m a software engineer with a passion for product engineering, thoughtful design, and a knack for tinkering. I work at the intersection of product, design, and engineering, building experiences that scale, perform, and feel intentional. From design-system-driven UI architecture to data-intensive visualizations, I see interfaces as more than a layer of the application, they’re product-defining systems that shape how people interact with software. I care about what happens beneath the surface, too: the architecture, performance, and engineering decisions that keep products reliable under real load, with real data and real users. Beyond product work, I build developer tools, explore AI-powered applications, and experiment with new ways to make software development more capable, efficient, and expressive.",
   summaryTldr:
-    "I build at the intersection of product, design, and engineering — interfaces that scale, the systems under them, and the tools and AI experiments around them.",
+    "I build at the intersection of product, design, and engineering interfaces that scale, the systems under them, and the tools and AI experiments around them.",
   avatarUrl: "https://avatars.githubusercontent.com/u/64283797?v=4",
   skills: [
     "React",
@@ -235,30 +235,30 @@ export const DATA = {
       image: "https://pub-7744c747312a4db3afe9366c16797634.r2.dev/Capture%20335.PNG",
     },
     {
-      title: "FOSS KDU",
-      href: "https://foss-kdu.github.io/fosskdu_web/",
-      dates: "Jan 2023 - Jan 2023",
+      title: "Data Atlas",
+      href: "https://data-atlas-di.vercel.app/",
+      dates: "Oct 2026",
       active: true,
       description:
-        "FOSS KDU is a student-led organization at KDU that promotes Free and Open Source Software (FOSS) among students. The website serves as a platform to share information about the organization, its events, and its projects.",
+        "Data Atlas is a data visualization tool that allows users to explore and analyze complex datasets through interactive visualizations. It provides a user-friendly interface for creating charts, graphs, and maps, making it easier to understand and communicate data insights.",
       technologies: [
-        "JavaScript",
-        "React",
-        "TailwindCSS",
+        "TypeScript",
+        "d3.js",
+        "Playwright",
       ],
       links: [
         {
           type: "Website",
-          href: "https://foss-kdu.github.io/fosskdu_web/",
+          href: "https://data-atlas-di.vercel.app/",
           icon: <Icons.globe className="size-3" />,
         },
         {
           type: "GitHub",
-          href: "https://github.com/Foss-kdu/fosskdu_web",
+          href: "https://github.com/riyajath-ahamed/data-atlas",
           icon: <Icons.github className="size-3" />,
         }
       ],
-      image: "https://pub-7744c747312a4db3afe9366c16797634.r2.dev/Foss01.PNG",
+      image: "https://pub-7744c747312a4db3afe9366c16797634.r2.dev/data-atlas.png",
     },
      {
       title: "mcp-gateway",
