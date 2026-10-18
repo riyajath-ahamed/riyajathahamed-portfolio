@@ -6,7 +6,7 @@ AI agent guidance for working in this codebase.
 
 ## Project Overview
 
-Personal portfolio for **Riyajath Ahamed** (Frontend Developer, Colombo, Sri Lanka).  
+Personal portfolio for **Riyajath Ahamed** (Product Engineer, Colombo, Sri Lanka).  
 Live at `https://riyajathahamed.lk`, `https://riyajathahamed.com` and `https://riyajathahamed.netlify.app/`. Deployed on Netlify.
 
 Stack: **Next.js 15** (App Router, Turbopack) · **React 19** · **TypeScript** · **Tailwind CSS v3** · **Framer Motion** · **Three.js / R3F** · **GSAP**

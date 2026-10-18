@@ -5,16 +5,16 @@ import { BookIcon, HomeIcon, NotebookIcon, PencilRulerIcon, WandSparklesIcon } f
 export const DATA = {
   name: "Riyajath Ahamed",
   initials: "RJ",
-  url: "https://riyajathahamed.lk",
+  url: "https://riyajathahamed.netlify.app/",
   location: "Colombo, SL",
   locationLink: "https://www.google.com/maps/place/Colombo,+Sri+Lanka",
   timezone: "Asia/Colombo",
   description:
-    "Builds intelligent, data-driven front-end products that turn complex systems into interfaces people can use.",
+    "Builds scalable B2B and B2C products, combining product engineering, data-driven systems, and AI to turn complex problems into intuitive experiences.",
   summary:
-    "I’m a software engineer with a passion for product engineering, thoughtful design, and a knack for tinkering. Software is my playground — a space to explore ideas, solve complex problems, and push the boundaries of what’s possible. I work at the intersection of product, design, and engineering, building experiences that scale, perform, and feel intentional. From design-system-driven UI architecture to data-intensive visualizations, I see interfaces as more than a layer of the application — they’re product-defining systems that shape how people interact with software. I care about what happens beneath the surface, too: the architecture, performance, and engineering decisions that keep products reliable under real load, with real data and real users. Beyond product work, I build developer tools, explore AI-powered applications, and experiment with new ways to make software development more capable, efficient, and expressive.",
+    "I’m a software engineer with a passion for product engineering, thoughtful design, and a knack for tinkering. I work at the intersection of product, design, and engineering, building experiences that scale, perform, and feel intentional. From design-system-driven UI architecture to data-intensive visualizations, I see interfaces as more than a layer of the application, they’re product-defining systems that shape how people interact with software. I care about what happens beneath the surface, too: the architecture, performance, and engineering decisions that keep products reliable under real load, with real data and real users. Beyond product work, I build developer tools, explore AI-powered applications, and experiment with new ways to make software development more capable, efficient, and expressive.",
   summaryTldr:
-    "I build at the intersection of product, design, and engineering — interfaces that scale, the systems under them, and the tools and AI experiments around them.",
+    "I build at the intersection of product, design, and engineering interfaces that scale, the systems under them, and the tools and AI experiments around them.",
   avatarUrl: "https://avatars.githubusercontent.com/u/64283797?v=4",
   skills: [
     "React",

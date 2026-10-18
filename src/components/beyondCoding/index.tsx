@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   motion,
   useReducedMotion,
@@ -12,6 +12,8 @@ import {
 import { BLUR_FADE_DELAY, cardBase } from "@/lib/home";
 import { cn } from "@/lib/utils";
 import BlurFade from "../magicui/blur-fade";
+import GradientASCII from "../magicui/GradientASCII";
+import StickerPeel from "../magicui/stickerPeel";
 
 type PhotoId = "barca" | "messi" | "naruto" | "kakashi";
 
@@ -20,8 +22,9 @@ type Photo = {
   src: string;
   alt: string;
   frame: string;
-  focus?: string;
-  /** Tilt everywhere, scattered position from `lg` up, where the photos float around the copy. */
+  /** Resting tilt, in degrees. */
+  rotate: number;
+  /** Scattered slot from `lg` up, around the copy. The sticker can leave this slot. */
   place: string;
 };
 
@@ -31,36 +34,43 @@ const PHOTOS: Photo[] = [
     src: "/beyond/barca.jpg",
     alt: "Illustration of a hand gripping the FC Barcelona crest on a blaugrana shirt",
     frame: "aspect-square",
-    place: "-rotate-6 lg:left-[4%] lg:top-[2%] lg:w-[14%]",
+    rotate: -6,
+    place: "lg:left-[4%] lg:top-[2%] lg:w-[14%]",
   },
   {
     id: "messi",
     src: "/beyond/messi.jpg",
     alt: "Lionel Messi celebrating with his arms wide in a Barça shirt",
     frame: "aspect-[3/2]",
-    focus: "object-[center_35%]",
-    place: "rotate-[5deg] lg:right-[4%] lg:top-[8%] lg:w-[17%]",
+    rotate: 5,
+    place: "lg:right-[4%] lg:top-[8%] lg:w-[17%]",
   },
   {
     id: "naruto",
     src: "/beyond/naruto.jpg",
     alt: "Naruto Uzumaki grinning in his Konoha headband",
     frame: "aspect-[3/2]",
-    focus: "object-[center_30%]",
-    place: "rotate-3 lg:bottom-[4%] lg:left-[10%] lg:w-[16%]",
+    rotate: 3,
+    place: "lg:bottom-[4%] lg:left-[10%] lg:w-[16%]",
   },
   {
     id: "kakashi",
     src: "/beyond/kakashi.jpg",
     alt: "Kakashi Hatake winking, hand raised to his headband",
     frame: "aspect-square",
-    place: "-rotate-[4deg] lg:bottom-0 lg:right-[9%] lg:w-[13%]",
+    rotate: -4,
+    place: "lg:bottom-0 lg:right-[9%] lg:w-[13%]",
   },
 ];
 
 const BURST_ANGLES = [-64, -32, 0, 32, 64];
 
-const EASE_OUT = [0.16, 1, 0.3, 1] as const;
+const ANCHOR_HANDLES: Record<PhotoId, { current: HTMLDivElement | null }> = {
+  barca: { current: null },
+  messi: { current: null },
+  naruto: { current: null },
+  kakashi: { current: null },
+};
 
 function Mark({
   id,
@@ -151,8 +161,38 @@ function Reach() {
 }
 
 export default function BeyondCoding() {
-  const reduce = useReducedMotion();
   const [active, setActive] = useState<PhotoId | null>(null);
+  const [widths, setWidths] = useState<Record<PhotoId, number>>({
+    barca: 180,
+    messi: 180,
+    naruto: 180,
+    kakashi: 180,
+  });
+
+  useEffect(() => {
+    const read = () => {
+      setWidths((prev) => {
+        let changed = false;
+        const next = { ...prev };
+        (Object.keys(ANCHOR_HANDLES) as PhotoId[]).forEach((id) => {
+          const slot = ANCHOR_HANDLES[id].current?.clientWidth ?? 0;
+          const width = slot > 16 ? Math.round(slot) : prev[id];
+          if (width !== prev[id]) {
+            next[id] = width;
+            changed = true;
+          }
+        });
+        return changed ? next : prev;
+      });
+    };
+    const observer = new ResizeObserver(read);
+    (Object.keys(ANCHOR_HANDLES) as PhotoId[]).forEach((id) => {
+      const node = ANCHOR_HANDLES[id].current;
+      if (node) observer.observe(node);
+    });
+    read();
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section
@@ -162,11 +202,38 @@ export default function BeyondCoding() {
         "relative col-span-full p-0 pb-8 text-neutral-950 dark:text-white [container-type:inline-size] md:p-0 md:pb-12",
       )}
     >
+      <div aria-hidden className="pointer-events-none absolute inset-0 z-0">
+        <GradientASCII
+          colors={["#1e3fd8", "#f6f8ff", "#a5d8ff", "#38bdf8"]}
+          shape="horizon"
+          characters=" =+xX0S8#@"
+          cellSize={18}
+          density={0.8}
+          glyphOpacity={0.85}
+          glow={0.2}
+          depthOfField={0}
+          flicker={0.2}
+          softness={0.5}
+          scale={1}
+          flow={0.5}
+          speed={1}
+          gradientOpacity={0.9}
+          grain={0.08}
+          variation={0}
+          mouseInteraction
+          scrambleRadius={0.1}
+          clickEffect="wave"
+          intro
+          lightMode={false}
+        />
+      </div>
+
+      <div className="relative z-[1]">
       <Reach />
 
       <div className="relative px-5 md:px-10">
         <BlurFade delay={BLUR_FADE_DELAY * 7}>
-          <h2 className="-mt-[4cqi] bg-gradient-to-b from-black to-gray-400/80 bg-clip-text pb-[0.06em] text-center font-serif text-[clamp(2.5rem,10.5cqi,9rem)] font-black uppercase leading-[0.85] tracking-tighter text-transparent dark:from-white dark:to-neutral-500">
+          <h2 className="-mt-[4cqi] pb-[0.06em] text-center font-serif text-[clamp(2.5rem,10.5cqi,9rem)] font-black uppercase leading-[0.85] tracking-tighter text-foreground text-balance">
             Beyond Coding
           </h2>
         </BlurFade>
@@ -174,7 +241,7 @@ export default function BeyondCoding() {
         <div className="relative mt-8 md:mt-10 lg:flex lg:min-h-[32cqi] lg:items-center lg:justify-center">
           <BlurFade
             delay={BLUR_FADE_DELAY * 8}
-            className="relative mx-auto flex max-w-[34ch] flex-col items-center gap-6 text-center"
+            className="relative mx-auto flex max-w-2xl flex-col items-center gap-6 text-center"
           >
             <div className="space-y-4 text-[1.05rem] font-medium leading-[1.45] tracking-tight sm:text-[1.15rem] lg:text-[1.1rem] xl:text-[1.25rem]">
               <p className="text-foreground">
@@ -202,57 +269,60 @@ export default function BeyondCoding() {
             </div>
 
             <p
-              className="-rotate-2 text-xl text-foreground/70"
-              style={{ fontFamily: "Mynerve, cursive" }}
+              className="font-hand -rotate-2 text-xl text-foreground/70"
             >
               Visca el Barça!
             </p>
           </BlurFade>
 
-          {/* From `lg` this layer covers the copy, so only the photos themselves take pointer events. */}
-          <div className="mx-auto mt-8 grid max-w-sm grid-cols-2 items-center gap-4 px-2 sm:max-w-2xl sm:grid-cols-4 lg:pointer-events-none lg:absolute lg:inset-0 lg:mt-0 lg:block lg:max-w-none lg:px-0">
-            {PHOTOS.map((photo, i) => {
-              const dimmed = active !== null && active !== photo.id;
-              return (
-                <div
-                  key={photo.id}
-                  className={cn(
-                    "lg:pointer-events-auto lg:absolute",
-                    photo.place,
-                    active === photo.id && "z-10",
-                  )}
-                >
-                  <motion.figure
-                    initial={reduce ? false : { opacity: 0, y: 28 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.3 }}
-                    transition={{ duration: 0.7, delay: i * 0.08, ease: EASE_OUT }}
-                    onMouseEnter={() => setActive(photo.id)}
-                    onMouseLeave={() => setActive(null)}
-                    className={cn(
-                      "relative overflow-hidden rounded-xl bg-foreground/5 shadow-[0_10px_30px_rgba(60,40,20,0.12)] ring-1 ring-foreground/[0.06] dark:shadow-[0_10px_30px_rgba(0,0,0,0.35)]",
-                      photo.frame,
-                    )}
-                  >
-                    <Image
-                      src={photo.src}
-                      alt={photo.alt}
-                      fill
-                      sizes="(min-width: 1024px) 16vw, (min-width: 640px) 160px, 180px"
-                      draggable={false}
-                      className={cn(
-                        "object-cover transition-[opacity,filter,transform] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:transition-none",
-                        photo.focus,
-                        active === photo.id && "scale-[1.04] motion-reduce:scale-100",
-                        dimmed && "opacity-40 grayscale",
-                      )}
-                    />
-                  </motion.figure>
-                </div>
-              );
-            })}
+          <div
+            aria-hidden
+            className="pointer-events-none mx-auto mt-8 grid max-w-sm grid-cols-2 items-center gap-4 px-2 sm:max-w-2xl sm:grid-cols-4 lg:absolute lg:inset-0 lg:mt-0 lg:block lg:max-w-none lg:px-0"
+          >
+            {PHOTOS.map((photo) => (
+              <div
+                key={photo.id}
+                ref={(node) => {
+                  ANCHOR_HANDLES[photo.id].current = node;
+                }}
+                className={cn("w-full lg:absolute rounded-xl", photo.place, photo.frame)}
+              />
+            ))}
           </div>
         </div>
+      </div>
+      </div>
+
+      {/* Drag bounds are this layer, which covers the whole card. */}
+      <div className="pointer-events-none absolute inset-0 z-[2]">
+        {PHOTOS.map((photo) => (
+          <StickerPeel
+            key={photo.id}
+            imageSrc={photo.src}
+            width={widths[photo.id]}
+            finish="matte"
+            peelBackHoverPct={25}
+            peelBackActivePct={40}
+            rotate={photo.rotate}
+            peelDirection={0}
+            curlRadius={12}
+            backColor="#d4d4d8"
+            lightingIntensity={0.8}
+            shadowIntensity={0.6}
+            followPointer
+            swing={1}
+            friction={0.5}
+            bounce={0.35}
+            draggable
+            intro
+            anchorRef={ANCHOR_HANDLES[photo.id]}
+            dimmed={active !== null && active !== photo.id}
+            aria-label={photo.alt}
+            onMouseEnter={() => setActive(photo.id)}
+            onMouseLeave={() => setActive(null)}
+            className="transition-[opacity,filter] rounded-xl duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none"
+          />
+        ))}
       </div>
     </section>
   );
