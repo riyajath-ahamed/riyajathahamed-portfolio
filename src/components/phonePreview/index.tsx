@@ -75,23 +75,40 @@ type Track = {
 };
 
 const TRACKS: Track[] = [
-  { 
-    title: "Ma meilleure ennemie", 
-    artist: "Luc Van Haver, Pomme, and Stroma", 
-    album: "Arcane", 
-    length: 147, 
-    src: "https://open.spotify.com/track/4lriIG2vNqwDWzOj2I9rtj?si=373457257ddf454d", 
-    cover: "https://i.pinimg.com/736x/dc/52/48/dc5248b0850b57c94b8591b56156e3c9.jpg" },
   {
-    title: "Running Up That Hill (A Deal with God)",
-    artist: "Kate Bush",
-    album: "Hounds of Love",
-    length: 298,
+    title: "Ma meilleure ennemie",
+    artist: "Luc Van Haver, Pomme, and Stroma",
+    album: "Arcane",
+    length: 147,
+    src: "https://open.spotify.com/track/4lriIG2vNqwDWzOj2I9rtj?si=373457257ddf454d",
+    cover:
+      "https://i.pinimg.com/736x/dc/52/48/dc5248b0850b57c94b8591b56156e3c9.jpg",
+  },
+  {
+    title: "All the Stars",
+    artist: "Kendrick Lamar and SZA ",
+    album: "Black Panther",
+    length: 235,
+    src: "https://open.spotify.com/track/3GCdLUSnKSMJhs4Tj6CV3s?si=ea46f8d79646400e",
+    cover:
+      "https://i.pinimg.com/736x/ba/78/0c/ba780ccd6bea8a007cb5235c20057a60.jpg",
+  },
+  {
+    title: "Take Me to the River (I Will Swim)",
+    artist: " Alex Yurkiv and Thelma Costolo",
+    album: "Take Me to the River (I Will Swim)",
+    length: 178,
+    src: "https://i.pinimg.com/736x/43/7c/a5/437ca59f291a8321452a3eacd24197a6.jpg",
+    cover: "https://open.spotify.com/track/4yaalj9cPc9FCVi0SXkBuV?si=2d5843223a07426b",
+  },
+  {
+    title: "Viva la Vida",
+    artist: "Coldplay",
+    album: "Viva la Vida",
+    length: 242,
     src: "",
     cover: "",
   },
-  { title: "Silhouette", artist: "KANA-BOON", album: "Naruto Shippuden", length: 236, src: "", cover: "" },
-  { title: "Viva la Vida", artist: "Coldplay", album: "Viva la Vida", length: 242, src: "", cover: "" },
 ];
 
 const COVER_TINTS = [
