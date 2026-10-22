@@ -10,6 +10,7 @@ import "./globals.css";
 import Particles from "@/components/magicui/particles";
 import AuroraBackground from "@/components/AuroraBackground";
 import { PostHogProvider } from "@/components/posthog-provider";
+import { AnalyticsNotice } from "@/components/analytics-notice";
 
 
 const fontSans = Outfit({
@@ -117,6 +118,7 @@ export default function RootLayout({
           <ResponsiveNavbar />
             <div id="content">{children}</div>
           </TooltipProvider>
+          <AnalyticsNotice />
           </PostHogProvider>
         </ThemeProvider>
       </body>
