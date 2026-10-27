@@ -28,6 +28,12 @@ const SKILLS: { name: string; className: string }[] = [
   { name: "Docker", className: "right-[7%] top-[56%] rotate-[3deg]" },
   { name: "GCP", className: "left-[8%] bottom-[8%] -rotate-[7deg]" },
   { name: "Postgres", className: "right-[12%] bottom-[10%] rotate-[8deg]" },
+  { name: "GO", className: "left-[30%] top-[5%]  -rotate-[3deg]" },
+  { name: "Python", className: "right-[30%] top-[8%] rotate-[4deg]" },
+  { name: "Redis", className: "right-[30%] bottom-[8%] -rotate-[6deg]" },
+  { name: "MCP", className: "left-[30%] bottom-[8%] rotate-[5deg]" },
+  { name: "AWS", className: "right-[30%] top-[32%] -rotate-[5deg]" },
+  
 ];
 
 const SOCIALS = [
