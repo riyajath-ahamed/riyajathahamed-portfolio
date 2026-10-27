@@ -6,22 +6,27 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Play, QuoteIcon, X } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip";
-import { bindDiorama, bindWaveBreak, easeDrawer, easeOutStrong, GreatWave, WaveDiorama, WaveMark } from "./greatWave";
+import { bindDiorama, bindWaveBreak, easeDrawer, easeOutStrong, GreatWave} from "./greatWave";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const ikigaiNotes = [
   {
-    title: "Build things that matter",
-    body: "I'm happiest when an idea becomes something people can actually use. I enjoy taking something from a blank canvas to a thoughtful, working product, one detail at a time.",
+    title: "Make beautiful things, even if no one cares",
+    body: "I'm driven to make beatiful things, whether they're celebrated or invisible. Quality isnt about recognition, it's about the standards you hold no one's watching.",
+    source: "video",
+    src: "https://pub-7744c747312a4db3afe9366c16797634.r2.dev/asallen.mp4"
   },
   {
-    title: "Make complexity feel simple",
-    body: "I love solving difficult problems and hiding that complexity behind simple experiences. Good engineering, to me, is often about making the complicated feel obvious.",
+    title: "Design eperiences centered on human connection",
+    body: "I design and build people-first experiences, shaped by human conncetions and a deep care for details, from micro-interactions to refined aesthetics.",
+    src: "/ikigai/intercative.png",
   },
   {
-    title: "Keep learning, keep experimenting",
-    body: "Technology never stays still, and neither do I. I enjoy exploring new tools, patterns, and ideas, from frontend architecture to AI, and turning curiosity into things I can actually build.",
+    title: "Stay curious, keep experimenting",
+    body: "I care about what happens beneath the surface. Thoughtful architecture, maintainable systems, and performance aren't afterthoughts — they're what make good products great over time.",
+    src: "/ikigai/curious.jpeg",
   },
 ];
 
@@ -134,7 +139,11 @@ const drawerMotion = `
   }
 `;
 
-const noteMarks = ["curl", "claws", "horizon"] as const;
+function ikigaiSVG () {
+  return (
+    <div className="w-[16px] h-[16px] relative" aria-hidden="true"><svg className="absolute inset-[-3.13%] w-[17px] h-[17px]" fill="none" viewBox="0 0 17 17" aria-hidden="true"><circle cx="8.5" cy="5.5" r="5" stroke="#BBBBBB" fill="none"></circle><circle cx="8.5" cy="11.5" r="5" stroke="#BBBBBB" fill="none"></circle><circle cx="5.5" cy="8.5" r="5" stroke="#BBBBBB" fill="none"></circle><circle cx="11.5" cy="8.5" r="5" stroke="#BBBBBB" fill="none"></circle></svg></div>
+  )
+}  
 
 function SectionLabel({ children }: { children: string }) {
   return (
@@ -146,11 +155,27 @@ function SectionLabel({ children }: { children: string }) {
   );
 }
 
-function WaveFrame({ variant }: { variant: (typeof noteMarks)[number] }) {
+function WaveFrame({ variant, source = "image" }: { variant: string | undefined; source: string | undefined }) {
   return (
     <div className="gw-fragment gw-dots relative aspect-[16/9] w-full overflow-hidden rounded-xl ring-1 ring-[var(--gw-line)]">
       <div className="absolute inset-4 overflow-hidden rounded-md">
-        <WaveMark variant={variant} />
+        { variant && source === "image" && 
+        (<Image
+            src={variant}
+            alt=""
+            width={640}
+            height={360}
+            className="h-full w-full object-cover"
+            priority
+          />
+        )}
+        { variant && source === "video" &&
+        (<video
+            src={variant}  
+            controls
+            className="h-full w-full object-cover"
+          />
+        )}
       </div>
       {["left-2 top-2", "right-2 top-2", "bottom-2 left-2", "bottom-2 right-2"].map((pos) => (
         <span
@@ -176,18 +201,26 @@ function IkigaiCopy() {
             strokeWidth={1.5}
             aria-hidden
           />
-          I&apos;ve found my Ikigai in building things.
+          I&apos;ve found my ikigai at the intersection of design, technology, and problem solving.
         </Dialog.Title>
         <Dialog.Description className="mt-3 font-mono text-xs uppercase tracking-[0.14em] text-[#173653]/70 dark:text-[#d5e3ea]/70">
           生き甲斐 · a reason for being
         </Dialog.Description>
-        <p className="mt-6 max-w-[62ch] font-sans text-[15px] leading-7 text-[#172331]/70 text-pretty dark:text-[#e7edf0]/70">
-          I love the intersection of technology, creativity, and problem solving,
-          turning an idea into something real, useful, and beautifully crafted.
-          It&apos;s the reason I enjoy engineering. Not just writing code, but
-          figuring out how things should work, how they should feel, and how they
-          can be made better.
-        </p>
+        <div className="mt-6 flex flex-col justify-between md:flex-row gap-3">
+          <p className="mt-6 max-w-[30ch] font-sans text-[15px] leading-7 text-[#172331]/70 text-pretty dark:text-[#e7edf0]/70">
+            My ikigai <span className="inline-block align-middle">{ikigaiSVG() }</span>{" "}lives at the intersection of design, technology, and problem solving. 
+            I love turning complex ideas into intuitive experiences - building products that work beautifully, 
+            feel effortless, and solve real problems.
+          </p>
+          <Image
+            src="/ikigai/myikigai.png"
+            alt=""
+            width={520}
+            height={360}
+            className="mt-8 w-full rounded-xl object-cover dark:invert dark:contrast-[0.8] md:mt-0 md:w-[520px]"
+            priority
+          />
+        </div>
       </div>
 
       <div className="border-t border-[var(--gw-line)]">
@@ -196,12 +229,15 @@ function IkigaiCopy() {
 
       <div className="grid grid-cols-1 divide-y divide-[var(--gw-line)] md:grid-cols-3 md:divide-x md:divide-y-0">
         {ikigaiNotes.map((note, i) => (
-          <article key={note.title} className="px-6 py-14 sm:px-8 md:pb-28 md:pt-24">
-            <WaveFrame variant={noteMarks[i]} />
+          <article
+            key={note.title}
+            className="px-6 py-14 sm:px-8 md:pb-28 md:pt-24"
+          >
+            <WaveFrame variant={note.src} source={note.source} />
             <h3 className="mt-8 max-w-[22ch] font-sans text-[15px] font-semibold leading-snug tracking-tight text-balance">
               {note.title}
             </h3>
-            <p className="mt-4 font-sans text-sm leading-7 text-[#172331]/65 text-pretty dark:text-[#e7edf0]/65">
+            <p className="mt-4 font-sans text-sm leading-6 text-[#172331]/65 text-pretty dark:text-[#e7edf0]/65">
               {note.body}
             </p>
           </article>
@@ -437,10 +473,10 @@ export default function EngineeringPhilosophy() {
                     aria-hidden
                     className="pointer-events-none absolute left-[30%] top-[40%] z-[2] w-[min(16rem,38%)] text-center text-[#172331] dark:text-[#e7edf0]"
                   >
-                    <p className="font-sans text-xs tracking-[0.18em] text-[#173653]/70 dark:text-[#d5e3ea]/70">
+                    <p className="font-sans text-xs tracking-[0.18em] text-[#8fa3af]/70 dark:text-[#d5e3ea]/70">
                       生き甲斐
                     </p>
-                    <p className="mt-2 font-serif text-2xl font-bold leading-tight tracking-tight sm:text-3xl">
+                    <p className="mt-2 font-serif text-2xl font-bold leading-tight text-[#8fa3af] tracking-tight sm:text-3xl">
                       I&apos;ve found my Ikigai in building things.
                     </p>
                   </div>
